@@ -1,7 +1,11 @@
+import ContentBox from '@/Components/ui/ContentBox'
+
 const Home = () => {
     return (
         <>
-            <h1 className="font-bold text-3xl">Hello World</h1>
+          <ContentBox>
+            <p>Контент</p>
+          </ContentBox>
         </>
     )
 }

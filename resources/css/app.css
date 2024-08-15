@@ -1,3 +1,223 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+
+}
+
+@layer components {
+
+}
+
+:root {
+    --max-width: 1540px;
+    --main-font: -apple-system, system-ui, BlinkMacSystemFont, "SFPro", "Segoe UI", Roboto, Ubuntu, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --white: #ffffff;
+    --orange: #ff7e00;
+    --green: #1ae961;
+    --red: #e91a1a;
+    --normal-font-weight: 400;
+    --semibold-font-weight: 600;
+    --box-shadow: 0 1px 24px 0 #00000024;
+    --border-radius: 4px;
+    --radius-small: 4px;
+    --radius-medium: 8px;
+    --radius-high: 12px;
+    --radius-half: 50%;
+}
+
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: auto;
+    position: relative;
+    background-color: #eee;
+}
+
+.max-width {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    @apply md:px-5
+}
+
+.text-orange {
+    color: var(--orange);
+}
+
+/* NAVBAR */
+
+.open-main-menu {
+    height: 100%;
+    padding: 0 10px;
+}
+
+nav ul li {
+    line-height: 50px;
+}
+
+.nav-link {
+    position: relative;
+    cursor: pointer;
+    @apply text-white font-semibold text-sm
+}
+
+.nav-link:before {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(50% + 13px);
+    margin: auto;
+    width: 0;
+    height: 2px;
+    content: "";
+    background: #fff;
+    opacity: 0;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.nav-link:hover:before {
+    opacity: 1;
+    width: 100%;
+}
+
+.dropdown-content {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    z-index: 14;
+    padding: 15px 25px;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
+    background-color: #fff;
+}
+
+.phones-dropdown-menu {
+    left: unset;
+}
+
+/* MENU */
+
+.menu {
+    width: 100%;
+    height: 50px;
+    background: var(--orange);
+    z-index: 13;
+}
+
+.all-categories {
+    min-width: 268px;
+    padding-left: 25px;
+    background: rgba(255, 255, 255, .2);
+    color: #fff;
+    font-size: 18px;
+}
+
+.search-box {
+    width: 100%;
+    height: 100%;
+    padding: 5px 0 5px 0;
+    @apply md:pr-2.5
+}
+
+.search-box input {
+    height: 100%;
+    width: 100%;
+    padding: 0 20px;
+    border: 1px solid var(--white);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.search-button {
+    width: 40px;
+    height: 100%;
+    margin-left: -8px;
+    border: 2px solid var(--white);
+    border-radius: 8px;
+    box-sizing: border-box;
+    @apply md:bg-black text-gray-500 md:text-white
+}
+
+input[type=search]:focus {
+    outline-color: transparent;
+}
+
+.header-button {
+    @apply p-1 relative
+}
+
+.header-button a {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 40px;
+    height: 100%;
+}
+
+.header-button svg {
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+}
+
+.header-button svg .st0, .header-button svg path {
+    stroke: white;
+    fill: transparent;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.header-button.cart-button svg * {
+    stroke: transparent;
+    fill: white;
+}
+
+.header-button:hover.header-button svg path {
+    fill: white;
+    stroke: white;
+}
+
+.signed-in-box {
+    transition: all .3s ease-in-out;
+}
+
+.signed-in-box:hover {
+    @apply border-2 border-transparent
+}
+
+/* CONTENT */
+
+.cart-header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 325px;
+    height: 45px;
+    padding-left: 30px;
+    border-top-left-radius: 4px;
+    font-size: 20px;
+    line-height: 45px;
+    color: #000;
+    font-weight: var(--semibold-font-weight);
+    background-image: -moz-linear-gradient(0deg, #f80 0, rgba(233, 126, 22, 0) 100%);
+    background-image: -webkit-linear-gradient(0deg, #f80 0, rgba(233, 126, 22, 0) 100%);
+}
+
+/* FOOTER */
+
+.footer-col {
+    @apply mr-0 md:mr-[5%] xl:mr-28;
+}
+
+.footer-col h1 {
+    margin-bottom: 14px;
+    color: #e78200;
+}
+
+.footer-link {
+    @apply text-white hover:underline text-sm mb-3
+}
