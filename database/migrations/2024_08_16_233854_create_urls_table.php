@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Property;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('property_values', function (Blueprint $table) {
+        Schema::create('urls', function (Blueprint $table) {
             $table->id();
 
-            $table->string('value')->nullable();
-            $table->string('measure')->nullable();
-
-            $table->foreignIdFor(Property::class, 'property_id')
-                ->constrained()
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+            $table->string('address');
+            $table->unsignedBigInteger('model_id');
+            $table->string('model_type');
 
             $table->timestamps();
         });
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('property_values');
+        Schema::dropIfExists('urls');
     }
 };

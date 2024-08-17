@@ -5,6 +5,7 @@ import IconCart from '@/Components/Icons/IconCart'
 import IconFavorite from '@/Components/Icons/IconFavorite'
 import { Link } from '@inertiajs/react'
 import IconMenu from '@/Components/Icons/IconMenu'
+import { route } from 'ziggy-js'
 
 const Menu = () => {
   return (
@@ -14,10 +15,10 @@ const Menu = () => {
           <IconMenu style={{height: "20px", fill: "#fff"}} className="cursor-pointer" />
         </div>
 
-        <div className="all-categories hidden md:flex items-center cursor-pointer mr-5">
+        <Link href={route('shop')} className="all-categories hidden md:flex items-center mr-5">
           <FontAwesomeIcon icon="fa-solid fa-align-justify" className="mr-4"/>
           <span>Каталог товаров</span>
-        </div>
+        </Link>
 
         <section className="flex search-box">
           <form className="flex w-full">

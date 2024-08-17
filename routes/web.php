@@ -1,9 +1,14 @@
 <?php
 
-use App\Http\Controllers\ShopController;
+use App\Http\Controllers\Shop\ShopController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ShopController::class, 'index'])->name('home');
+
+Route::get('/shop', [ShopController::class, 'catalog'])->name('shop');
+Route::get('/shop/{path}', [ShopController::class, 'catalog'])
+    ->name('shop.catalog')
+    ->where('path', '[a-zA-Z0-9-/_]+');
 
 Route::get('/sales', [ShopController::class, 'sales'])->name('sales');
 Route::get('/client-card', [ShopController::class, 'clientCard'])->name('client_card');

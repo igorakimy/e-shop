@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react'
 import qrCodeImg from '../../images/qr-code-vk.svg'
+import { route } from 'ziggy-js'
 
 const Footer = () => {
   return (
@@ -9,25 +10,25 @@ const Footer = () => {
           <div className="flex flex-col text-center md:text-left md:items-baseline md:flex-row justify-items-center pt-8 xl:pt-[67px] md:pl-12 md:ml-0 max-w-[865px] w-full">
             <div className="flex flex-col footer-col">
               <h1 className="text-orange">Информация</h1>
-              <Link className="footer-link" href="/">Акции</Link>
-              <Link className="footer-link" href="/">Магазины</Link>
-              <Link className="footer-link" href="/">Работа в SteelSmart</Link>
+              <Link className="footer-link" href={route('sales')}>Акции</Link>
+              <Link className="footer-link" href={route('shops')}>Магазины</Link>
+              <Link className="footer-link" href={route('work')}>Работа в SteelSmart</Link>
             </div>
 
             <div className="flex flex-col footer-col">
               <h1 className="text-orange">Клиентам</h1>
-              <Link className="footer-link" href="/">Организациям и ФЛП</Link>
-              <Link className="footer-link" href="/">Партнёрам</Link>
-              <Link className="footer-link" href="/">Поставщикам</Link>
-              <Link className="footer-link" href="/">Доставка и оплата</Link>
-              <Link className="footer-link" href="/">О компании</Link>
-              <Link className="footer-link" href="/">Юридическая информация</Link>
+              <Link className="footer-link" href={route('corporate_department')}>Организациям и ИП</Link>
+              <Link className="footer-link" href={route('partners')}>Партнёрам</Link>
+              <Link className="footer-link" href={route('suppliers')}>Поставщикам</Link>
+              <Link className="footer-link" href={route('delivery_and_payment')}>Доставка и оплата</Link>
+              <Link className="footer-link" href={route('about')}>О компании</Link>
+              <Link className="footer-link" href={route('legal_info')}>Юридическая информация</Link>
             </div>
 
             <div className="flex flex-col footer-col md:!mr-0">
               <h1 className="text-orange">Сервис и услуги</h1>
-              <Link className="footer-link" href="/">Сервис центр</Link>
-              <Link className="footer-link" href="/">Услуги по видеонаблюдению</Link>
+              <Link className="footer-link" href={route('home')}>Сервис центр</Link>
+              <Link className="footer-link" href={route('home')}>Услуги по видеонаблюдению</Link>
             </div>
           </div>
 

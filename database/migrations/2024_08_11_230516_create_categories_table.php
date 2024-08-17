@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
 
-            $table->foreignIdFor(Category::class, 'parent_id')
-                ->constrained('categories', 'id', 'parent_id')
-                ->cascadeOnDelete();
+            $table->nestedSet();
+
+            $table->index(['parent_id', 'slug']);
 
             $table->timestamps();
         });

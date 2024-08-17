@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('name');
 
             $table->foreignIdFor(PropertyGroup::class, 'group_id')
+                ->nullable()
+                ->constrained('property_groups');
+
+            $table->foreignIdFor(Category::class, 'category_id')
+                ->nullable()
                 ->constrained();
 
             $table->timestamps();

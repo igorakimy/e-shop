@@ -28,12 +28,16 @@ return new class extends Migration
             $table->boolean('is_new')->default(false);
             $table->boolean('is_wait')->default(false);
             $table->boolean('is_hit')->default(false);
+            $table->boolean('is_best_price')->default(false);
             $table->boolean('is_markdown')->default(false);
+            $table->string('markdown_reason')->nullable();
 
             $table->foreignIdFor(Brand::class, 'brand_id')
                 ->constrained();
             $table->foreignIdFor(Category::class, 'category_id')
                 ->constrained();
+
+            $table->index(['category_id', 'slug']);
 
             $table->timestamps();
         });
