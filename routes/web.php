@@ -25,3 +25,7 @@ Route::get('/legal-info', [ShopController::class, 'legalInfo'])->name('legal_inf
 Route::get('/privacy-policy', [ShopController::class, 'privacyPolicy'])->name('privacy_policy');
 Route::get('/selling-rules', [ShopController::class, 'sellingRules'])->name('selling_rules');
 Route::get('/site-using-rules', [ShopController::class, 'siteUsingRules'])->name('site_using_rules');
+Route::get('/compare', [ShopController::class, 'compare'])->name('compare');
+Route::get('/favorite', [ShopController::class, 'favorite'])->name('favorite');
+Route::get('/cart', [ShopController::class, 'cart'])->name('cart');
+Route::get('/orders', [ShopController::class, 'orders'])->name('orders');

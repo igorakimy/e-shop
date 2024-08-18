@@ -93,7 +93,8 @@ nav ul li {
     background-color: #fff;
 }
 
-.phones-dropdown-menu {
+.phones-dropdown-menu,
+.account-dropdown-menu {
     left: unset;
 }
 
@@ -241,6 +242,12 @@ input[type=search]:focus {
     background: #ededed;
     -webkit-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
+}
+
+.standard-button {
+    color: black;
+    background: var(--orange);
+    border-radius: 4px;
 }
 
 /* FOOTER */
