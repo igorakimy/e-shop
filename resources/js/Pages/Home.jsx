@@ -12,7 +12,7 @@ const Home = ({categories}) => {
 
     return (
         <>
-          <div className="flex justify-items-center items-center">
+          <div className="hidden md:flex justify-items-center items-center">
             <div className="categories-box md:flex">
               <ul className="flex flex-col py-2.5">
                 {categories && categories.map((category, parentIndex) => {

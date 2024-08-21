@@ -1,6 +1,7 @@
 import Breadcrumbs from '@/Components/Breadcrumbs'
 import { Head, Link } from '@inertiajs/react'
 import ContentBox from '@/Components/ui/ContentBox'
+import catalogImg from '../../../images/subcategory-image.jpeg'
 
 const Catalog = ({title, subCategories, breadcrumbs}) => {
   return (
@@ -19,7 +20,14 @@ const Catalog = ({title, subCategories, breadcrumbs}) => {
               return (
                 <div key={category.id} className="subcategories-item">
                   <Link className="flex" href={category.url_address}>
-                    {category.name}
+                    <div className="flex justify-center items-center">
+                      <img className="max-w-[156px] max-h-[156px]" src={catalogImg} alt="Catalog image"/>
+                    </div>
+                    <div className="flex flex-col justify-center items-center ml-[4%] z-[2]">
+                      <p className="w-full">{category.name}</p>
+                    </div>
+                    <span className="more-link">перейти</span>
+                    <img className="opacity-bg" src={catalogImg} alt={category.name}/>
                   </Link>
                 </div>
               )
