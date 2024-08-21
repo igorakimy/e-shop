@@ -1,11 +1,11 @@
 import Navbar from '@/Components/Navbar'
 import Menu from '@/Components/Menu'
 
-const Header = () => {
+const Header = ({categories}) => {
   return (
     <>
       <Navbar />
-      <Menu />
+      <Menu categories={categories} />
     </>
   )
 }

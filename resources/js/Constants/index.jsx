@@ -1,3 +1,22 @@
+import IconTeapot from '@/Components/Icons/IconTeapot'
+import IconPhone from '@/Components/Icons/IconPhone'
+import IconTablet from '@/Components/Icons/IconTablet'
+import IconLaptop from '@/Components/Icons/IconLaptop'
+import IconProcessor from '@/Components/Icons/IconProcessor'
+import IconKeyboard from '@/Components/Icons/IconKeyboard'
+import IconUsbFlash from '@/Components/Icons/IconUsbFlash'
+import IconHeadphones from '@/Components/Icons/IconHeadphones'
+import IconPrinter from '@/Components/Icons/IconPrinter'
+import IconElectricalPanel from '@/Components/Icons/IconElectricalPanel'
+import IconBattery from '@/Components/Icons/IconBattery'
+import IconRouter from '@/Components/Icons/IconRouter'
+import IconUsbCable from '@/Components/Icons/IconUsbCable'
+import IconMonitor from '@/Components/Icons/IconMonitor'
+import IconCamera from '@/Components/Icons/IconCamera'
+import IconDVR from '@/Components/Icons/IconDVR'
+import IconCCTVCamera from '@/Components/Icons/IconCCTVCamera'
+import IconTools from '@/Components/Icons/IconTools'
+
 export const navItems = [
   {label: "Акции", href: "sales"},
   {label: "Карта клиента", href: "client_card"},
@@ -21,3 +40,25 @@ export const navItems = [
   },
   {label: "Сервисный центр", href: "home"},
 ]
+
+export const categoryIcons = {
+  "teapot": IconTeapot,
+  "phone": IconPhone,
+  "tablet": IconTablet,
+  "laptop": IconLaptop,
+  "processor": IconProcessor,
+  "keyboard": IconKeyboard,
+  "usb-flash": IconUsbFlash,
+  "headphones": IconHeadphones,
+  "printer": IconPrinter,
+  "electrical-panel": IconElectricalPanel,
+  "battery": IconBattery,
+  "router": IconRouter,
+  "usb-cable": IconUsbCable,
+  "monitor": IconMonitor,
+  "camera": IconCamera,
+  "dvr": IconDVR,
+  "cctv-camera": IconCCTVCamera,
+  "tools": IconTools,
+}
+

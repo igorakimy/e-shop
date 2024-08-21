@@ -36,7 +36,7 @@ class ShopController extends Controller
 
             return Inertia::render('Shop/Catalog', [
                 'title' => 'Каталог',
-                'categories' => $categories,
+                'subCategories' => $categories,
             ]);
         }
 
@@ -264,7 +264,7 @@ class ShopController extends Controller
     {
         return Inertia::render('Shop/Catalog', [
             'title' => $category->name,
-            'categories' => $category->children
+            'subCategories' => $category->children
         ]);
     }
 }

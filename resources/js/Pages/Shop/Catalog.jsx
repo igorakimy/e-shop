@@ -2,15 +2,12 @@ import Breadcrumbs from '@/Components/Breadcrumbs'
 import { Head, Link } from '@inertiajs/react'
 import ContentBox from '@/Components/ui/ContentBox'
 
-const Catalog = ({title, categories, breadcrumbs}) => {
-
-  console.log(categories);
-
+const Catalog = ({title, subCategories, breadcrumbs}) => {
   return (
     <>
       <Head title={title}/>
 
-      {categories.length > 0 ? (
+      {subCategories && subCategories.length > 0 ? (
         <div className="mt-5">
           <Breadcrumbs items={breadcrumbs}/>
 
@@ -18,7 +15,7 @@ const Catalog = ({title, categories, breadcrumbs}) => {
             <h1>{title}</h1>
           </div>
           <div className="subcategories-container flex flex-wrap mt-5 p-2.5 md:p-0">
-            {categories && categories.map((category) => {
+            {subCategories && subCategories.map((category) => {
               return (
                 <div key={category.id} className="subcategories-item">
                   <Link className="flex" href={category.url_address}>

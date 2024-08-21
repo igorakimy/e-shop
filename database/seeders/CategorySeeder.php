@@ -428,6 +428,7 @@ class CategorySeeder extends Seeder
                         'children' => [],
                     ],
                 ],
+                'icon' => 'teapot',
             ],
             [
                 'name' => 'Телефония и аксессуары',
@@ -493,70 +494,87 @@ class CategorySeeder extends Seeder
                         'children' => [],
                     ],
                 ],
+                'icon' => 'phone',
             ],
             [
                 'name' => 'Планшеты и аксессуары',
                 'children' => [],
+                'icon' => 'tablet',
             ],
             [
                 'name' => 'Ноутбуки и аксессуары',
                 'children' => [],
+                'icon' => 'laptop',
             ],
             [
                 'name' => 'Компьютеры и комплектующие',
                 'children' => [],
+                'icon' => 'processor',
             ],
             [
                 'name' => 'Компьютерная периферия',
                 'children' => [],
+                'icon' => 'keyboard',
             ],
             [
                 'name' => 'Носители информации',
                 'children' => [],
+                'icon' => 'usb-flash',
             ],
             [
                 'name' => 'Аудиотехника',
                 'children' => [],
+                'icon' => 'headphones',
             ],
             [
                 'name' => 'Оргтехника и расходные материалы',
                 'children' => [],
+                'icon' => 'printer',
             ],
             [
                 'name' => 'Электрическое оборудование',
                 'children' => [],
+                'icon' => 'electrical-panel',
             ],
             [
                 'name' => 'Элементы питания',
                 'children' => [],
+                'icon' => 'battery',
             ],
             [
                 'name' => 'Сетевое оборудование',
                 'children' => [],
+                'icon' => 'router',
             ],
             [
                 'name' => 'Соединительное оборудование',
                 'children' => [],
+                'icon' => 'usb-cable',
             ],
             [
                 'name' => 'Телевизоры и аксессуары',
                 'children' => [],
+                'icon' => 'monitor',
             ],
             [
                 'name' => 'Фото-видео и аксессуары',
                 'children' => [],
+                'icon' => 'camera',
             ],
             [
                 'name' => 'Автотовары и спорт',
                 'children' => [],
+                'icon' => 'dvr',
             ],
             [
                 'name' => 'Видеонаблюдение и системы контроля',
                 'children' => [],
+                'icon' => 'cctv-camera',
             ],
             [
                 'name' => 'Инструменты и запчасти',
                 'children' => [],
+                'icon' => 'tools',
             ],
         ];
 
@@ -578,6 +596,7 @@ class CategorySeeder extends Seeder
                     'name' => $category['name'],
                     'slug' => $slug,
                     'parent_id' => $parent,
+                    'icon' => $category['icon'] ?? null,
                 ]);
             }
 
