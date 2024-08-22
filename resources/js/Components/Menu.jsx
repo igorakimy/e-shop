@@ -45,7 +45,7 @@ const Menu = ({categories}) => {
           <FontAwesomeIcon onClick={redirectToCatalog} icon="fa-solid fa-align-justify" className="mr-4"/>
           <span onClick={redirectToCatalog} className="font-semibold select-none">Каталог товаров</span>
           <div
-            className={`categories-box md:flex flex-wrap !h-auto !absolute top-full left-0 ` + (openCatalogDropdown && window.location.href !== route('home') ? 'opacity-1 visible' : 'opacity-0 invisible')}
+            className={`categories-box md:flex flex-wrap !h-auto !absolute top-full left-0 ` + (openCatalogDropdown && window.location.href.replace(/\/+$/, '') !== route('home') ? 'opacity-1 visible' : 'opacity-0 invisible')}
             onMouseLeave={() => setOpenCatalogDropdown(false)}
           >
             <ul className="flex flex-col py-2.5 bg-white text-black">

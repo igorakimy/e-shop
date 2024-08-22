@@ -2,7 +2,13 @@ import { Link } from '@inertiajs/react'
 import { categoryIcons } from '@/Constants'
 import IconFire from '@/Components/Icons/IconFire'
 import subCatImage from '../../images/subcategory-image.jpeg'
+import brandImg from '../../images/brands/brand.svg'
+import allBrandsImg from '../../images/brands/all_brands.svg'
 import { useState } from 'react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+import MainSlider from '@/Components/MainSlider'
 
 const Home = ({categories}) => {
     const [openSubCategoryMenu, setOpenSubCategoryMenu] = useState({
@@ -12,8 +18,8 @@ const Home = ({categories}) => {
 
     return (
         <>
-          <div className="hidden md:flex justify-items-center items-center">
-            <div className="categories-box md:flex">
+          <div className="flex flex-row">
+            <div className="hidden md:flex categories-box">
               <ul className="flex flex-col py-2.5">
                 {categories && categories.map((category, parentIndex) => {
                   let Icon = categoryIcons[category.icon]
@@ -56,9 +62,48 @@ const Home = ({categories}) => {
                 </li>
               </ul>
             </div>
+            <div className="slider-wrap flex flex-col w-full">
+              <div className="flex leading-[0]">
+                <MainSlider />
+              </div>
 
-            <div>
-
+              <div className="brands mt-5 hidden md:flex flex-row">
+                <div className="bs-item">
+                  <Link>
+                    <img src={allBrandsImg} alt="All brands"/>
+                  </Link>
+                </div>
+                <div className="bs-item">
+                  <Link>
+                    <img src={brandImg} alt="Brand logo"/>
+                  </Link>
+                </div>
+                <div className="bs-item">
+                  <Link>
+                    <img src={brandImg} alt="Brand logo"/>
+                  </Link>
+                </div>
+                <div className="bs-item">
+                  <Link>
+                    <img src={brandImg} alt="Brand logo"/>
+                  </Link>
+                </div>
+                <div className="bs-item">
+                  <Link>
+                    <img src={brandImg} alt="Brand logo"/>
+                  </Link>
+                </div>
+                <div className="bs-item">
+                  <Link>
+                    <img src={brandImg} alt="Brand logo"/>
+                  </Link>
+                </div>
+                <div className="bs-item">
+                  <Link>
+                    <img src={brandImg} alt="Brand logo"/>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </>
