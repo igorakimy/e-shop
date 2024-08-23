@@ -39,7 +39,7 @@ const Menu = ({categories}) => {
         <div
           className="all-categories hidden md:flex items-center mr-5 relative cursor-pointer"
           onClick={redirectToCatalog}
-          onMouseOver={() => setOpenCatalogDropdown(true)}
+          onMouseEnter={() => setOpenCatalogDropdown(true)}
           onMouseLeave={() => setOpenCatalogDropdown(false)}
         >
           <FontAwesomeIcon onClick={redirectToCatalog} icon="fa-solid fa-align-justify" className="mr-4"/>
@@ -55,7 +55,7 @@ const Menu = ({categories}) => {
                   <li
                     key={parentIndex}
                     className="flex flex-row justify-items-center items-center text-sm px-2.5 cursor-pointer hover:underline"
-                    onMouseOver={() => setOpenSubCategoryMenu({state: true, item: parentIndex})}
+                    onMouseEnter={() => setOpenSubCategoryMenu({state: true, item: parentIndex})}
                     onMouseLeave={() => setOpenSubCategoryMenu({state: false, item: parentIndex})}
                   >
                     <div className="category-icon flex justify-items-center justify-center items-center mr-2.5">
@@ -103,7 +103,7 @@ const Menu = ({categories}) => {
 
         <div className="hidden md:flex header-button">
           <Link title="Сравнение товаров" href={route('compare')}>
-            <IconCompare style={{enableBackground: "new 0 0 31 30"}}/>
+            <IconCompare className="text-transparent hover:!text-white" style={{enableBackground: "new 0 0 31 30", stroke: "#fff"}}/>
           </Link>
         </div>
         <div className="hidden md:flex header-button">

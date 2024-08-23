@@ -6,7 +6,15 @@ export default {
       "./resources/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'light-green': '#79d800',
+        'bright-red': '#ff1e00',
+        'dark-cyan': '#00b1a7',
+        'light-violet': '#9747ff',
+        'orange': '#ff7e00',
+      }
+    },
   },
   plugins: [],
 }
