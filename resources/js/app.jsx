@@ -24,4 +24,10 @@ createInertiaApp({
     let root = createRoot(el)
     root.render(<App {...props} />)
   },
+  progress: {
+    delay: 250,
+    color: '#fff',
+    includeCSS: true,
+    showSpinner: false,
+  },
 })

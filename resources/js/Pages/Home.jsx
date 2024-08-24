@@ -11,6 +11,7 @@ import 'swiper/css/navigation'
 import MainSlider from '@/Components/MainSlider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ProductCard from '@/Components/ProductCard'
+import {Swiper, SwiperSlide} from "swiper/react";
 
 const Home = ({categories}) => {
     const [openSubCategoryMenu, setOpenSubCategoryMenu] = useState({
@@ -109,6 +110,32 @@ const Home = ({categories}) => {
           </div>
         </div>
 
+        <div className="flex items-center mb-5 w-full md:hidden">
+          <Swiper
+            className="mobile-categories"
+            speed={1200}
+            freeMode={true}
+            slidesPerView={'auto'}
+          >
+            {categories.map((category, index) => {
+              let Icon = categoryIcons[category.icon]
+              return (
+                <SwiperSlide key={index} className="flex flex-col mr-2.5">
+                  <Link href={category.url_address}>
+                    <div className="flex items-center justify-center icon">
+                      {<Icon />}
+                    </div>
+                    <span className="flex items-center justify-center text-center">
+                      {category.name}
+                    </span>
+                  </Link>
+                </SwiperSlide>
+              )
+            })}
+
+          </Swiper>
+        </div>
+
         <div className="products-container bg-white mb-5">
           <div className="group-wrapper">
             <Link className="flex mb-2.5 mt-5 items-center w-full">
@@ -156,16 +183,16 @@ const Home = ({categories}) => {
           </div>
 
           <div className="flex flex-wrap">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
           </div>
         </div>
       </>

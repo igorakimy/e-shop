@@ -60,15 +60,14 @@ const MainSlider = () => {
   return (
     <Swiper
       className="slider"
-      loop={true}
       slidesPerView={1}
-      slidesPerGroup={1}
-      loopAddBlankSlides={false}
+      loop={true}
       speed={1200}
       centeredSlides={true}
+      centeredSlidesBounds={true}
       autoplay={{
         delay: 8000,
-        disableOnInteraction: true
+        disableOnInteraction: false
       }}
       pagination={{
         clickable: true,
