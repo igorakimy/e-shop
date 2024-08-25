@@ -6,9 +6,10 @@ import { createRoot } from 'react-dom/client'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
 import MainLayout from '@/Layouts/MainLayout'
 
-library.add(fas, fab)
+library.add(fas, fab, far)
 
 const appName = import.meta.env.VITE_APP_NAME || 'Steelsmart'
 

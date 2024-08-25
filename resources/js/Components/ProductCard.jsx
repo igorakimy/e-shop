@@ -7,9 +7,9 @@ import Badge from '@/Components/ui/Badge'
 import {Swiper, SwiperSlide} from "swiper/react";
 import ProductCardPagination from "./ProductCardPagination.jsx";
 
-const ProductCard = ({photos}) => {
+const ProductCard = ({className, photos}) => {
   return (
-    <div className="product-card grid-style p-2.5 flex flex-col relative bg-white w-full">
+    <div className={`product-card grid-style p-2.5 flex flex-col relative bg-white w-full ${className}`}>
 
       <div className="labels flex flex-row">
         <Badge text="Акция" className="bg-orange"/>
@@ -75,7 +75,7 @@ const ProductCard = ({photos}) => {
             <IconCart fill="#868686" className="min-w-[30px]" />
           </button>
           <button className="favorite-btn">
-            <IconFavorite stroke="#868686" fill="transparent" />
+            <IconFavorite stroke="#868686" fill="transparent" style={{maxWidth: "32px"}} />
           </button>
           <button className="compare-btn">
             <IconCompare color="transparent" className="w-[32px]" stroke="#868686" />

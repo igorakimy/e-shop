@@ -143,7 +143,7 @@ const Home = ({categories}) => {
           </Swiper>
         </div>
 
-        <div className="products-container bg-white mb-5">
+        <div id="products-home" className="products-container bg-white mb-5">
           <div className="group-wrapper">
             <Link className="flex mb-2.5 mt-5 items-center w-full">
               <span>Акция: До конца акции</span>

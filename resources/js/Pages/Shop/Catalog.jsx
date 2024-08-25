@@ -2,6 +2,8 @@ import Breadcrumbs from '@/Components/Breadcrumbs'
 import { Head, Link } from '@inertiajs/react'
 import ContentBox from '@/Components/ui/ContentBox'
 import catalogImg from '../../../images/subcategory-image.jpeg'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import ProductCard from "../../Components/ProductCard.jsx";
 
 const Catalog = ({title, subCategories, breadcrumbs}) => {
   return (
@@ -36,7 +38,7 @@ const Catalog = ({title, subCategories, breadcrumbs}) => {
         </div>
       ) : (
         <div className="flex w-full">
-          <div className="filter-box hidden md:flex flex-col min-w-[268px]">
+          <div className="filter-box hidden lg:flex flex-col min-w-[268px]">
             <form action="" className="filters-form flex flex-col bg-white pt-5 rounded-b-md">
               <section className="flex flex-col">
                 <h4 className="text-xs">Цена</h4>
@@ -59,7 +61,30 @@ const Catalog = ({title, subCategories, breadcrumbs}) => {
           <div className="flex flex-col mx-0 px-2.5 md:px-0 md:ml-5 md:mr-0 mt-5 w-full">
             <Breadcrumbs items={breadcrumbs}/>
             <ContentBox >
-              <h1 className="text-2xl font-semibold">{title}</h1>
+              <h1 className="text-2xl font-semibold mb-5">{title}</h1>
+
+              <div className="flex">
+                <div className="mr-14 mb-5 md:mb-0">
+                  <FontAwesomeIcon icon={['fas', 'th']} className="font-black !text-2xl text-orange mr-4 cursor-pointer" />
+                  <FontAwesomeIcon icon={['fas', 'th-list']} className="font-black !text-2xl text-neutral-400 cursor-pointer" />
+                </div>
+                <div className="hidden md:flex items-center mb-5 text-sm">
+                  <span className="mr-5">Сортировка: </span>
+                  <div className="mr-5 cursor-pointer font-semibold text-orange">дешевые</div>
+                  <div className="mr-5 cursor-pointer">дорогие</div>
+                  <div className="mr-5 cursor-pointer">популярные</div>
+                  <div className="cursor-pointer">по алфавиту</div>
+                </div>
+              </div>
+
+              <div className="products-container products-line flex flex-wrap !rounded-none !border-t !border-t-[#ededed]">
+                <ProductCard className="product-catalog-card"/>
+                <ProductCard className="product-catalog-card"/>
+                <ProductCard className="product-catalog-card"/>
+                <ProductCard className="product-catalog-card"/>
+                <ProductCard className="product-catalog-card"/>
+                <ProductCard className="product-catalog-card"/>
+              </div>
             </ContentBox>
           </div>
         </div>
