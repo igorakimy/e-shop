@@ -132,7 +132,14 @@ const Home = ({categories}) => {
                 </SwiperSlide>
               )
             })}
-
+            <SwiperSlide className="flex flex-col mr-2.5">
+              <Link href="/">
+                <div className="flex items-center justify-center icon">
+                  {<IconFire />}
+                </div>
+                <span className="flex items-center justify-center text-center">Уценка</span>
+              </Link>
+            </SwiperSlide>
           </Swiper>
         </div>
 
@@ -169,7 +176,7 @@ const Home = ({categories}) => {
             <ProductCard/>
             <ProductCard/>
             <ProductCard/>
-            <ProductCard/>
+            <ProductCard photos={[1, 2]}/>
           </div>
         </div>
         <div className="products-container bg-white mb-5">

@@ -4,8 +4,10 @@ import IconCart from '@/Components/Icons/IconCart'
 import IconFavorite from '@/Components/Icons/IconFavorite'
 import IconCompare from '@/Components/Icons/IconCompare'
 import Badge from '@/Components/ui/Badge'
+import {Swiper, SwiperSlide} from "swiper/react";
+import ProductCardPagination from "./ProductCardPagination.jsx";
 
-const ProductCard = () => {
+const ProductCard = ({photos}) => {
   return (
     <div className="product-card grid-style p-2.5 flex flex-col relative bg-white w-full">
 
@@ -14,10 +16,43 @@ const ProductCard = () => {
         <Badge text="Скидка 5000 ₽" className="bg-bright-red"/>
       </div>
 
-      <div className="photo-box flex flex-col items-center justify-center h-[200px]">
-        <Link className="photo-wrap z-[2] flex justify-center mb-3" href="/">
-          <img src={productImg} alt="Product image"/>
-        </Link>
+      <div className="photo-box flex flex-col items-center justify-center h-[200px] overflow-hidden w-full">
+        {photos ? (
+          <Link
+            className="photo-wrap z-[2] flex justify-center justify-items-center mb-3 w-full" href="/"
+          >
+            <Swiper
+              className="product-card-slider"
+              centeredSlides={true}
+              onSlideChange={(swiper) => {
+                const bullets = document.querySelectorAll('.custom-pagination-bullet')
+                bullets.forEach((el) => {
+                  el.classList.remove('custom-pagination-bullet-active')
+                  let index = parseInt(el.getAttribute('data-index'), 10)
+                  if (index === swiper.activeIndex) {
+                    el.classList.add('custom-pagination-bullet-active')
+                  }
+                })
+              }}
+            >
+              <SwiperSlide className="flex justify-center">
+                <img src={productImg} alt="Product image"/>
+              </SwiperSlide>
+              <SwiperSlide className="flex justify-center">
+                <img src={productImg} alt="Product image"/>
+              </SwiperSlide>
+              <SwiperSlide className="flex justify-center">
+                <img src={productImg} alt="Product image"/>
+              </SwiperSlide>
+
+              <ProductCardPagination />
+            </Swiper>
+          </Link>
+        ) : (
+          <Link className="photo-wrap z-[2] flex justify-center mb-3" href="/">
+            <img src={productImg} alt="Product image"/>
+          </Link>
+        )}
       </div>
 
       <Link className="product-name hover:text-orange" href="/">
