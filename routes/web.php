@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\ShopController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,6 @@ Route::get('/compare', [ShopController::class, 'compare'])->name('compare');
 Route::get('/favorite', [ShopController::class, 'favorite'])->name('favorite');
 Route::get('/cart', [ShopController::class, 'cart'])->name('cart');
 Route::get('/orders', [ShopController::class, 'orders'])->name('orders');
+
+Route::get('/brands', [BrandController::class, 'index'])->name('brands');
+Route::get('/brands/{slug}', [BrandController::class, 'show'])->name('brand');
