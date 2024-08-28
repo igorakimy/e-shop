@@ -12,7 +12,7 @@ import { categoryIcons } from '@/Constants'
 import subCatImage from '../../images/subcategory-image.jpeg'
 import IconFire from '@/Components/Icons/IconFire'
 
-const Menu = ({categories}) => {
+const Menu = ({categories, openModal}) => {
 
   const [openDropdown, setOpenDropdown] = useState(false)
   const [openCatalogDropdown, setOpenCatalogDropdown] = useState(false)
@@ -118,7 +118,10 @@ const Menu = ({categories}) => {
         </div>
 
         <div className="hidden md:flex">
-          <div className="flex justify-items-center text-white ml-2 cursor-pointer">
+          <div
+            className="flex justify-items-center text-white ml-2 cursor-pointer"
+            onClick={openModal}
+          >
             <div
               className="signed-in-box flex items-center border-white px-4 py-1.5 my-1.5 border-2 rounded-md relative"
               onMouseOver={() => setOpenDropdown(true)}
