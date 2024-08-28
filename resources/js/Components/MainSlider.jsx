@@ -59,7 +59,7 @@ const MainSlider = () => {
 
   return (
     <Swiper
-      className="slider"
+      className="main-slider"
       slidesPerView={1}
       loop={true}
       speed={1200}

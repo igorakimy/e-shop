@@ -94,7 +94,7 @@ const Menu = ({categories}) => {
 
         <section className="flex search-box">
           <form className="flex w-full">
-            <input type="search" name="query" autoComplete="off" placeholder="Поиск товаров"/>
+            <input className="text-sm" type="search" name="query" autoComplete="off" placeholder="Поиск товаров"/>
             <button className="search-button flex justify-center items-center cursor-pointer bg-white" type="submit">
               <FontAwesomeIcon icon="fa-solid fa-search"/>
             </button>

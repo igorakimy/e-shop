@@ -3,8 +3,6 @@ import { Link } from '@inertiajs/react'
 import { route } from 'ziggy-js'
 
 const Breadcrumbs = ({items, children}) => {
-  console.log(items)
-
   return (
     <div className="breadcrumbs flex items-center w-full text-nowrap text-ellipsis">
       {items && items.map((item) => {
