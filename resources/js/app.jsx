@@ -8,6 +8,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import MainLayout from '@/Layouts/MainLayout'
+import { ModalProvider } from '@/Components/Context/ModalContext'
 
 library.add(fas, fab, far)
 
@@ -23,7 +24,11 @@ createInertiaApp({
   },
   setup({el, App, props}) {
     let root = createRoot(el)
-    root.render(<App {...props} />)
+    root.render(
+      <ModalProvider>
+        <App {...props} />
+      </ModalProvider>
+    )
   },
   progress: {
     delay: 250,

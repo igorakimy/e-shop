@@ -1,16 +1,22 @@
 <?php
 
+use App\Http\Controllers\Shop\AuthClientController;
 use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\ShopController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ShopController::class, 'index'])->name('home');
 
+/** Auth */
+Route::get('/registration', [AuthClientController::class, 'registration'])->name('registration');
+
+/** Shop */
 Route::get('/shop', [ShopController::class, 'catalog'])->name('shop');
 Route::get('/shop/{path}', [ShopController::class, 'catalog'])
     ->name('shop.catalog')
     ->where('path', '[a-zA-Z0-9-/_]+');
 
+/** Others */
 Route::get('/sales', [ShopController::class, 'sales'])->name('sales');
 Route::get('/client-card', [ShopController::class, 'clientCard'])->name('client_card');
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
@@ -31,5 +37,6 @@ Route::get('/favorite', [ShopController::class, 'favorite'])->name('favorite');
 Route::get('/cart', [ShopController::class, 'cart'])->name('cart');
 Route::get('/orders', [ShopController::class, 'orders'])->name('orders');
 
+/** Brands */
 Route::get('/brands', [BrandController::class, 'index'])->name('brands');
 Route::get('/brands/{slug}', [BrandController::class, 'show'])->name('brand');

@@ -11,8 +11,11 @@ import { useState } from 'react'
 import { categoryIcons } from '@/Constants'
 import subCatImage from '../../images/subcategory-image.jpeg'
 import IconFire from '@/Components/Icons/IconFire'
+import { useModal } from '@/Components/Context/ModalContext'
 
-const Menu = ({categories, openModal}) => {
+const Menu = ({categories}) => {
+
+  const { openModal } = useModal()
 
   const [openDropdown, setOpenDropdown] = useState(false)
   const [openCatalogDropdown, setOpenCatalogDropdown] = useState(false)
@@ -120,15 +123,16 @@ const Menu = ({categories, openModal}) => {
         <div className="hidden md:flex">
           <div
             className="flex justify-items-center text-white ml-2 cursor-pointer"
-            onClick={openModal}
           >
             <div
               className="signed-in-box flex items-center border-white px-4 py-1.5 my-1.5 border-2 rounded-md relative"
               onMouseOver={() => setOpenDropdown(true)}
               onMouseLeave={() => setOpenDropdown(false)}
             >
-              <span className="mr-4">Войти</span>
-              <IconUser style={{minHeight: "25px !important", fill: "#fff !important"}}/>
+              <div className="flex items-center" onClick={() => openModal('login')}>
+                <span className="mr-4">Войти</span>
+                <IconUser style={{minHeight: "25px !important", fill: "#fff !important"}}/>
+              </div>
 
               <DropdownMenu
                 className={'account-dropdown-menu text-black flex flex-col !right-0 !top-full ' + (openDropdown ? '' : 'hidden')}>
