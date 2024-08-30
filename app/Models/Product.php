@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,17 @@ class Product extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $guarded = [];
+
+    protected $appends = [
+        'url_address',
+    ];
+
+    protected function urlAddress(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => config('app.url') . '/shop/' . $this->url->address
+        );
+    }
 
     public function brand(): BelongsTo
     {

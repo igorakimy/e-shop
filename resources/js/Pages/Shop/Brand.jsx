@@ -47,7 +47,9 @@ const Brand = () => {
             <ProductCard/>
             <ProductCard photos={[1, 2]}/>
           </div>
-          <DefaultButton className="mt-5" text="Показать ещё (28)" />
+          <div className="flex justify-center">
+            <DefaultButton className="mt-5" text="Показать ещё (28)"/>
+          </div>
         </ContentBox>
       </div>
 
@@ -60,7 +62,9 @@ const Brand = () => {
             <ProductCard/>
             <ProductCard photos={[1, 2]}/>
           </div>
-          <DefaultButton className="mt-5" text="Показать ещё (28)" />
+          <div className="flex justify-center">
+            <DefaultButton className="mt-5" text="Показать ещё (28)"/>
+          </div>
         </ContentBox>
       </div>
 

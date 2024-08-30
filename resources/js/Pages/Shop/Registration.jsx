@@ -63,11 +63,13 @@ const Registration = () => {
               </p>
             </div>
             <div className=" justify-center items-center mt-5 mb-[15px]">
-              <DefaultButton
-                text="Зарегистрироваться на сайте"
-                handleClick={(e) => signUp(e)}
-                disabled={!checked}
-              />
+              <div className="flex justify-center">
+                <DefaultButton
+                  text="Зарегистрироваться на сайте"
+                  handleClick={(e) => signUp(e)}
+                  disabled={!checked}
+                />
+              </div>
             </div>
           </form>
         </div>

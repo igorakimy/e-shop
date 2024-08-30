@@ -251,7 +251,10 @@ class ShopController extends Controller
      */
     private function renderProduct(Product $product): Response
     {
-        return Inertia::render('Shop/Product', []);
+        return Inertia::render(
+            'Shop/Product',
+            compact('product')
+        );
     }
 
     /**
@@ -264,7 +267,8 @@ class ShopController extends Controller
     {
         return Inertia::render('Shop/Catalog', [
             'title' => $category->name,
-            'subCategories' => $category->children
+            'subCategories' => $category->children,
+            'products' => $category->products
         ]);
     }
 }

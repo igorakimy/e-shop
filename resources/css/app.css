@@ -913,6 +913,78 @@ section.brands-list:last-child {
     background: rgba(0, 0, 0, .4);
 }
 
+.photos-control {
+    min-width: 85px;
+    width: 85px;
+    height: calc(100% - 30px);
+    overflow: hidden;
+}
+
+.photos-control .swiper-slide:last-child {
+    margin-bottom: 0 !important;
+}
+
+.photos-control .swiper-slide-thumb-active {
+    border-color: var(--orange) !important;
+}
+
+.photos-slider .swiper-pagination {
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    font-weight: var(--semibold-font-weight);
+    @apply text-sm
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 15px 20px;
+    border: 1px solid #eee;
+    border-bottom: 3px solid #eee;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.menu-item.active {
+    color: var(--orange);
+    border-bottom-color: var(--orange);
+}
+
+.menu-item.active svg * {
+    fill: var(--orange);
+}
+
+.html-style-box {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.prop-name:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 1px dotted #acacac;
+}
+
+.last-products-box {
+    width: calc(100% - 1px);
+}
+
+.last-products-box .product {
+    padding: 5px;
+    border: 1px solid #eee;
+    border-right-width: 0;
+    @apply flex flex-col
+}
+
+.last-products-box .product:last-child {
+    border: 1px solid #eee;
+}
+
 @keyframes modal_effect {
     0% {
         transform: translateY(40px);

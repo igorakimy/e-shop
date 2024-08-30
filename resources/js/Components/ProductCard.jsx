@@ -7,7 +7,7 @@ import Badge from '@/Components/ui/Badge'
 import {Swiper, SwiperSlide} from "swiper/react";
 import ProductCardPagination from "./ProductCardPagination.jsx";
 
-const ProductCard = ({className, photos}) => {
+const ProductCard = ({product, className, photos}) => {
   return (
     <div className={`product-card grid-style p-2.5 flex flex-col relative bg-white w-full ${className}`}>
 
@@ -49,7 +49,7 @@ const ProductCard = ({className, photos}) => {
             </Swiper>
           </Link>
         ) : (
-          <Link className="photo-wrap z-[2] flex justify-center mb-3" href="/">
+          <Link className="photo-wrap z-[2] flex justify-center mb-3" href={product?.url_address}>
             <img src={productImg} alt="Product image"/>
           </Link>
         )}
