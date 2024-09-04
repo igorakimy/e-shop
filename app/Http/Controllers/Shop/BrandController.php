@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Actions\Shop\Brands\ShowBrandBySlug;
+use App\Actions\Shop\Brands\ShowBrandsABCGroups;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class BrandController extends Controller
 {
+    public function __construct(
+        private readonly ShowBrandBySlug $showBrandBySlug,
+        private readonly ShowBrandsABCGroups $showBrandsABCGroups,
+    ) {
+    }
+
     /**
      * Список брендов
      *
@@ -15,7 +23,9 @@ class BrandController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('Shop/Brands');
+        $brandsGroups = $this->showBrandsABCGroups->handle();
+
+        return Inertia::render('Shop/Brands', compact('brandsGroups'));
     }
 
     /**
@@ -26,6 +36,8 @@ class BrandController extends Controller
      */
     public function show(string $slug): Response
     {
-        return Inertia::render('Shop/Brand');
+        $brand = $this->showBrandBySlug->handle($slug);
+
+        return Inertia::render('Shop/Brand', compact('brand'));
     }
 }
