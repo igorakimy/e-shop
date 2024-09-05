@@ -56,6 +56,9 @@ class Category extends Model implements HasMedia
         $slug = $this->slug;
 
         if (! empty($this->id)) {
+
+            $this->url()->delete();
+
             $this->url()->save(new Url([
                 'address' => $this->isRoot() ? $slug : $this->parent->url->address . '/' . $slug,
                 'model_id' => $this->id,
@@ -66,13 +69,11 @@ class Category extends Model implements HasMedia
         return $this;
     }
 
-    protected static function boot(): void
+    protected static function booted(): void
     {
-        parent::boot();
-
         static::saving(function (self $category) {
-            if ($category->isDirty('slug', 'parent_id')) {
-//                $category->generatePath();
+            if ($category->isDirty(['slug', 'parent_id'])) {
+                $category->generatePath();
             }
         });
 
