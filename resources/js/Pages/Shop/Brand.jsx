@@ -4,7 +4,7 @@ import ContentBox from '@/Components/ui/ContentBox'
 import ProductCard from '@/Components/ProductCard'
 import DefaultButton from '@/Components/ui/DefaultButton'
 
-const Brand = ({brand}) => {
+const Brand = ({brand, brandsProductGroups}) => {
 
   return (
     <>
@@ -12,8 +12,8 @@ const Brand = ({brand}) => {
 
       <div className="flex flex-col bg-white p-5 mt-5 border-4 border-orange rounded">
         <div className="flex justify-center">
-          {brand.icon ? (
-            <img src={brand.icon} alt={`${brand.name}, steelsmart`}/>
+          {brand.logo ? (
+            <img src={brand.logo} alt={`${brand.name}, steelsmart`}/>
           ) : (
             <p className="text-2xl font-semibold">{brand.name}</p>
           )}
@@ -38,35 +38,20 @@ const Brand = ({brand}) => {
 
       </div>
 
-      <div id="products-box">
-        <ContentBox title="Аудиотехника" className="">
-          <div className="flex flex-wrap">
-            <ProductCard/>
-            <ProductCard/>
-            <ProductCard/>
-            <ProductCard/>
-            <ProductCard photos={[1, 2]}/>
-          </div>
-          <div className="flex justify-center">
-            <DefaultButton className="mt-5" text="Показать ещё (28)"/>
-          </div>
-        </ContentBox>
-      </div>
-
-      <div id="products-box">
-        <ContentBox title="Аудиотехника" className="">
-        <div className="flex flex-wrap">
-            <ProductCard/>
-            <ProductCard/>
-            <ProductCard/>
-            <ProductCard/>
-            <ProductCard photos={[1, 2]}/>
-          </div>
-          <div className="flex justify-center">
-            <DefaultButton className="mt-5" text="Показать ещё (28)"/>
-          </div>
-        </ContentBox>
-      </div>
+      {brandsProductGroups.map((group, index) => (
+        <div key={index} className="products-box">
+          <ContentBox title={group.category} className="">
+            <div className="flex flex-wrap">
+              {group.products.map((product, index) => (
+                <ProductCard key={index} product={product} />
+              ))}
+            </div>
+            <div className="flex justify-center">
+              <DefaultButton className="mt-5" text="Показать ещё (28)"/>
+            </div>
+          </ContentBox>
+        </div>
+      ))}
 
       <div className="mb-5"></div>
     </>

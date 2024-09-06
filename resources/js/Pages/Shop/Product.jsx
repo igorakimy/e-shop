@@ -1,10 +1,8 @@
 import Breadcrumbs from '@/Components/Breadcrumbs'
 import { Head, Link } from '@inertiajs/react'
-import Badge from '@/Components/ui/Badge'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import galleryImg from '../../../images/products/gallery-img.jpeg'
 import bigGalleryImg from '../../../images/products/big-gallery-img.jpeg'
-import brandImg from '../../../images/brands/brand.svg'
 import { FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules'
 import { useState } from 'react'
 import IconStar from '@/Components/Icons/IconStar'
@@ -16,6 +14,9 @@ import IconList from '@/Components/Icons/IconList'
 import IconGears from '@/Components/Icons/IconGears'
 import DefaultButton from '@/Components/ui/DefaultButton'
 import { useModal } from '@/Components/Context/ModalContext'
+import Badges from '@/Components/Blocks/Badges'
+import { route } from 'ziggy-js'
+import ProductButtons from '@/Components/Blocks/ProductButtons'
 
 const Product = ({product, breadcrumbs}) => {
 
@@ -32,6 +33,8 @@ const Product = ({product, breadcrumbs}) => {
     return activeMenuItem === index ? className : ''
   }
 
+  // console.log(product)
+
   return (
     <>
       <Head title={product.name} />
@@ -43,9 +46,7 @@ const Product = ({product, breadcrumbs}) => {
           <div className="product-page flex flex-wrap py-5 px-[5%] bg-white">
             <div className="photos w-full md:w-1/2">
               <div className="product-card mb-2.5">
-                <div className="labels">
-                  <Badge text="Скидка 4000 ₽" className="bg-bright-red" />
-                </div>
+                <Badges product={product} />
               </div>
               <div className="photos-container h-[485px] flex relative w-full">
                 <Swiper
@@ -142,12 +143,18 @@ const Product = ({product, breadcrumbs}) => {
               <div className="flex items-center  justify-between w-full">
                 <h1 className="w-full text-xl font-semibold">{product.name}</h1>
                 <div className="ml-[40px]">
-                  <img src={brandImg} alt="Brand name"/>
+                  <Link href={route('brand', product.brand.slug)}>
+                    {product.brand.logo ? (
+                      <img src={product.brand.logo} alt={product.brand.name}/>
+                    ) : (
+                      <span className="text-orange">{product.brand.name}</span>
+                    )}
+                  </Link>
                 </div>
               </div>
 
               <div className="prop-words max-w-[535px] mt-2.5 text-sm">
-                1920х1080, Core i3 N305 8x1.8 ГГц, 8 Гб, 256 Гб SSD, Intel UHD Graphics, Wi-Fi,BT,TypeC, без
+                {product.short_props}
               </div>
 
               <div className="product-rating flex items-center mt-2.5 mb-[5%] p-2 border border-[#eee] rounded">
@@ -164,62 +171,53 @@ const Product = ({product, breadcrumbs}) => {
 
               <div className="flex flex-col max-w-[300px] w-full items-start">
                 <div className="line-buttons w-full">
-                  <div className="product-buttons relative flex justify-between items-center mt-2.5">
-                    <button
-                      className="buy-btn add-to-cart flex justify-between items-center whitespace-nowrap py-[5px] px-2.5 min-h-[50px] bg-[#f4f4f4] hover:bg-orange">
-                      <div className="price-info text-left mr-5">
-                        {product.discount ? (
-                          <div className="price-old text-[#868686] text-xs line-through">
-                            {product.price}
-                            <span> ₽</span>
-                          </div>
-                        ) : ''}
 
-                        <div className={`price ${!product.discount ? 'text-[22px]' : 'text-lg'} font-semibold`}>
-                          {product.price - product.discount}
-                          <span> ₽</span>
-                        </div>
-                      </div>
-                      <IconCart fill="#868686" className="min-w-[30px]"/>
-                    </button>
-                    <button className="favorite-btn">
-                      <IconFavorite stroke="#868686" fill="transparent" style={{maxWidth: "32px"}}/>
-                    </button>
-                    <button className="compare-btn">
-                      <IconCompare color="transparent" className="w-[32px]" stroke="#868686"/>
-                    </button>
-                  </div>
+                  <ProductButtons product={product} />
 
                   <div className="price-cashback mt-2.5 ml-2.5 text-orange text-sm">
                     <span>Кэшбэк: </span>
-                    <span>2 450</span>
+                    <span>{product.cashback}</span>
                     <span> ₽</span>
                   </div>
                 </div>
 
-                <div className="markdown-box w-full min-h-[95px] mt-5 p-2.5 text-sm bg-[#eee] rounded">
-                  Причина уценки: восстановлено сервисом
-                </div>
+                {product.markdown_reason && (
+                  <div className="markdown-box w-full min-h-[95px] mt-5 p-2.5 text-sm bg-[#eee] rounded">
+                    Причина уценки: {product.markdown_reason}
+                  </div>
+                )}
+
               </div>
 
               <div className="service-line flex max-w-[300px] w-full whitespace-nowrap mt-5">
+
                 <div className="flex flex-col justify-center w-full p-2.5 text-sm bg-[#eee] rounded mr-2.5">
-                  В наличии:
-                  <span className="font-semibold cursor-pointer text-orange">в 6 магазинах</span>
+                  Наличие:
+                  <span
+                    className={`font-semibold ${product.in_stock !== 'Нет в наличии' && 'text-orange'}`}
+                  >{product.in_stock}</span>
                 </div>
-                <div className="flex flex-col justify-center w-full p-2.5 text-sm bg-[#eee] rounded mr-2.5">
-                  Доставка:
-                  <span className="font-semibold">1-3 дня</span>
-                </div>
-                <div className="flex flex-col justify-center w-full p-2.5 text-sm bg-[#eee] rounded">
-                  Гарантия:
-                  <span className="font-semibold">12 мес.</span>
-                </div>
+
+                {product.delivery && (
+                  <div className="flex flex-col justify-center w-full p-2.5 text-sm bg-[#eee] rounded mr-2.5">
+                    Доставка:
+                    <span className="font-semibold">{product.delivery}</span>
+                  </div>
+                )}
+
+                {product.warranty && (
+                  <div className="flex flex-col justify-center w-full p-2.5 text-sm bg-[#eee] rounded">
+                    Гарантия:
+                    <span className="font-semibold">{product.warranty}</span>
+                  </div>
+                )}
+
               </div>
             </div>
 
             <div className="main-content-wrap w-full flex flex-col md:flex-row items-start mt-6">
-              <div className="flex flex-col product-left-sticky-menu md:sticky left-0 top-[70px] min-w-[330px] w-full md:w-[330px]">
+              <div
+                className="flex flex-col product-left-sticky-menu md:sticky left-0 top-[70px] min-w-[330px] w-full md:w-[330px]">
                 <div className="product hidden md:block mb-[5px] p-2.5 border border-[#eee] rounded">
                   <div className="flex items-center">
                     <img src={galleryImg} alt="product img" className="max-w-[80px] max-h-[80px] select-none"/>
@@ -227,31 +225,9 @@ const Product = ({product, breadcrumbs}) => {
                   </div>
                   <div className="flex items-center">
                     <div className="line-buttons w-full">
-                      <div className="product-buttons relative flex justify-between items-center mt-2.5">
-                        <button
-                          className="buy-btn add-to-cart flex justify-between items-center whitespace-nowrap py-[5px] px-2.5 min-h-[50px] bg-[#f4f4f4] hover:bg-orange">
-                          <div className="price-info text-left mr-5">
-                            {product.discount ? (
-                              <div className="price-old text-[#868686] text-xs line-through">
-                                {product.price}
-                                <span> ₽</span>
-                              </div>
-                            ) : ''}
 
-                            <div className={`price ${!product.discount ? 'text-[22px]' : 'text-lg'} font-semibold`}>
-                              {product.price - product.discount}
-                              <span> ₽</span>
-                            </div>
-                          </div>
-                          <IconCart fill="#868686" className="min-w-[30px]"/>
-                        </button>
-                        <button className="favorite-btn">
-                          <IconFavorite stroke="#868686" fill="transparent" style={{maxWidth: "32px"}}/>
-                        </button>
-                        <button className="compare-btn">
-                          <IconCompare color="transparent" className="w-[32px]" stroke="#868686"/>
-                        </button>
-                      </div>
+                      <ProductButtons product={product} />
+
                       <div className="price-cashback mt-2.5 ml-2.5 text-orange text-sm">
                         <span>Кэшбэк: </span>
                         <span>2 450</span>
@@ -289,16 +265,10 @@ const Product = ({product, breadcrumbs}) => {
               <div className="flex flex-col mt-5 md:mt-0 md:ml-[40px] w-full p-5 border rounded border-[#eee]">
                 <div className={`product-description ${activeMenuItem === 1 ? 'block' : 'hidden'}`}>
                   <h2 className="font-semibold text-lg mb-5">Описание {product.name}</h2>
-                  <article className="html-style-box">
-                    Этот ноутбук создан для тех, кто хочет получить качественное
-                    и производительное компьютерное устройство с наиболее востребованным
-                    функционалом. Данная модель полностью удовлетворяет данные
-                    требования. Надежный накопитель предоставляет вам возможности
-                    для долговременного хранения необходимой виртуальной информации.
-                    Устройство оборудовано веб-камерой и микрофоном, благодаря которым
-                    вы сможете организовывать видеоконференции с партнерами по бизнесу
-                    и коллегами по работе.
-                  </article>
+                  <article
+                    className="html-style-box"
+                    dangerouslySetInnerHTML={{__html: product.description}}
+                  ></article>
                 </div>
                 <div className={`product-props ${activeMenuItem === 2 ? 'block' : 'hidden'}`}>
                   <h2 className="font-semibold text-lg mb-5">Характеристики {product.name}</h2>

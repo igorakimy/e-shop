@@ -16,14 +16,14 @@ class Brand extends Model implements HasMedia
 
     protected $guarded = [];
 
-    protected $appends = ['icon'];
+    protected $appends = ['logo'];
 
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
 
-    public function icon(): Attribute
+    public function logo(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => $this->getFirstMediaUrl(Media::BRANDS_COLLECTION)

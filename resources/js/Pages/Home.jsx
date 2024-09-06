@@ -14,7 +14,7 @@ import ProductCard from '@/Components/ProductCard'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { route } from 'ziggy-js'
 
-const Home = ({categories}) => {
+const Home = ({categories, products, brands}) => {
   const [openSubCategoryMenu, setOpenSubCategoryMenu] = useState({
     state: true,
     item: null
@@ -71,43 +71,22 @@ const Home = ({categories}) => {
           <div className="flex leading-[0]">
             <MainSlider/>
           </div>
-          <div className="brands mt-5 hidden md:flex flex-row">
-            <div className="bs-item">
-              <Link href={route('brands')}>
-                <img src={allBrandsImg} alt="All brands"/>
-              </Link>
+          {brands && (
+            <div className="brands mt-5 hidden md:flex flex-row">
+              <div className="bs-item">
+                <Link href={route('brands')}>
+                  <img src={allBrandsImg} alt="All brands"/>
+                </Link>
+              </div>
+              {brands.map((brand, index) => (
+                <div className="bs-item">
+                  <Link href={route('brand', brand.slug)}>
+                    <img src={brand.logo} alt={brand.name}/>
+                  </Link>
+                </div>
+              ))}
             </div>
-            <div className="bs-item">
-              <Link href={route('brand', '1more')}>
-                <img src={brandImg} alt="Brand logo"/>
-              </Link>
-            </div>
-            <div className="bs-item">
-              <Link href={route('brand', '1more')}>
-                <img src={brandImg} alt="Brand logo"/>
-              </Link>
-            </div>
-            <div className="bs-item">
-              <Link href={route('brand', '1more')}>
-                <img src={brandImg} alt="Brand logo"/>
-              </Link>
-            </div>
-            <div className="bs-item">
-              <Link href={route('brand', '1more')}>
-                <img src={brandImg} alt="Brand logo"/>
-              </Link>
-            </div>
-            <div className="bs-item">
-              <Link href={route('brand', '1more')}>
-                <img src={brandImg} alt="Brand logo"/>
-              </Link>
-            </div>
-            <div className="bs-item">
-              <Link href={route('brand', '1more')}>
-                <img src={brandImg} alt="Brand logo"/>
-              </Link>
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -144,7 +123,7 @@ const Home = ({categories}) => {
         </Swiper>
       </div>
 
-      <div id="products-box" className="products-container bg-white mb-5">
+      <div className="products-box products-container bg-white mb-5">
         <div className="group-wrapper">
           <Link className="flex mb-2.5 mt-5 items-center w-full">
             <span>Акция: До конца акции</span>
@@ -173,11 +152,9 @@ const Home = ({categories}) => {
         </div>
 
         <div className="flex flex-wrap">
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard photos={[1, 2]}/>
+          {products.map((product, index) => (
+            <ProductCard key={index} product={product}/>
+          ))}
         </div>
       </div>
       <div className="products-container bg-white mb-5">
@@ -191,16 +168,9 @@ const Home = ({categories}) => {
         </div>
 
         <div className="flex flex-wrap">
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
+          {products.map((product, index) => (
+            <ProductCard key={index} product={product} />
+          ))}
         </div>
       </div>
     </>

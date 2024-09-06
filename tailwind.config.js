@@ -13,6 +13,7 @@ export default {
         'bright-red': '#ff1e00',
         'dark-cyan': '#00b1a7',
         'light-violet': '#9747ff',
+        'light-blue': '#597eff',
         'orange': '#ff7e00',
       }
     },

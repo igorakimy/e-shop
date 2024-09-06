@@ -10,6 +10,7 @@ class ShowBrandBySlug
     public function handle(string $slug): BrandData
     {
         $brand = Brand::query()
+            ->with('products')
             ->where('slug', $slug)
             ->firstOrFail();
 

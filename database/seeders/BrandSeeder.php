@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Data\Seeding\BrandData;
+use App\Data\Csv\BrandData;
 use App\Models\Brand;
 use App\Models\Media;
 use Illuminate\Database\Seeder;

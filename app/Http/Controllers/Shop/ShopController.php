@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Url;
@@ -18,7 +19,16 @@ class ShopController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('Home');
+        $products = Product::query()->limit(10)->get();
+        $brands = Brand::query()
+            ->whereHas('media')
+            ->limit(6)
+            ->get();
+
+        return Inertia::render(
+            'Home',
+            compact('products', 'brands')
+        );
     }
 
     /**
@@ -47,6 +57,7 @@ class ShopController extends Controller
         $model = $url->model;
 
         if ($model instanceof Product) {
+            $model->load(['promotion', 'brand']);
             return $this->renderProduct($model);
         }
 

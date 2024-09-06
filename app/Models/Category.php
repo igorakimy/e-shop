@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Traits\HasUrlAddress;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -16,6 +15,7 @@ class Category extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     use NodeTrait;
+    use HasUrlAddress;
 
     protected $guarded = [];
 
@@ -28,11 +28,6 @@ class Category extends Model implements HasMedia
         return $this->hasMany(Product::class);
     }
 
-    public function url(): MorphOne
-    {
-        return $this->morphOne(Url::class, 'model');
-    }
-
     public function updateDescendantsPaths(): void
     {
         $descendants = $this->descendants()->defaultOrder()->get();
@@ -40,18 +35,11 @@ class Category extends Model implements HasMedia
         $descendants->push($this)->linkNodes();
 
         foreach ($descendants as $descendant) {
-            $descendant->generatePath()->save();
+            $descendant->generateUrl()->save();
         }
     }
 
-    protected function urlAddress(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => config('app.url') . '/shop/' . $this->url->address
-        );
-    }
-
-    public function generatePath(): static
+    public function generateUrl(): static
     {
         $slug = $this->slug;
 
@@ -73,7 +61,7 @@ class Category extends Model implements HasMedia
     {
         static::saving(function (self $category) {
             if ($category->isDirty(['slug', 'parent_id'])) {
-                $category->generatePath();
+                $category->generateUrl();
             }
         });
 

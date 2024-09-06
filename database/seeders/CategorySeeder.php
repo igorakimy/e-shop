@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Data\Seeding\CategoryData;
+use App\Data\Csv\CategoryData;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -80,6 +80,8 @@ class CategorySeeder extends Seeder
 
             $categorySlugs[$record->slug] = $category->id;
         }
+
+        $this->call(ProductSeeder::class);
 
         $allCategories = Category::query()->get();
 

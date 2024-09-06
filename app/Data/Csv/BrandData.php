@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Data\Seeding;
+namespace App\Data\Csv;
 
 use Spatie\LaravelData\Data;
 
