@@ -4,7 +4,6 @@ use App\Models\PropertyGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Category;
 
 return new class extends Migration
 {
@@ -16,15 +15,13 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
+            $table->string('name')->unique();
 
             $table->foreignIdFor(PropertyGroup::class, 'group_id')
                 ->nullable()
-                ->constrained('property_groups');
-
-            $table->foreignIdFor(Category::class, 'category_id')
-                ->nullable()
-                ->constrained();
+                ->constrained('property_groups')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
 
             $table->timestamps();
         });

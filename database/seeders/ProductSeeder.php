@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Promotion;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use League\Csv\Exception;
@@ -39,7 +40,7 @@ class ProductSeeder extends Seeder
         $reader->setHeaderOffset(0);
         $chunks = $reader->chunkBy(1000);
 
-        $currentChunk = 1;
+        $chunkNumber = 1;
         foreach ($chunks as $chunk) {
 
             $records = $chunk->getRecordsAsObject(ProductData::class);
@@ -105,29 +106,43 @@ class ProductSeeder extends Seeder
                 ]);
                 $product->save();
 
+                dump("Product '$product->name' was added.");
 
                 // add photos
-                $images = Storage::disk('local')
-                    ->files('data/images/products/' . $record->uuid);
-
-                $existMedia = $product->getMedia(Media::PRODUCTS_COLLECTION);
-                if ($existMedia->isNotEmpty()) {
-                    continue;
-                }
-
-                $imageNumber = 1;
-                foreach ($images as $image) {
-                    $imagePath = Storage::disk('local')->path($image);
-
-                    $product->addMedia($imagePath)
-                        ->preservingOriginal()
-                        ->setName("$product->uuid-$imageNumber")
-                        ->setOrder($imageNumber)
-                        ->toMediaCollection(Media::PRODUCTS_COLLECTION);
-
-                    $imageNumber++;
-                }
+                $this->addPhotos($product, $record);
             }
+
+            dump("Chunk $chunkNumber completed!");
+
+            $chunkNumber++;
+        }
+    }
+
+    /**
+     * @throws FileIsTooBig
+     * @throws FileDoesNotExist
+     */
+    private function addPhotos(Product $product, ProductData $record): void
+    {
+        $images = Storage::disk('local')
+            ->files('data/images/products/' . $record->uuid);
+
+        $existMedia = $product->getMedia(Media::PRODUCTS_COLLECTION);
+        if ($existMedia->isNotEmpty()) {
+            return;
+        }
+
+        $imageNumber = 1;
+        foreach ($images as $image) {
+            $imagePath = Storage::disk('local')->path($image);
+
+            $product->addMedia($imagePath)
+                ->preservingOriginal()
+                ->setName("$product->uuid-$imageNumber")
+                ->setOrder($imageNumber)
+                ->toMediaCollection(Media::PRODUCTS_COLLECTION);
+
+            $imageNumber++;
         }
     }
 }

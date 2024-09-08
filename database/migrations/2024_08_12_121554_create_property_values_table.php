@@ -16,7 +16,8 @@ return new class extends Migration
             $table->id();
 
             $table->string('value')->nullable();
-            $table->string('measure')->nullable();
+
+            $table->tinyInteger('order')->default(0);
 
             $table->foreignIdFor(Property::class, 'property_id')
                 ->constrained()

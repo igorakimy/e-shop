@@ -111,8 +111,8 @@ const Catalog = ({title, subCategories, products, breadcrumbs}) => {
 
                   <div
                     className="products-container products-line flex flex-wrap !rounded-none !border-t !border-t-[#ededed]">
-                    {products && products.map(product => (
-                      <ProductCard className="product-catalog-card" product={product}/>
+                    {products && products.map((product, index) => (
+                      <ProductCard key={index} className="product-catalog-card" product={product}/>
                     ))}
                   </div>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\PropertyValue;
 use App\Models\Url;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -57,7 +58,7 @@ class ShopController extends Controller
         $model = $url->model;
 
         if ($model instanceof Product) {
-            $model->load(['promotion', 'brand']);
+            $model->load(['promotion', 'brand', 'propertyValues']);
             return $this->renderProduct($model);
         }
 
@@ -262,9 +263,19 @@ class ShopController extends Controller
      */
     private function renderProduct(Product $product): Response
     {
+        $productProperties = $product->propertyValues
+            ->groupBy('property.group.name')
+            ->map(function($props, $group) {
+                return [
+                    'group' => $group,
+                    'properties' => $props,
+                ];
+            })
+            ->values();
+
         return Inertia::render(
             'Shop/Product',
-            compact('product')
+            compact('product', 'productProperties')
         );
     }
 

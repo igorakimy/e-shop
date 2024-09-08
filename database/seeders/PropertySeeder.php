@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Property;
 use App\Models\PropertyValue;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class PropertySeeder extends Seeder

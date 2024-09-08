@@ -16,7 +16,7 @@ import Badges from '@/Components/Blocks/Badges'
 import { route } from 'ziggy-js'
 import ProductButtons from '@/Components/Blocks/ProductButtons'
 
-const Product = ({product, breadcrumbs}) => {
+const Product = ({product, productProperties, breadcrumbs}) => {
 
   const { openModal } = useModal()
 
@@ -129,7 +129,7 @@ const Product = ({product, breadcrumbs}) => {
 
                   <div className="price-cashback mt-2.5 ml-2.5 text-orange text-sm">
                     <span>Кэшбэк: </span>
-                    <span>{product.cashback}</span>
+                    <span>{product.cashback.toLocaleString()}</span>
                     <span> ₽</span>
                   </div>
                 </div>
@@ -179,11 +179,11 @@ const Product = ({product, breadcrumbs}) => {
                   <div className="flex items-center">
                     <div className="line-buttons w-full">
 
-                      <ProductButtons product={product} />
+                      <ProductButtons product={product} textClass={'text-lg'} />
 
                       <div className="price-cashback mt-2.5 ml-2.5 text-orange text-sm">
                         <span>Кэшбэк: </span>
-                        <span>{product.cashback}</span>
+                        <span>{product.cashback.toLocaleString()}</span>
                         <span> ₽</span>
                       </div>
                     </div>
@@ -226,51 +226,57 @@ const Product = ({product, breadcrumbs}) => {
                 <div className={`product-props ${activeMenuItem === 2 ? 'block' : 'hidden'}`}>
                   <h2 className="font-semibold text-lg mb-5">Характеристики {product.name}</h2>
                   <div>
-                    <ul className="mb-2.5">
-                      <li className="flex items-center prop-line text-sm leading-[.9rem]">
-                        <span className="flex w-1/2 prop-name relative">Страна производства</span>
-                        <span className="flex w-1/2 font-semibold pl-2.5">Китай</span>
-                      </li>
-                    </ul>
+                    {productProperties.map((item, index) => {
+                      if (item.group === 'Страна') {
+                        return (
+                          <ul key={index} className="mb-2.5">
+                            {item.properties.map((prop, index) => (
+                              <li key={index} className="flex items-center prop-line text-sm leading-[.9rem]">
+                                <span className="flex w-1/2 prop-name relative">{prop.property.name}</span>
+                                <span className="flex w-1/2 font-semibold pl-2.5">{prop.value}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )
+                      }
+                    })}
 
-                    <div className="flex flex-col prop-group mb-5">
-                      <span className="prop-group-name font-semibold text-base mb-2">
-                        Экран
-                      </span>
-                      <ul>
-                        <li className="flex items-center prop-line mb-2.5 text-sm leading-[.9rem]">
-                          <span className="flex w-1/2 prop-name relative">Диагональ экрана</span>
-                          <span className="flex w-1/2 font-semibold pl-2.5">17.3"</span>
-                        </li>
-                        <li className="flex items-center prop-line mb-2.5 text-sm leading-[.9rem]">
-                          <span className="flex w-1/2 prop-name relative">Технология изготовления экрана</span>
-                          <span className="flex w-1/2 font-semibold pl-2.5">SVA</span>
-                        </li>
-                        <li className="flex items-center prop-line mb-2.5 text-sm leading-[.9rem]">
-                          <span className="flex w-1/2 prop-name relative">Разрешение экрана</span>
-                          <span className="flex w-1/2 font-semibold pl-2.5">1600x900</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="flex flex-col prop-group mb-5">
-                      <span className="prop-group-name font-semibold text-base mb-2">
-                        Процессор
-                      </span>
-                      <ul>
-                        <li className="flex items-center prop-line mb-2.5 text-sm leading-[.9rem]">
-                          <span className="flex w-1/2 prop-name relative">Линейка процессора</span>
-                          <span className="flex w-1/2 font-semibold pl-2.5">Intel Pentium Silver</span>
-                        </li>
-                        <li className="flex items-center prop-line mb-2.5 text-sm leading-[.9rem]">
-                          <span className="flex w-1/2 prop-name relative">Модель процессора</span>
-                          <span className="flex w-1/2 font-semibold pl-2.5">N5030</span>
-                        </li>
-                        <li className="flex items-center prop-line mb-2.5 text-sm leading-[.9rem]">
-                          <span className="flex w-1/2 prop-name relative">Количество ядер</span>
-                          <span className="flex w-1/2 font-semibold pl-2.5">4</span>
-                        </li>
-                      </ul>
-                    </div>
+                    {productProperties.map((item, index) => {
+                      if (item.group !== 'Страна' && item.group !== 'Вес') {
+                        return (
+                          <div className="flex flex-col prop-group mb-5">
+                            {item.group && (
+                              <span className="prop-group-name font-semibold text-base mb-2">
+                                {item.group}
+                              </span>
+                            )}
+                            <ul>
+                              {item.properties.map((prop, index) => (
+                                <li key={index} className="flex items-center prop-line mb-2.5 text-sm leading-[.9rem]">
+                                  <span className="flex w-1/2 prop-name relative">{prop.property.name}</span>
+                                  <span className="flex w-1/2 font-semibold pl-2.5">{prop.value}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )
+                      }
+                    })}
+
+                    {productProperties.map((item, index) => {
+                      if (item.group === 'Вес') {
+                        return (
+                          <ul key={index} className="mt-2.5">
+                            {item.properties.map((prop, index) => (
+                              <li key={index} className="flex items-center prop-line text-sm leading-[.9rem]">
+                                <span className="flex w-1/2 prop-name relative">{prop.property.name}</span>
+                                <span className="flex w-1/2 font-semibold pl-2.5">{prop.value}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )
+                      }
+                    })}
                   </div>
                 </div>
                 <div className={`product-reviews ${activeMenuItem === 3 ? 'block' : 'hidden'}`}>

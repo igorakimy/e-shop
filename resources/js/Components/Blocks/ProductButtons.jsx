@@ -11,13 +11,13 @@ const ProductButtons = ({className, product, textClass = 'text-[22px]'}) => {
         <div className="price-info text-left mr-5">
           {product.discount > 0 && (
             <div className="price-old text-[#868686] text-xs line-through">
-              {product.price}
+              {product.price.toLocaleString()}
               <span> ₽</span>
             </div>
           )}
 
           <div className={`price ${!product.discount ? textClass : 'text-lg'} font-semibold`}>
-            {product.price - product.discount}
+            {(product.price - product.discount).toLocaleString()}
             <span> ₽</span>
           </div>
         </div>

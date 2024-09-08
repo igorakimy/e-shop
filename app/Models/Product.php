@@ -56,7 +56,10 @@ class Product extends Model implements HasMedia
             table: 'product_property_value',
             foreignPivotKey: 'product_id',
             relatedPivotKey: 'property_value_id',
-        );
+        )->with([
+            'property',
+            'property.group'
+        ]);
     }
 
     protected function cashback(): Attribute
