@@ -1,8 +1,6 @@
 import Breadcrumbs from '@/Components/Breadcrumbs'
 import { Head, Link } from '@inertiajs/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import galleryImg from '../../../images/products/gallery-img.jpeg'
-import bigGalleryImg from '../../../images/products/big-gallery-img.jpeg'
 import { FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules'
 import { useState } from 'react'
 import IconStar from '@/Components/Icons/IconStar'
@@ -33,8 +31,6 @@ const Product = ({product, breadcrumbs}) => {
     return activeMenuItem === index ? className : ''
   }
 
-  // console.log(product)
-
   return (
     <>
       <Head title={product.name} />
@@ -48,95 +44,52 @@ const Product = ({product, breadcrumbs}) => {
               <div className="product-card mb-2.5">
                 <Badges product={product} />
               </div>
-              <div className="photos-container h-[485px] flex relative w-full">
-                <Swiper
-                  className="photos-control mr-2.5"
-                  direction={'vertical'}
-                  freeMode={true}
-                  slidesPerView={5}
-                  modules={[FreeMode, Thumbs]}
-                  onSwiper={setThumbsSwiper}
-                  watchSlidesProgress={true}
-                  spaceBetween={10}
-                >
-                  <SwiperSlide
-                    className="flex justify-center items-center !h-[83px] cursor-pointer
+              <div className="photos-container h-[485px] flex justify-center relative w-full">
+                {product.photos.length > 1 ? (
+                  <>
+                    <Swiper
+                      className="photos-control mr-2.5"
+                      direction={'vertical'}
+                      freeMode={true}
+                      slidesPerView={5}
+                      modules={[FreeMode, Thumbs]}
+                      onSwiper={setThumbsSwiper}
+                      watchSlidesProgress={true}
+                      spaceBetween={10}
+                    >
+                      {product.gallery_thumbs.map((photo, index) => (
+                        <SwiperSlide
+                          key={index}
+                          className="flex justify-center items-center !h-[83px] cursor-pointer
                      border-2 border-neutral-200 rounded-md w-full p-2.5 hover:border-neutral-400 select-none"
-                  >
-                    <img src={galleryImg} alt="Galery image"/>
-                  </SwiperSlide>
-                  <SwiperSlide
-                    className="flex justify-center items-center !h-[83px] cursor-pointer
-                     border-2 border-neutral-200 rounded-md w-full p-2.5 hover:border-neutral-400 select-none"
-                  >
-                    <img src={galleryImg} alt="Galery image"/>
-                  </SwiperSlide>
-                  <SwiperSlide
-                    className="flex justify-center items-center !h-[83px] cursor-pointer
-                     border-2 border-neutral-200 rounded-md w-full p-2.5 hover:border-neutral-400 select-none"
-                  >
-                    <img src={galleryImg} alt="Galery image"/>
-                  </SwiperSlide>
-                  <SwiperSlide
-                    className="flex justify-center items-center !h-[83px] cursor-pointer
-                     border-2 border-neutral-200 rounded-md w-full p-2.5 hover:border-neutral-400 select-none"
-                  >
-                    <img src={galleryImg} alt="Galery image"/>
-                  </SwiperSlide>
-                  <SwiperSlide
-                    className="flex justify-center items-center !h-[83px] cursor-pointer
-                     border-2 border-neutral-200 rounded-md w-full p-2.5 hover:border-neutral-400 select-none"
-                  >
-                    <img src={galleryImg} alt="Galery image"/>
-                  </SwiperSlide>
-                  <SwiperSlide
-                    className="flex justify-center items-center !h-[83px] cursor-pointer
-                     border-2 border-neutral-200 rounded-md w-full p-2.5 hover:border-neutral-400 select-none"
-                  >
-                    <img src={galleryImg} alt="Galery image"/>
-                  </SwiperSlide>
-                  <SwiperSlide
-                    className="flex justify-center items-center !h-[83px] cursor-pointer
-                     border-2 border-neutral-200 rounded-md w-full p-2.5 hover:border-neutral-400 select-none"
-                  >
-                    <img src={galleryImg} alt="Galery image"/>
-                  </SwiperSlide>
-                </Swiper>
-                <Swiper
-                  className="photos-slider pb-[25px]"
-                  modules={[Pagination, Thumbs, Navigation]}
-                  pagination={{
-                    type: 'fraction',
+                        >
+                          <img src={photo} alt={product.name}/>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                    <Swiper
+                      className="photos-slider pb-[25px]"
+                      modules={[Pagination, Thumbs, Navigation]}
+                      pagination={{
+                        type: 'fraction',
+                      }}
+                      thumbs={{
+                        swiper: thumbsSwiper
+                      }}
+                    >
+                      {product.photos.map((photo, index) => (
+                        <SwiperSlide key={index} className="flex justify-center items-center select-none">
+                          <img src={photo} alt={product.name} className="!max-w-full"/>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </>
+                ) : (
+                  <img className="flex" src={product.photos[0]} alt={product.name}/>
+                )}
 
-                  }}
-                  thumbs={{
-                    swiper: thumbsSwiper
-                  }}
-                >
-                  <SwiperSlide className="flex justify-center items-center select-none">
-                    <img src={bigGalleryImg} alt="Galery photo" className="!max-w-full"/>
-                  </SwiperSlide>
-                  <SwiperSlide className="flex justify-center items-center select-none">
-                    <img src={bigGalleryImg} alt="Galery photo" className="!max-w-full"/>
-                  </SwiperSlide>
-                  <SwiperSlide className="flex justify-center items-center select-none">
-                    <img src={bigGalleryImg} alt="Galery photo" className="!max-w-full"/>
-                  </SwiperSlide>
-                  <SwiperSlide className="flex justify-center items-center select-none">
-                    <img src={bigGalleryImg} alt="Galery photo" className="!max-w-full"/>
-                  </SwiperSlide>
-                  <SwiperSlide className="flex justify-center items-center select-none">
-                    <img src={bigGalleryImg} alt="Galery photo" className="!max-w-full"/>
-                  </SwiperSlide>
-                  <SwiperSlide className="flex justify-center items-center select-none">
-                    <img src={bigGalleryImg} alt="Galery photo" className="!max-w-full"/>
-                  </SwiperSlide>
-                  <SwiperSlide className="flex justify-center items-center select-none">
-                    <img src={bigGalleryImg} alt="Galery photo" className="!max-w-full"/>
-                  </SwiperSlide>
-                </Swiper>
               </div>
-              <p className="mt-[5px]">Код товара: {product.code}</p>
+              <p className="mt-[5px]">Код товара: <span className="font-semibold">{product.code}</span></p>
             </div>
 
             <div className="flex flex-col items-start px-0 md:px-5 py-5 w-full md:w-1/2">
@@ -220,7 +173,7 @@ const Product = ({product, breadcrumbs}) => {
                 className="flex flex-col product-left-sticky-menu md:sticky left-0 top-[70px] min-w-[330px] w-full md:w-[330px]">
                 <div className="product hidden md:block mb-[5px] p-2.5 border border-[#eee] rounded">
                   <div className="flex items-center">
-                    <img src={galleryImg} alt="product img" className="max-w-[80px] max-h-[80px] select-none"/>
+                    <img src={product.last_products_thumb} alt={product.name} className="max-w-[80px] max-h-[80px] select-none"/>
                     <span className="ml-2.5 text-sm">{product.name}</span>
                   </div>
                   <div className="flex items-center">
@@ -230,7 +183,7 @@ const Product = ({product, breadcrumbs}) => {
 
                       <div className="price-cashback mt-2.5 ml-2.5 text-orange text-sm">
                         <span>Кэшбэк: </span>
-                        <span>2 450</span>
+                        <span>{product.cashback}</span>
                         <span> ₽</span>
                       </div>
                     </div>
@@ -355,7 +308,7 @@ const Product = ({product, breadcrumbs}) => {
                   <SwiperSlide key={item} className="product w-auto">
                     <div className="flex items-center">
                       <Link href={product.url_address}>
-                        <img className="max-w-[100px] max-h-[60px]" src={galleryImg} alt="Product thumb"/>
+                        <img className="max-w-[100px] max-h-[60px]" src={product.last_products_thumb} alt="Product thumb"/>
                       </Link>
                       <Link href={product.url_address}>
                         {product.name}

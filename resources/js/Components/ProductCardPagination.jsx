@@ -6,7 +6,7 @@ const ProductCardPagination = () => {
 
   return (
     <div
-      className='custom-pagination absolute !hidden lg:!flex'
+      className='custom-pagination absolute z-20 !hidden lg:!flex'
       onMouseOver={(e) => {
         let isPaginationBullet = e.target.classList.contains('custom-pagination-bullet')
         let activeElems = document.querySelectorAll('.custom-pagination-bullet-active')

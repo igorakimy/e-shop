@@ -2,39 +2,27 @@ import IconCart from '@/Components/Icons/IconCart'
 import IconFavorite from '@/Components/Icons/IconFavorite'
 import IconCompare from '@/Components/Icons/IconCompare'
 
-const ProductButtons = ({className, product}) => {
+const ProductButtons = ({className, product, textClass = 'text-[22px]'}) => {
 
   return (
     <div className={`product-buttons relative flex justify-between items-center mt-2.5 ` + className || ''}>
-      {product.in_stock === 'В наличии' ? (
-        <button
-          className="buy-btn add-to-cart flex justify-between items-center whitespace-nowrap py-[5px] px-2.5 min-h-[50px] bg-[#f4f4f4] hover:bg-orange">
-          <div className="price-info text-left mr-5">
-            {product.discount > 0 && (
-              <div className="price-old text-[#868686] text-xs line-through">
-                {product.price}
-                <span> ₽</span>
-              </div>
-            )}
+      <button
+        className="buy-btn add-to-cart flex justify-between items-center whitespace-nowrap py-[5px] px-2.5 min-h-[50px] bg-[#f4f4f4] hover:bg-orange">
+        <div className="price-info text-left mr-5">
+          {product.discount > 0 && (
+            <div className="price-old text-[#868686] text-xs line-through">
+              {product.price}
+              <span> ₽</span>
+            </div>
+          )}
 
-            <div className={`price ${!product.discount ? 'text-[22px]' : 'text-lg'} font-semibold`}>
-              {product.price - product.discount}
-              <span> ₽</span>
-            </div>
+          <div className={`price ${!product.discount ? textClass : 'text-lg'} font-semibold`}>
+            {product.price - product.discount}
+            <span> ₽</span>
           </div>
-          <IconCart fill="#868686" className="min-w-[30px]"/>
-        </button>
-      ) : (
-        <button
-          className="buy-btn-disabled add-to-cart flex justify-between items-center whitespace-nowrap py-[5px] px-2.5 min-h-[50px] bg-[#f4f4f4] !cursor-auto">
-          <div className="price-info text-left mr-5">
-            <div className={`price ${!product.discount ? 'text-[22px]' : 'text-lg'} font-semibold`}>
-              {product.price - product.discount}
-              <span> ₽</span>
-            </div>
-          </div>
-        </button>
-      )}
+        </div>
+        <IconCart fill="#868686" className="min-w-[30px]"/>
+      </button>
 
       <button className="favorite-btn">
         <IconFavorite stroke="#868686" fill="transparent" style={{maxWidth: "32px"}}/>

@@ -1,26 +1,25 @@
 import { Link } from '@inertiajs/react'
-import productImg from '../../images/products/preview_image.jpg'
-import IconCart from '@/Components/Icons/IconCart'
-import IconFavorite from '@/Components/Icons/IconFavorite'
-import IconCompare from '@/Components/Icons/IconCompare'
 import {Swiper, SwiperSlide} from "swiper/react";
-import ProductCardPagination from "./ProductCardPagination.jsx";
 import Badges from '@/Components/Blocks/Badges'
+import { Navigation } from 'swiper/modules'
+import ProductButtons from '@/Components/Blocks/ProductButtons'
 
-const ProductCard = ({product, className, photos}) => {
+const ProductCard = ({product, className}) => {
   return (
     <div className={`product-card grid-style p-2.5 flex flex-col relative bg-white w-full ${className}`}>
 
       <Badges product={product} />
 
       <div className="photo-box flex flex-col items-center justify-center h-[200px] overflow-hidden w-full">
-        {photos ? (
+        {product.card_thumbs.length > 1 ? (
           <Link
-            className="photo-wrap z-[2] flex justify-center justify-items-center mb-3 w-full" href="/"
+            className="z-[2] flex justify-center justify-items-center mb-3 h-[185px] w-full" href={product.url_address}
           >
             <Swiper
-              className="product-card-slider"
+              className="product-card-slider flex h-full"
               centeredSlides={true}
+              modules={[Navigation]}
+              navigation={true}
               onSlideChange={(swiper) => {
                 const bullets = document.querySelectorAll('.custom-pagination-bullet')
                 bullets.forEach((el) => {
@@ -32,22 +31,18 @@ const ProductCard = ({product, className, photos}) => {
                 })
               }}
             >
-              <SwiperSlide className="flex justify-center">
-                <img src={productImg} alt="Product image"/>
-              </SwiperSlide>
-              <SwiperSlide className="flex justify-center">
-                <img src={productImg} alt="Product image"/>
-              </SwiperSlide>
-              <SwiperSlide className="flex justify-center">
-                <img src={productImg} alt="Product image"/>
-              </SwiperSlide>
+              {product.card_thumbs.map((photo, index) => (
+                <SwiperSlide className="flex justify-center items-center">
+                  <img src={photo} alt={`${product.name}-${index}`}/>
+                </SwiperSlide>
+              ))}
 
-              <ProductCardPagination />
+              {/*<ProductCardPagination />*/}
             </Swiper>
           </Link>
         ) : (
           <Link className="photo-wrap z-[2] flex justify-center mb-3" href={product.url_address}>
-            <img src={productImg} alt="Product image"/>
+            <img src={product.card_thumbs[0] || ''} alt={product.name}/>
           </Link>
         )}
       </div>
@@ -57,44 +52,7 @@ const ProductCard = ({product, className, photos}) => {
       </Link>
 
       <div className="line-buttons">
-        <div className="product-buttons relative flex justify-between items-center mt-2.5">
-          {product.in_stock === 'В наличии' ? (
-            <button
-              className="buy-btn add-to-cart flex justify-between items-center whitespace-nowrap py-[5px] px-2.5 bg-[#f4f4f4] hover:bg-orange">
-              <div className="price-info text-left mr-1.5">
-                {product.discount > 0 && (
-                  <div className="price-old text-[#868686] text-xs line-through">
-                    {product.price}
-                    <span> ₽</span>
-                  </div>
-                )}
-                <div className="price text-lg font-semibold">
-                  {product.price - product.discount}
-                  <span> ₽</span>
-                </div>
-              </div>
-              <IconCart fill="#868686" className="min-w-[30px]"/>
-            </button>
-          ): (
-            <button
-              className="buy-btn-disabled add-to-cart flex justify-between items-center whitespace-nowrap py-[5px] px-2.5 bg-[#f4f4f4] !cursor-auto">
-              <div className="price-info text-left mr-1.5">
-                <div className="price text-lg font-semibold">
-                  {product.price - product.discount}
-                  <span> ₽</span>
-                </div>
-              </div>
-            </button>
-          )}
-
-          <button className="favorite-btn">
-            <IconFavorite stroke="#868686" fill="transparent" style={{maxWidth: "32px"}}/>
-          </button>
-
-          <button className="compare-btn">
-            <IconCompare color="transparent" className="w-[32px]" stroke="#868686"/>
-          </button>
-        </div>
+        <ProductButtons product={product} textClass={'text-lg'} />
         <div className="price-cashback mt-2.5 ml-2.5 text-orange text-sm">
           <span>Кэшбэк: </span>
           <span>{product.cashback}</span>

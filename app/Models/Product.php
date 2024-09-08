@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMedia;
 
 class Product extends Model implements HasMedia
 {
@@ -22,7 +23,11 @@ class Product extends Model implements HasMedia
 
     protected $appends = [
         'url_address',
-        'cashback'
+        'cashback',
+        'photos',
+        'gallery_thumbs',
+        'last_products_thumb',
+        'card_thumbs'
     ];
 
     protected $casts = [
@@ -59,6 +64,89 @@ class Product extends Model implements HasMedia
         return Attribute::make(
             get: fn ($value) => ceil(($this->price / 100) * 5),
         );
+    }
+
+    public function galleryThumbs(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $gallery = [];
+                $media = $this->getMedia(Media::PRODUCTS_COLLECTION);
+                /** @var SpatieMedia $item */
+                foreach ($media as $item) {
+                    $gallery[] = $item->getUrl('gallery-thumb');
+                }
+                return $gallery;
+            }
+        );
+    }
+
+    public function photos(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $photos = [];
+                $media = $this->getMedia(Media::PRODUCTS_COLLECTION);
+                /** @var SpatieMedia $item */
+                foreach ($media as $item) {
+                    $photos[] = $item->getUrl();
+                }
+                return $photos;
+            }
+        );
+    }
+
+    public function cardThumbs(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $thumbs = [];
+                $media = $this->getMedia(Media::PRODUCTS_COLLECTION);
+                /** @var SpatieMedia $item */
+                foreach ($media as $item) {
+                    $thumbs[] = $item->getUrl('card-thumb');
+                }
+                return $thumbs;
+            }
+        );
+    }
+
+    public function lastProductsThumb(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $this->getFirstMediaUrl(
+                Media::PRODUCTS_COLLECTION,
+                'last_products-thumb'
+            ),
+        );
+    }
+
+    public function registerMediaConversions(?SpatieMedia $media = null): void
+    {
+        $this->addMediaConversion('gallery-thumb')
+            ->keepOriginalImageFormat()
+            ->height(50)
+            ->quality(100);
+
+        $this->addMediaConversion('last-products-thumb')
+            ->keepOriginalImageFormat()
+            ->height(80)
+            ->quality(100);
+
+        $this->addMediaConversion('card-thumb')
+            ->keepOriginalImageFormat()
+            ->width(228)
+            ->quality(90);
+
+        $this->addMediaConversion('category-thumb')
+            ->keepOriginalImageFormat()
+            ->width(156)
+            ->quality(80);
+
+        $this->addMediaConversion('category-bg-thumb')
+            ->keepOriginalImageFormat()
+            ->width(228)
+            ->quality(80);
     }
 
     public function generateUrl(): static
