@@ -1,6 +1,6 @@
 const ContentBox = ({title, className, children}) => {
   return (
-    <div className={`rounded - md w-full h-auto bg-white mt-5 p-5 relative ${className}`}>
+    <div className={`rounded-md w-full h-auto bg-white mt-5 p-5 relative ${className}`}>
       {(title) && (
         <>
           <div className="cart-header absolute top-0 left-0">

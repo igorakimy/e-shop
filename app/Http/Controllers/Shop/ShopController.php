@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\PropertyValue;
 use App\Models\Url;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -287,10 +286,12 @@ class ShopController extends Controller
      */
     private function renderCategory(Category $category): Response
     {
+        $products = $category->products()->paginate(40);
+
         return Inertia::render('Shop/Catalog', [
             'title' => $category->name,
             'subCategories' => $category->children,
-            'products' => $category->products
+            'products' => $products
         ]);
     }
 }

@@ -8,6 +8,7 @@ import Pagination from '@/Components/Pagination'
 import PriceRangeSlider from '@/Components/PriceRangeSlider'
 
 const Catalog = ({title, subCategories, products, breadcrumbs}) => {
+
   return (
     <>
       <Head title={title}/>
@@ -39,7 +40,7 @@ const Catalog = ({title, subCategories, products, breadcrumbs}) => {
           </div>
         </div>
       ) : (
-        <div className="flex w-full">
+        <div className="catalog-box flex">
           <div className="filter-box hidden lg:flex flex-col min-w-[268px]">
             <form action="" className="filters-form new-labels flex flex-col bg-white pt-5 rounded-b-md">
               <section className="flex flex-col">
@@ -86,12 +87,12 @@ const Catalog = ({title, subCategories, products, breadcrumbs}) => {
             </form>
           </div>
 
-          <div className="flex flex-col mx-0 px-2.5 md:px-0 md:ml-5 md:mr-0 mt-5 w-full">
+          <div className="flex flex-col mx-0 px-2.5 md:px-0 lg:ml-5 md:mx-0 mt-5 w-full">
             <Breadcrumbs items={breadcrumbs}/>
             <ContentBox className="mb-5 !p-2.5">
               <h1 className="text-2xl font-semibold mb-5">{title}</h1>
 
-              {products.length > 0 ? (
+              {products.data.length > 0 ? (
                 <>
                   <div className="flex">
                     <div className="mr-14 mb-5 md:mb-0">
@@ -111,12 +112,12 @@ const Catalog = ({title, subCategories, products, breadcrumbs}) => {
 
                   <div
                     className="products-container products-line flex flex-wrap !rounded-none !border-t !border-t-[#ededed]">
-                    {products && products.map((product, index) => (
+                    {products.data && products.data.map((product, index) => (
                       <ProductCard key={index} className="product-catalog-card" product={product}/>
                     ))}
                   </div>
 
-                  <Pagination/>
+                  <Pagination items={products} />
 
                   <div className="html-style-box p-5 mt-5 bg-white">
                     <h2><strong>Смартфон – работа и игры всегда с тобой</strong></h2>

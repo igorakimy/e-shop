@@ -85,7 +85,9 @@ const Product = ({product, productProperties, breadcrumbs}) => {
                     </Swiper>
                   </>
                 ) : (
-                  <img className="flex" src={product.photos[0]} alt={product.name}/>
+                  <div className="flex justify-center items-center">
+                    <img className="" src={product.photos[0]} alt={product.name}/>
+                  </div>
                 )}
 
               </div>
@@ -244,7 +246,7 @@ const Product = ({product, productProperties, breadcrumbs}) => {
                     {productProperties.map((item, index) => {
                       if (item.group !== 'Страна' && item.group !== 'Вес') {
                         return (
-                          <div className="flex flex-col prop-group mb-5">
+                          <div key={index} className="flex flex-col prop-group mb-5">
                             {item.group && (
                               <span className="prop-group-name font-semibold text-base mb-2">
                                 {item.group}

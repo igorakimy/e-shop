@@ -13,10 +13,11 @@ const ProductCard = ({product, className}) => {
       <div className="photo-box flex flex-col items-center justify-center h-[200px] overflow-hidden w-full">
         {product.card_thumbs.length > 1 ? (
           <Link
-            className="z-[2] flex justify-center justify-items-center mb-3 h-[185px] w-full" href={product.url_address}
+            className="z-[2] flex justify-center justify-items-center mb-3 h-[185px] min-w-full max-w-[316px]"
+            href={product.url_address}
           >
             <Swiper
-              className="product-card-slider flex h-full"
+              className={`slider-${product.id} product-card-slider flex h-full`}
               centeredSlides={true}
               modules={[Navigation]}
               navigation={true}
@@ -32,7 +33,7 @@ const ProductCard = ({product, className}) => {
               }}
             >
               {product.card_thumbs.map((photo, index) => (
-                <SwiperSlide className="flex justify-center items-center">
+                <SwiperSlide key={index} className="flex justify-center items-center">
                   <img src={photo} alt={`${product.name}-${index}`}/>
                 </SwiperSlide>
               ))}

@@ -1,15 +1,36 @@
 import { Link } from '@inertiajs/react'
 
 const Pagination = ({items}) => {
-  return (
+
+  const {prev_page_url, path, current_page, last_page} = items
+
+  return last_page > 1 && (
     <div className="pagination-numbers flex items-center justify-center mt-5">
-      <li><Link href="/">&#60;</Link></li>
-      <li><Link href="/">1</Link></li>
-      <li><Link href="/">2</Link></li>
-      <li><Link href="/">3</Link></li>
-      <li><Link href="/">4</Link></li>
-      <li><Link href="/">5</Link></li>
-      <li><Link href="/">&#62;</Link></li>
+
+      {prev_page_url && <li><Link href={prev_page_url}>&#60;</Link></li>}
+
+      {(() => {
+        let page = 1
+        let links = []
+        while(page < 5 && current_page - page > 0) {
+          links.push(<li key={page}><Link href={`${path}?page=${current_page - page}`}>{current_page - page}</Link></li>)
+          page++
+        }
+        return links.reverse()
+      })()}
+
+      <li><span className="!text-black">{current_page}</span></li>
+
+      {(() => {
+        let page = 1
+        let links = []
+        while(page < 5 && current_page + page <= last_page) {
+          links.push(<li key={page}><Link href={`${path}?page=${current_page + page}`}>{current_page + page}</Link></li>)
+          page++
+        }
+        return links
+      })()}
+
     </div>
   )
 }
