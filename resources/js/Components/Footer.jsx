@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="flex flex-col text-center md:text-left md:items-baseline md:flex-row justify-items-center pt-8 xl:pt-[67px] md:pl-12 md:ml-0 max-w-[865px] w-full">
             <div className="flex flex-col footer-col">
               <h1 className="text-orange">Информация</h1>
-              <Link className="footer-link" href={route('sales')}>Акции</Link>
+              <Link className="footer-link" href={route('promotions')}>Акции</Link>
               <Link className="footer-link" href={route('shops')}>Магазины</Link>
               <Link className="footer-link" href={route('work')}>Работа в SteelSmart</Link>
             </div>

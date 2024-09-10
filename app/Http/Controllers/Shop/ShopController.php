@@ -65,16 +65,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Акции
-     *
-     * @return Response
-     */
-    public function sales(): Response
-    {
-        return Inertia::render('Sales');
-    }
-
-    /**
      * Карта клиента
      *
      * @return Response

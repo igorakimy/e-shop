@@ -8,7 +8,7 @@ import VerificationForm from '@/Components/VerificationForm'
 
 const MainLayout = ({children}) => {
 
-  const { modalIsOpen, modalContent, openModal, closeModal } = useModal()
+  const { modalIsOpen, modalType, modalContent, openModal, closeModal } = useModal()
   const { categories } = usePage().props
 
   const getModalTitle = (type) => {
@@ -19,8 +19,10 @@ const MainLayout = ({children}) => {
         return 'Код доступа отправлен на e-mail'
       case 'login_verification':
         return 'Временный код доступа (sms или e-mail)'
+      case 'promotion':
+        return 'Акция'
       default:
-        return 'Ответ от сервера'
+        return type
     }
   }
 
@@ -29,15 +31,15 @@ const MainLayout = ({children}) => {
       <Header categories={categories} />
 
       <ModalDialog
-        title={getModalTitle(modalContent)}
+        title={getModalTitle(modalType)}
         show={modalIsOpen}
         closeModal={closeModal}
       >
-        {modalContent === 'login' ? (
+        {modalType === 'login' ? (
           <LoginForm closeModal={closeModal} />
-        ) : modalContent === 'register_verification' ? (
+        ) : modalType === 'register_verification' ? (
           <VerificationForm />
-        ) : (<></>)}
+        ) : (<>{modalContent}</>)}
       </ModalDialog>
 
       <main style={{minHeight: "683px"}}>

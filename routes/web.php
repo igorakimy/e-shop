@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Shop\AuthClientController;
 use App\Http\Controllers\Shop\BrandController;
+use App\Http\Controllers\Shop\PromotionController;
 use App\Http\Controllers\Shop\ShopController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +17,15 @@ Route::get('/shop/{path}', [ShopController::class, 'catalog'])
     ->name('shop.catalog')
     ->where('path', '[a-zA-Z0-9-/_]+');
 
+/** Brands */
+Route::get('/brands', [BrandController::class, 'index'])->name('brands');
+Route::get('/brands/{slug}', [BrandController::class, 'show'])->name('brand');
+
+/** Promotions */
+Route::get('/promotions', [PromotionController::class, 'index'])->name('promotions');
+Route::get('/promotions/{promotion}', [PromotionController::class, 'show'])->name('promotion');
+
 /** Others */
-Route::get('/sales', [ShopController::class, 'sales'])->name('sales');
 Route::get('/client-card', [ShopController::class, 'clientCard'])->name('client_card');
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
 Route::get('/work', [ShopController::class, 'work'])->name('work');
@@ -36,7 +44,3 @@ Route::get('/compare', [ShopController::class, 'compare'])->name('compare');
 Route::get('/favorite', [ShopController::class, 'favorite'])->name('favorite');
 Route::get('/cart', [ShopController::class, 'cart'])->name('cart');
 Route::get('/orders', [ShopController::class, 'orders'])->name('orders');
-
-/** Brands */
-Route::get('/brands', [BrandController::class, 'index'])->name('brands');
-Route::get('/brands/{slug}', [BrandController::class, 'show'])->name('brand');

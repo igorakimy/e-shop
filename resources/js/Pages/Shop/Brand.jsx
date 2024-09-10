@@ -4,7 +4,7 @@ import ContentBox from '@/Components/ui/ContentBox'
 import ProductCard from '@/Components/ProductCard'
 import DefaultButton from '@/Components/ui/DefaultButton'
 
-const Brand = ({brand, brandsProductGroups}) => {
+const Brand = ({brand, brandProductGroups}) => {
 
   return (
     <>
@@ -38,7 +38,7 @@ const Brand = ({brand, brandsProductGroups}) => {
 
       </div>
 
-      {brandsProductGroups.map((group, index) => (
+      {brandProductGroups && brandProductGroups.map((group, index) => (
         <div key={index} className="products-box">
           <ContentBox title={group.category} className="">
             <div className="flex flex-wrap">

@@ -39,7 +39,7 @@ class BrandController extends Controller
     {
         $brand = $this->showBrandBySlug->handle($slug);
 
-        $brandsProductGroups = Product::query()
+        $brandProductGroups = Product::query()
             ->where('brand_id', $brand->id)
             ->get()
             ->groupBy('category.name')
@@ -52,7 +52,7 @@ class BrandController extends Controller
 
         return Inertia::render(
             'Shop/Brand',
-            compact('brand', 'brandsProductGroups')
+            compact('brand', 'brandProductGroups')
         );
     }
 }

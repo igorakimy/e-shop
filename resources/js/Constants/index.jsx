@@ -18,7 +18,7 @@ import IconCCTVCamera from '@/Components/Icons/IconCCTVCamera'
 import IconTools from '@/Components/Icons/IconTools'
 
 export const navItems = [
-  {label: "Акции", href: "sales"},
+  {label: "Акции", href: "promotions"},
   {label: "Карта клиента", href: "client_card"},
   {label: "Магазины", href: "shops"},
   {label: "Работа в SteelSmart", href: "work"},

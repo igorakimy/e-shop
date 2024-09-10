@@ -602,6 +602,12 @@ input[type=search]:focus {
     border-bottom: 1px solid #ededed;
 }
 
+@media (max-width: 639px) {
+    .products-box .product-card.grid-style {
+        border-right: none;
+    }
+}
+
 @media (min-width: 640px) and (max-width: 767px) {
     .products-box .product-card.grid-style:nth-child(2n) {
         border-right: none;
