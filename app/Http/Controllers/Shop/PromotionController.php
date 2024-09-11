@@ -21,7 +21,12 @@ class PromotionController extends Controller
 
     public function show(Promotion $promotion): Response
     {
-        $promotion->load(['products', 'products.promotion']);
+        $promotion->load([
+            'products',
+            'products.promotion',
+            'products.category',
+            'products.media',
+        ]);
 
         $promotionProductGroups = $promotion->products
             ->groupBy('category.name')

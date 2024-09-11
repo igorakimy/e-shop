@@ -1,5 +1,5 @@
 import Breadcrumbs from '@/Components/Breadcrumbs'
-import { Head, Link } from '@inertiajs/react'
+import { Head, Link, usePage } from '@inertiajs/react'
 import ContentBox from '@/Components/ui/ContentBox'
 import catalogImg from '../../../images/subcategory-image.jpeg'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +8,8 @@ import Pagination from '@/Components/Pagination'
 import PriceRangeSlider from '@/Components/PriceRangeSlider'
 
 const Catalog = ({title, subCategories, products, breadcrumbs}) => {
+
+  const { appUrl } = usePage().props
 
   return (
     <>
@@ -22,9 +24,12 @@ const Catalog = ({title, subCategories, products, breadcrumbs}) => {
           </div>
           <div className="subcategories-container flex flex-wrap mt-5 p-2.5 md:p-0">
             {subCategories && subCategories.map((category) => {
+
+              let categoryUrl = `${appUrl}/shop/${category.url.address}`
+
               return (
                 <div key={category.id} className="subcategories-item">
-                  <Link className="flex" href={category.url_address}>
+                  <Link className="flex" href={categoryUrl}>
                     <div className="flex justify-center items-center">
                       <img className="max-w-[156px] max-h-[156px]" src={catalogImg} alt="Catalog image"/>
                     </div>

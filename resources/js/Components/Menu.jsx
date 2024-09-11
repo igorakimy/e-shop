@@ -3,7 +3,7 @@ import IconUser from '@/Components/Icons/IconUser'
 import IconCompare from '@/Components/Icons/IconCompare'
 import IconCart from '@/Components/Icons/IconCart'
 import IconFavorite from '@/Components/Icons/IconFavorite'
-import { Link, router } from '@inertiajs/react'
+import { Link, router, usePage } from '@inertiajs/react'
 import IconMenu from '@/Components/Icons/IconMenu'
 import { route } from 'ziggy-js'
 import DropdownMenu from '@/Components/ui/DropdownMenu'
@@ -15,6 +15,7 @@ import { useModal } from '@/Components/Context/ModalContext'
 
 const Menu = ({categories}) => {
 
+  const { appUrl } = usePage().props
   const { openModal } = useModal()
 
   const [openDropdown, setOpenDropdown] = useState(false)
@@ -54,6 +55,7 @@ const Menu = ({categories}) => {
             <ul className="flex flex-col py-2.5 bg-white text-black">
               {categories && categories.map((category, parentIndex) => {
                 let Icon = categoryIcons[category.icon]
+                let categoryUrl = `${appUrl}/shop/${category.url.address}`
                 return (
                   <li
                     key={parentIndex}
@@ -64,14 +66,15 @@ const Menu = ({categories}) => {
                     <div className="category-icon flex justify-items-center justify-center items-center mr-2.5">
                       {<Icon className="h-full block align-middle"/>}
                     </div>
-                    <Link href={category.url_address}>{category.name}</Link>
+                    <Link href={categoryUrl}>{category.name}</Link>
                     <div
                       className={`second-level-menu ` + (openSubCategoryMenu.state && openSubCategoryMenu.item === parentIndex ? 'opacity-1 visible' : 'invisible opacity-0')}>
                       <ul>
                         {category.children.map((child, index) => {
+                          let childCategoryUrl = `${appUrl}/shop/${child.url.address}`
                           return (
                             <li key={index}>
-                              <Link href={child.url_address}>
+                              <Link href={childCategoryUrl}>
                                 <h4>{child.name}</h4>
                               </Link>
                               <img src={subCatImage} alt="Техника для дома"/>

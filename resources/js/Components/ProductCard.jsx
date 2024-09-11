@@ -1,10 +1,14 @@
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import {Swiper, SwiperSlide} from "swiper/react";
 import Badges from '@/Components/Blocks/Badges'
 import { Navigation } from 'swiper/modules'
 import ProductButtons from '@/Components/Blocks/ProductButtons'
 
 const ProductCard = ({product, className}) => {
+  const { appUrl } = usePage().props
+
+  const productUrl = `${appUrl}/shop/${product.url.address}`
+
   return (
     <div className={`product-card grid-style p-2.5 flex flex-col relative bg-white w-full ${className}`}>
 
@@ -14,7 +18,7 @@ const ProductCard = ({product, className}) => {
         {product.card_thumbs.length > 1 ? (
           <Link
             className="z-[2] flex justify-center justify-items-center mb-3 h-[185px] min-w-full max-w-[316px]"
-            href={product.url_address}
+            href={productUrl}
           >
             <Swiper
               className={`slider-${product.id} product-card-slider flex h-full`}
@@ -42,13 +46,13 @@ const ProductCard = ({product, className}) => {
             </Swiper>
           </Link>
         ) : (
-          <Link className="photo-wrap z-[2] flex justify-center mb-3" href={product.url_address}>
+          <Link className="photo-wrap z-[2] flex justify-center mb-3" href={productUrl}>
             <img src={product.card_thumbs[0] || ''} alt={product.name}/>
           </Link>
         )}
       </div>
 
-      <Link className="product-name hover:text-orange" href={product.url_address}>
+      <Link className="product-name hover:text-orange" href={productUrl}>
         {product.name}
       </Link>
 

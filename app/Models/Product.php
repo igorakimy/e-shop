@@ -4,11 +4,14 @@ namespace App\Models;
 
 use App\Enums\ProductAvailability;
 use App\Traits\HasUrlAddress;
+use DateTime;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
+use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMedia;
@@ -19,10 +22,7 @@ class Product extends Model implements HasMedia
     use InteractsWithMedia;
     use HasUrlAddress;
 
-    protected $guarded = [];
-
     protected $appends = [
-        'url_address',
         'cashback',
         'photos',
         'gallery_thumbs',
@@ -30,8 +30,16 @@ class Product extends Model implements HasMedia
         'card_thumbs'
     ];
 
+    protected $dateFormat = 'Y-m-d H:i:s';
+
     protected $casts = [
         'in_stock' => ProductAvailability::class,
+    ];
+
+    protected $guarded = [];
+
+    protected $with = [
+        'url',
     ];
 
     public function brand(): BelongsTo

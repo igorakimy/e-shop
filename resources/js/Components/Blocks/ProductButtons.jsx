@@ -8,7 +8,7 @@ const ProductButtons = ({className, product, textClass = 'text-[22px]'}) => {
     <div className={`product-buttons relative flex justify-between items-center mt-2.5 ` + className || ''}>
       <button
         className="buy-btn add-to-cart flex justify-between items-center whitespace-nowrap py-[5px] px-2.5 min-h-[50px] bg-[#f4f4f4] hover:bg-orange">
-        <div className="price-info text-left mr-5">
+        <div className="price-info text-left mr-2">
           {product.discount > 0 && (
             <div className="price-old text-[#868686] text-xs line-through">
               {product.price.toLocaleString()}

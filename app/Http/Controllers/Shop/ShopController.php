@@ -19,8 +19,13 @@ class ShopController extends Controller
      */
     public function index(): Response
     {
-        $products = Product::query()->limit(10)->get();
+        $products = Product::query()
+            ->with(['media'])
+            ->limit(10)
+            ->get();
+
         $brands = Brand::query()
+            ->with('media')
             ->whereHas('media')
             ->limit(6)
             ->get();
@@ -276,7 +281,9 @@ class ShopController extends Controller
      */
     private function renderCategory(Category $category): Response
     {
-        $products = $category->products()->paginate(40);
+        $products = $category->products()
+            ->with(['promotion', 'media'])
+            ->paginate(40);
 
         return Inertia::render('Shop/Catalog', [
             'title' => $category->name,

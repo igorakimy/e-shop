@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Actions\Shop\Brands\ShowBrandBySlug;
 use App\Actions\Shop\Brands\ShowBrandsABCGroups;
+use App\Data\Shop\Product\ProductData;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Inertia\Inertia;
@@ -39,16 +40,15 @@ class BrandController extends Controller
     {
         $brand = $this->showBrandBySlug->handle($slug);
 
-        $brandProductGroups = Product::query()
-            ->where('brand_id', $brand->id)
-            ->get()
-            ->groupBy('category.name')
-            ->map(function ($products, $category) {
-                return [
-                    'category' => $category,
-                    'products' => $products
-                ];
-            })->values();
+        $brandProductGroups = $brand->products->groupBy(function (ProductData $product) {
+            $product->include('url', 'promotion');
+            return $product->category->name;
+        })->map(function ($products, $category) {
+            return [
+                'category' => $category,
+                'products' => $products
+            ];
+        })->values();
 
         return Inertia::render(
             'Shop/Brand',

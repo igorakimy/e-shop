@@ -19,8 +19,8 @@ class Category extends Model implements HasMedia
 
     protected $guarded = [];
 
-    protected $appends = [
-        'url_address'
+    protected $with = [
+        'url',
     ];
 
     public function products(): HasMany

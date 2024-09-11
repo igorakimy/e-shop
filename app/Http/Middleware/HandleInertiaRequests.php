@@ -37,12 +37,13 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
+            'appUrl' => config('app.url'),
             'categories' => function () use ($request) {
                 return Category::query()
+                    ->with(['children'])
                     ->whereDoesntHave('parent')
-                    ->with('children')
                     ->get();
-            }
+            },
         ]);
     }
 }

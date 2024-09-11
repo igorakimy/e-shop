@@ -1,8 +1,7 @@
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import { categoryIcons } from '@/Constants'
 import IconFire from '@/Components/Icons/IconFire'
 import subCatImage from '../../images/subcategory-image.jpeg'
-import brandImg from '../../images/brands/brand.svg'
 import allBrandsImg from '../../images/brands/all_brands.svg'
 import { useState } from 'react'
 import 'swiper/css'
@@ -15,6 +14,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { route } from 'ziggy-js'
 
 const Home = ({categories, products, brands}) => {
+
+  const { appUrl } = usePage().props
+
   const [openSubCategoryMenu, setOpenSubCategoryMenu] = useState({
     state: true,
     item: null
@@ -27,6 +29,7 @@ const Home = ({categories, products, brands}) => {
           <ul className="flex flex-col py-2.5">
             {categories && categories.map((category, parentIndex) => {
               let Icon = categoryIcons[category.icon]
+              let categoryUrl = `${appUrl}/shop/${category.url.address}`
               return (
                 <li
                   key={parentIndex}
@@ -37,14 +40,15 @@ const Home = ({categories, products, brands}) => {
                   <div className="category-icon flex justify-items-center justify-center items-center mr-2.5">
                     {<Icon className="h-full block align-middle"/>}
                   </div>
-                  <Link href={category.url_address}>{category.name}</Link>
+                  <Link href={categoryUrl}>{category.name}</Link>
                   <div
                     className={`second-level-menu ` + (openSubCategoryMenu.state && openSubCategoryMenu.item === parentIndex ? 'opacity-1 visible' : 'invisible opacity-0')}>
                     <ul>
                       {category.children.map((child, index) => {
+                        let childCategoryUrl = `${appUrl}/shop/${child.url.address}`
                         return (
                           <li key={index}>
-                            <Link href={child.url_address}>
+                            <Link href={childCategoryUrl}>
                               <h4>{child.name}</h4>
                             </Link>
                             <img src={subCatImage} alt="Техника для дома"/>
@@ -99,9 +103,10 @@ const Home = ({categories, products, brands}) => {
         >
           {categories.map((category, index) => {
             let Icon = categoryIcons[category.icon]
+            let categoryUrl = `${appUrl}/shop/${category.url.address}`
             return (
               <SwiperSlide key={index} className="flex flex-col mr-2.5">
-                <Link href={category.url_address}>
+                <Link href={categoryUrl}>
                   <div className="flex items-center justify-center icon">
                     {<Icon/>}
                   </div>

@@ -5,7 +5,6 @@ import ProductCard from '@/Components/ProductCard'
 import DefaultButton from '@/Components/ui/DefaultButton'
 
 const Brand = ({brand, brandProductGroups}) => {
-
   return (
     <>
       <Head title={`Бренд ${brand.name}`}/>

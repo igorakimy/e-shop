@@ -46,15 +46,6 @@ const Brands = ({brandsGroups}) => {
               ))}
             </div>
 
-            <section className="brands-list flex p-2.5 mb-5">
-              <div id="target" className="flex justify-center items-center max-w-[50px] max-h-[50px] w-full h-[50px] bg-orange rounded-[50%] text-white font-semibold text-lg mr-7 relative">
-                <FontAwesomeIcon icon="fa-solid fa-long-arrow-alt-right" className="text-orange absolute left-[97%]" />
-              </div>
-              <div className="flex flex-wrap justify-start items-center w-full text-base">
-                #
-              </div>
-            </section>
-
             {brandsGroups.map((group) => (
               <section key={group.name} className="brands-list flex p-2.5 mb-5">
                 <div id={`target-${group.name}`} className={`flex justify-center items-center max-w-[50px] max-h-[50px] w-full h-[50px] bg-orange rounded-[50%] text-white font-semibold text-lg mr-7 relative`}>
