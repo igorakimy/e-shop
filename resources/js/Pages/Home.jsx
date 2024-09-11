@@ -66,7 +66,7 @@ const Home = ({categories, products, brands}) => {
               <div className="category-icon flex justify-items-center justify-center items-center mr-2.5">
                 <IconFire className="h-full block align-middle"/>
               </div>
-              <Link href={'/'}>Уценка</Link>
+              <Link href={route('shop.markdown')}>Уценка</Link>
             </li>
           </ul>
         </div>
@@ -83,7 +83,7 @@ const Home = ({categories, products, brands}) => {
                 </Link>
               </div>
               {brands.map((brand, index) => (
-                <div className="bs-item">
+                <div key={index} className="bs-item">
                   <Link href={route('brand', brand.slug)}>
                     <img src={brand.logo} alt={brand.name}/>
                   </Link>
@@ -118,7 +118,7 @@ const Home = ({categories, products, brands}) => {
             )
           })}
           <SwiperSlide className="flex flex-col mr-2.5">
-            <Link href="/">
+            <Link href={route('shop.markdown')}>
               <div className="flex items-center justify-center icon">
                 {<IconFire/>}
               </div>

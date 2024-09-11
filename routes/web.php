@@ -13,6 +13,7 @@ Route::get('/registration', [AuthClientController::class, 'registration'])->name
 
 /** Shop */
 Route::get('/shop', [ShopController::class, 'catalog'])->name('shop');
+Route::get('/shop/markdown', [ShopController::class, 'markdown'])->name('shop.markdown');
 Route::get('/shop/{path}', [ShopController::class, 'catalog'])
     ->name('shop.catalog')
     ->where('path', '[a-zA-Z0-9-/_]+');

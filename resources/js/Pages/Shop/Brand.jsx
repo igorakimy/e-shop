@@ -34,7 +34,6 @@ const Brand = ({brand, brandProductGroups}) => {
             dangerouslySetInnerHTML={{__html: brand.description}}
           ></div>
         )}
-
       </div>
 
       {brandProductGroups && brandProductGroups.map((group, index) => (
