@@ -1,6 +1,6 @@
 import InputMask from 'react-input-mask'
 
-const PhoneInput = ({name, className, value, errors, placeholder, onChange=null, maskChar="#", alwaysShowMask=true}) => {
+const DateInput = ({name, className, value, errors, placeholder, onChange=null, alwaysShowMask = true}) => {
 
   const handleOnChange = (e) => {
     if (onChange) {
@@ -10,15 +10,15 @@ const PhoneInput = ({name, className, value, errors, placeholder, onChange=null,
 
   return (
     <InputMask
-      mask="+7 (999) 999-99-99"
-      maskChar={maskChar}
+      mask="99.99.9999"
+      maskChar="_"
       alwaysShowMask={alwaysShowMask}
-      onChange={handleOnChange}
       id={name}
       name={name}
       type="tel"
       placeholder={placeholder}
       value={value}
+      onChange={handleOnChange}
     >
       {(inputProps) => (
         <input
@@ -30,4 +30,4 @@ const PhoneInput = ({name, className, value, errors, placeholder, onChange=null,
   )
 }
 
-export default PhoneInput
+export default DateInput

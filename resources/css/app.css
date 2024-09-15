@@ -729,8 +729,9 @@ input[type=search]:focus {
     transition: all .3s ease-in-out;
 }
 
-.product-card-slider {
-    /*padding: 20px 0 !important;*/
+.price,
+.price-old {
+    transition: all .3s ease-in-out;
 }
 
 .product-card-slider .custom-pagination {
@@ -1032,6 +1033,24 @@ section.brands-list:last-child {
         transform: translateY(0);
         opacity: 1;
     }
+}
+
+.tabs > label {
+    display: inline-block;
+    width: auto !important;
+    margin-right: 1px;
+    margin-bottom: -1px;
+    padding: 10px 25px !important;
+    font-weight: var(--semibold-font-weight);
+    text-align: center;
+    color: #000;
+    border: 1px solid #ddd;
+    border-radius: 3px 3px 0 0;
+    background: #eee;
+}
+
+.tabs > label.active {
+    color: var(--orange);
 }
 
 /* FOOTER */

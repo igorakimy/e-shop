@@ -4,12 +4,14 @@ use App\Http\Controllers\Shop\AuthClientController;
 use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\PromotionController;
 use App\Http\Controllers\Shop\ShopController;
+use App\Http\Controllers\Shop\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ShopController::class, 'index'])->name('home');
 
 /** Auth */
 Route::get('/registration', [AuthClientController::class, 'registration'])->name('registration');
+Route::get('/users/profile', [UserController::class, 'profile'])->name('users.profile');
 
 /** Shop */
 Route::get('/shop', [ShopController::class, 'catalog'])->name('shop');

@@ -2,7 +2,6 @@ import { Head } from '@inertiajs/react'
 import ContentBox from '@/Components/ui/ContentBox'
 import ProductCard from '@/Components/ProductCard'
 import DefaultButton from '@/Components/ui/DefaultButton'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Markdown = ({productGroups}) => {
   return (

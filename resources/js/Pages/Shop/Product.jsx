@@ -315,7 +315,7 @@ const Product = ({product, productProperties, breadcrumbs}) => {
                 {[1,2,3,4,5,6].map(item => (
                   <SwiperSlide key={item} className="product w-auto">
                     <div className="flex items-center">
-                      <Link href={product.url_address}>
+                      <Link href={product.url_address} className="mr-2">
                         <img className="max-w-[100px] max-h-[60px]" src={product.last_products_thumb} alt="Product thumb"/>
                       </Link>
                       <Link href={product.url_address}>
