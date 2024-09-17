@@ -15,13 +15,32 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
 
     /**
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'birthday_date' => 'date',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
+        'phone',
+        'nickname',
+        'full_name',
+        'password',
+        'vkontakte_id',
+        'instagram_id',
+        'adv_sms_mailing',
+        'email_mailing',
+        'two_factor_code',
+        'two_factor_expires_at',
+        'city',
+        'birthday_date',
+        'heard_source',
     ];
 
     /**
@@ -30,7 +49,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $hidden = [
-        // 'password',
+        'password',
         'remember_token',
     ];
 
@@ -43,7 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
-            // 'password' => 'hashed',
+            'password' => 'hashed',
         ];
     }
 
@@ -75,5 +94,31 @@ class User extends Authenticatable implements MustVerifyEmail
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'client_id');
+    }
+
+    /**
+     * Generate new two-factor auth token.
+     *
+     * @return void
+     */
+    public function generateTwoFactorCode(): void
+    {
+        $this->timestamps = false;
+        $this->two_factor_code = rand(100000, 999999);
+        $this->two_factor_expires_at = now()->addMinutes();
+        $this->save();
+    }
+
+    /**
+     * Reset two-factor auth token.
+     *
+     * @return void
+     */
+    public function resetTwoFactorCode(): void
+    {
+        $this->timestamps = false;
+        $this->two_factor_code = null;
+        $this->two_factor_expires_at = null;
+        $this->save();
     }
 }

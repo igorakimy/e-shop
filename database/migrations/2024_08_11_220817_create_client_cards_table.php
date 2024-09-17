@@ -22,7 +22,8 @@ return new class extends Migration
             $table->foreign('client_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+                ->nullable();
 
             $table->timestamps();
         });

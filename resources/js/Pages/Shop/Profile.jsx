@@ -1,14 +1,19 @@
 import TextInput from '@/Components/ui/TextInput'
 import DefaultButton from '@/Components/ui/DefaultButton'
-import { Link } from '@inertiajs/react'
-import { useState } from 'react'
+import { Link, router, usePage } from '@inertiajs/react'
+import { useEffect, useState } from 'react'
 import { route } from 'ziggy-js'
 import galleryImg from '../../../images/products/gallery_img.jpeg'
 import PhoneInput from '@/Components/ui/PhoneInput'
 import SelectInput from '@/Components/ui/SelectInput'
 import DateInput from '@/Components/ui/DateInput'
+import { useModal } from '@/Components/Context/ModalContext'
 
 const Profile = () => {
+
+  const { currentUser } = usePage().props
+
+  const { openModal } = useModal()
 
   const [activeTab, setActiveTab] = useState(1)
 
@@ -27,6 +32,17 @@ const Profile = () => {
 
   const [showOtherCityInput, setShowOtherCityInput] = useState(false)
 
+  useEffect(() => {
+    setEmail(currentUser.email)
+    setPhoneNumber(currentUser.phone || '')
+    setNickname(currentUser.nickname)
+    setFullName(currentUser.full_name || '')
+    setVkontakteId(currentUser.vkontakte_id || '')
+    setInstagramId(currentUser.instagram_id || '')
+    setSmsMailing(currentUser.adv_sms_mailing)
+    setEmailMailing(currentUser.email_mailing)
+  }, []);
+
   const toggleTab = (index) => {
     setActiveTab(index)
   }
@@ -41,6 +57,19 @@ const Profile = () => {
 
   const saveProfile = () => {
     console.log(fullName, phoneNumber, city, birthdayDate, source, cardNumber)
+    router.post(`/users/${currentUser.id}/create-card`, {
+      full_name: fullName,
+      phone: phoneNumber,
+      city: city,
+      birthday_date: birthdayDate,
+      heard_source: source,
+      number: cardNumber
+    }, {
+      onSuccess: page => {},
+      onError: errors => {
+        console.log(errors)
+      }
+    })
   }
 
   const toggleOtherCityInput = (value) => {
@@ -48,7 +77,21 @@ const Profile = () => {
   }
 
   const saveInfo = () => {
-    console.log(smsMailing, emailMailing)
+    router.put(`/users/${currentUser.id}`, {
+      nickname: nickname,
+      full_name: fullName,
+      vkontakte_id: vkontakteId,
+      instagram_id: instagramId,
+      adv_sms_mailing: smsMailing,
+      email_mailing: emailMailing,
+    },{
+      onSuccess: page => {
+        openModal("Сохранено", "Данные пользователя успешно изменены", true)
+      },
+      onError: errors => {
+        console.log(errors)
+      }
+    })
   }
 
   return (
@@ -72,7 +115,8 @@ const Profile = () => {
                     className="max-w-full"
                     name="email"
                     id="email"
-                    value="igorakimy@gmail.com"
+                    value={email}
+                    onChange={setEmail}
                     disabled
                   />
                 </div>
@@ -82,7 +126,8 @@ const Profile = () => {
                     className="max-w-full"
                     name="phone"
                     id="phone"
-                    value="79494795562"
+                    value={phoneNumber}
+                    onChange={setPhoneNumber}
                     disabled
                   />
                 </div>
@@ -239,124 +284,126 @@ const Profile = () => {
                 Внимание! С условиями "Карты клиента" Вы можете ознакомиться <Link className="text-orange" href={route('client_card')}>по ссылке</Link>
               </p>
 
-              <div className="hidden">
-                <p className="mb-2 5">
-                  Текущее количество бонусов: <span className="text-orange text-2xl font-semibold">0 ₽</span>
-                </p>
-                <p className="mb-10">
-                  Дата последнего обновления: <span className="font-semibold">11.09.2024 19:29</span>
-                </p>
-                <p className="mb-5">
-                  К вашему аккаунту привязана "Карта клиента": <span
-                  className="text-orange font-semibold">12345678912345</span>
-                </p>
-                <DefaultButton text="Показать штрих-код"/>
-              </div>
-
-              <div className="text-sm">
-                <p className="mb-5 text-xl">
-                  Для активации "Карты клиента" Вам необходимо заполнить все поля анкеты
-                </p>
+              {currentUser.client_card ? (
                 <div>
-                  <div className="mb-5">
-                    <label htmlFor="card_full_name" className="text-[#797979]">ФИО</label>
-                    <TextInput
-                      id="card_full_name"
-                      name="full_name"
-                      className="mt-[5px] max-w-full"
-                      placeholder="Введите Ваше ФИО либо просто имя"
-                      value={fullName}
-                      onChange={setFullName}
-                    />
-                  </div>
-
-                  <div className="mb-5">
-                    <label htmlFor="phone_number" className="text-[#797979]">Номер телефона</label>
-                    <PhoneInput
-                      name="phone_number"
-                      className="mt-[5px] max-w-full"
-                      placeholder="Номер телефона"
-                      maskChar="_"
-                      alwaysShowMask={false}
-                      value={phoneNumber}
-                      onChange={setPhoneNumber}
-                    />
-                  </div>
-
-                  <div className="mb-5">
-                    <label htmlFor="city" className="text-[#797979]">Город</label>
-                    <SelectInput
-                      name="city"
-                      className="mt-[5px] max-w-full"
-                      values={[
-                        {value: "0", label: "Выберите город в котором проживаете"},
-                        {value: "Донецк", label: "Донецк"},
-                        {value: "Макеевка", label: "Макеевка"},
-                        {value: "Горловка", label: "Горловка"},
-                        {value: "Енакиево", label: "Енакиево"},
-                        {value: "Снежное", label: "Снежное"},
-                        {value: "-1", label: "Другой"},
-                      ]}
-                      onChange={(value) => {
-                        setCity(value)
-                        toggleOtherCityInput(value)
-                      }}
-                    />
-                    <TextInput
-                      className={`${showOtherCityInput ? 'block' : 'hidden'} mt-[5px] max-w-full`}
-                      placeholder="Напишите Ваш город"
-                      onChange={setCity}
-                    />
-                  </div>
-
-                  <div className="mb-5">
-                    <label htmlFor="birthday_date" className="text-[#797979]">Дата рождения</label>
-                    <DateInput
-                      className="mt-[5px] max-w-full"
-                      name="birthday_date"
-                      placeholder="Дата рождения"
-                      alwaysShowMask={false}
-                      value={birthdayDate}
-                      onChange={setBirthdayDate}
-                    />
-                  </div>
-
-                  <div className="mb-5">
-                    <label htmlFor="source" className="text-[#797979]">Из какого источника Вы о нас узнали?</label>
-                    <SelectInput
-                      name="source"
-                      className="mt-[5px] max-w-full"
-                      values={[
-                        {value: "0", label: "Выберите один из вариантов"},
-                        {value: "1", label: "Постоянный покупатель"},
-                        {value: "2", label: "Интернет"},
-                        {value: "3", label: "Реклама на улицах города"},
-                        {value: "4", label: "Родные и близкие"},
-                      ]}
-                      onChange={setSource}
-                    />
-                  </div>
-
-                  <div className="mb-5">
-                    <label htmlFor="card_number" className="text-[#797979]">
-                      Номер штрих-кода на "Карте клиента" или номер телефона,
-                      если карта получена по номеру телефона в формате 949xxxxxxx
-                    </label>
-                    <TextInput
-                      className="mt-[5px] max-w-full"
-                      name="card_number"
-                      placeholder="Карта клиента"
-                      value={cardNumber}
-                      onChange={setCardNumber}
-                    />
-                  </div>
-
-                  <DefaultButton
-                    text="Сохранить анкету"
-                    handleClick={saveProfile}
-                  />
+                  <p className="mb-2 5">
+                    Текущее количество бонусов: <span className="text-orange text-2xl font-semibold">{currentUser.client_card.bounces_amount } ₽</span>
+                  </p>
+                  <p className="mb-10">
+                    Дата последнего обновления: <span className="font-semibold">{(new Date(currentUser.client_card.updated_at).toLocaleString())}</span>
+                  </p>
+                  <p className="mb-5">
+                    К вашему аккаунту привязана "Карта клиента": <span
+                    className="text-orange font-semibold">{currentUser.client_card.number}</span>
+                  </p>
+                  <DefaultButton text="Показать штрих-код"/>
                 </div>
-              </div>
+              ) : (
+                <div className="text-sm">
+                  <p className="mb-5 text-xl">
+                    Для активации "Карты клиента" Вам необходимо заполнить все поля анкеты
+                  </p>
+                  <div>
+                    <div className="mb-5">
+                      <label htmlFor="card_full_name" className="text-[#797979]">ФИО</label>
+                      <TextInput
+                        id="card_full_name"
+                        name="full_name"
+                        className="mt-[5px] max-w-full"
+                        placeholder="Введите Ваше ФИО либо просто имя"
+                        value={fullName}
+                        onChange={setFullName}
+                      />
+                    </div>
+
+                    <div className="mb-5">
+                      <label htmlFor="phone_number" className="text-[#797979]">Номер телефона</label>
+                      <PhoneInput
+                        name="phone_number"
+                        className="mt-[5px] max-w-full"
+                        placeholder="Номер телефона"
+                        maskChar="_"
+                        alwaysShowMask={false}
+                        value={phoneNumber}
+                        onChange={setPhoneNumber}
+                      />
+                    </div>
+
+                    <div className="mb-5">
+                      <label htmlFor="city" className="text-[#797979]">Город</label>
+                      <SelectInput
+                        name="city"
+                        className="mt-[5px] max-w-full"
+                        values={[
+                          {value: "0", label: "Выберите город в котором проживаете"},
+                          {value: "Донецк", label: "Донецк"},
+                          {value: "Макеевка", label: "Макеевка"},
+                          {value: "Горловка", label: "Горловка"},
+                          {value: "Енакиево", label: "Енакиево"},
+                          {value: "Снежное", label: "Снежное"},
+                          {value: "-1", label: "Другой"},
+                        ]}
+                        onChange={(value) => {
+                          setCity(value)
+                          toggleOtherCityInput(value)
+                        }}
+                      />
+                      <TextInput
+                        className={`${showOtherCityInput ? 'block' : 'hidden'} mt-[5px] max-w-full`}
+                        placeholder="Напишите Ваш город"
+                        onChange={setCity}
+                      />
+                    </div>
+
+                    <div className="mb-5">
+                      <label htmlFor="birthday_date" className="text-[#797979]">Дата рождения</label>
+                      <DateInput
+                        className="mt-[5px] max-w-full"
+                        name="birthday_date"
+                        placeholder="Дата рождения"
+                        alwaysShowMask={false}
+                        value={birthdayDate}
+                        onChange={setBirthdayDate}
+                      />
+                    </div>
+
+                    <div className="mb-5">
+                      <label htmlFor="source" className="text-[#797979]">Из какого источника Вы о нас узнали?</label>
+                      <SelectInput
+                        name="source"
+                        className="mt-[5px] max-w-full"
+                        values={[
+                          {value: "0", label: "Выберите один из вариантов"},
+                          {value: "1", label: "Постоянный покупатель"},
+                          {value: "2", label: "Интернет"},
+                          {value: "3", label: "Реклама на улицах города"},
+                          {value: "4", label: "Родные и близкие"},
+                        ]}
+                        onChange={setSource}
+                      />
+                    </div>
+
+                    <div className="mb-5">
+                      <label htmlFor="card_number" className="text-[#797979]">
+                        Номер штрих-кода на "Карте клиента" или номер телефона,
+                        если карта получена по номеру телефона в формате 949xxxxxxx
+                      </label>
+                      <TextInput
+                        className="mt-[5px] max-w-full"
+                        name="card_number"
+                        placeholder="Карта клиента"
+                        value={cardNumber}
+                        onChange={setCardNumber}
+                      />
+                    </div>
+
+                    <DefaultButton
+                      text="Сохранить анкету"
+                      handleClick={saveProfile}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </section>
         </div>

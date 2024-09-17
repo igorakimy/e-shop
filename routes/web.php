@@ -10,8 +10,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ShopController::class, 'index'])->name('home');
 
 /** Auth */
+Route::middleware(['auth', 'two-factor'])->group(function () {
+    Route::get('/users/profile', [UserController::class, 'profile'])->name('users.profile');
+    Route::post('/users/{user}/create-card', [UserController::class, 'createCard'])->name('users.create_card');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::get('sign-out', [AuthClientController::class, 'signOut'])->name('sign_out');
+});
+Route::post('/sign-in', [AuthClientController::class, 'signIn'])->name('sign_in');
+Route::post('/sign-up', [AuthClientController::class, 'signUp'])->name('sign_up');
 Route::get('/registration', [AuthClientController::class, 'registration'])->name('registration');
-Route::get('/users/profile', [UserController::class, 'profile'])->name('users.profile');
+Route::post('/confirm-code', [AuthClientController::class, 'confirmCode'])->name('confirm_code');
+Route::post('/resend-code', [AuthClientController::class, 'resendCode'])->name('resend_code');
+
 
 /** Shop */
 Route::get('/shop', [ShopController::class, 'catalog'])->name('shop');

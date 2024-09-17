@@ -6,10 +6,12 @@ export const ModalProvider = ({ children }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [modalType, setModalType] = useState('login')
   const [modalContent, setModalContent] = useState(null)
+  const [closeOutside, setCloseOutside] = useState(false)
 
-  const openModal = (type, content = '') => {
+  const openModal = (type, content = '', closeOutside = false) => {
     setModalType(type)
     setModalContent(content)
+    setCloseOutside(closeOutside)
     setModalIsOpen(true)
   };
 
@@ -20,7 +22,7 @@ export const ModalProvider = ({ children }) => {
   };
 
   return (
-    <ModalContext.Provider value={{ modalIsOpen, modalType, modalContent, openModal, closeModal }}>
+    <ModalContext.Provider value={{ modalIsOpen, modalType, modalContent, closeOutside, openModal, closeModal }}>
       {children}
     </ModalContext.Provider>
   );

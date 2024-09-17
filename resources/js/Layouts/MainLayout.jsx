@@ -8,7 +8,14 @@ import VerificationForm from '@/Components/VerificationForm'
 
 const MainLayout = ({children}) => {
 
-  const { modalIsOpen, modalType, modalContent, openModal, closeModal } = useModal()
+  const {
+    modalIsOpen,
+    modalType,
+    modalContent,
+    openModal,
+    closeModal,
+    closeOutside,
+  } = useModal()
   const { categories } = usePage().props
 
   const getModalTitle = (type) => {
@@ -34,6 +41,7 @@ const MainLayout = ({children}) => {
         title={getModalTitle(modalType)}
         show={modalIsOpen}
         closeModal={closeModal}
+        closeOutside={closeOutside}
       >
         {modalType === 'login' ? (
           <LoginForm closeModal={closeModal} />

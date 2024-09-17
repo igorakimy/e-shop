@@ -38,6 +38,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'appUrl' => config('app.url'),
+            'currentUser' => $request->user()?->load('clientCard'),
             'categories' => function () use ($request) {
                 return Category::query()
                     ->with(['children'])

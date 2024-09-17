@@ -1,11 +1,21 @@
 import IconClose from '@/Components/Icons/IconClose'
 
-const ModalDialog = ({title, className, show, closeModal, withClose = true, children}) => {
+const ModalDialog = (props) => {
+
+  const {
+    title,
+    className,
+    show,
+    closeModal,
+    withClose = true,
+    closeOutside,
+    children
+  } = props
 
   return (
     <>
       <div className={`bg-wrap ${!show ? '!hidden' : ''}`}></div>
-      <div className={`${!show ? '!hidden' : ''} wrap-modal-dialog fixed left-0 top-0 w-full h-full z-20 ${className}`}>
+      <div onClick={() => closeOutside && closeModal(true)} className={`${!show ? '!hidden' : ''} wrap-modal-dialog fixed left-0 top-0 w-full h-full z-20 ${className}`}>
         <div className="flex w-full h-full justify-center items-center">
           <div className="modal-dialog p-5">
             <div className="flex items-center md-header mb-5">

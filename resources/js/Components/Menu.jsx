@@ -16,7 +16,7 @@ import IconUserProfile from '@/Components/Icons/IconUserProfile'
 
 const Menu = ({categories}) => {
 
-  const { appUrl } = usePage().props
+  const { appUrl, currentUser } = usePage().props
   const { openModal } = useModal()
 
   const [openDropdown, setOpenDropdown] = useState(false)
@@ -132,36 +132,41 @@ const Menu = ({categories}) => {
               className="signed-in-box flex items-center border-white px-4 py-1.5 my-1.5 border-2 rounded-md relative"
               onMouseOver={() => setOpenDropdown(true)}
               onMouseLeave={() => setOpenDropdown(false)}
+              onClick={() => !currentUser && openModal('login')}
             >
-              <div className="hidden flex items-center" onClick={() => openModal('login')}>
-                <span className="mr-4">Войти</span>
-                <IconUser style={{minHeight: "25px !important", fill: "#fff !important"}}/>
-              </div>
+              {currentUser ? (
+                <div className="flex items-center">
+                  <span className="flex whitespace-nowrap mr-4">Добро пожаловать, {currentUser.nickname}</span>
+                  <IconUserProfile className="h-[28px]"/>
+                </div>
+              ) : (
+                <div className="flex items-center">
+                  <span className="mr-4">Войти</span>
+                  <IconUser style={{minHeight: "25px !important", fill: "#fff !important"}}/>
+                </div>
+              )}
 
-              <div className="flex items-center" onClick={() => openModal('login')}>
-                <span className="flex whitespace-nowrap mr-4">Добро пожаловать, Игорь</span>
-                <IconUserProfile className="h-[28px]" />
-              </div>
-
-              <DropdownMenu
-                className={'account-dropdown-menu hidden text-black flex flex-col !right-0 !top-full ' + (openDropdown ? '' : 'hidden')}>
-                <Link className="flex text-nowrap text-sm hover:underline" href={route('orders')}>Заказы</Link>
-                <Link className="flex text-nowrap text-sm hover:underline" href={route('compare')}>Сравнение
-                  товаров</Link>
-                <Link className="flex text-nowrap text-sm hover:underline" href={route('favorite')}>Избранные
-                  товары</Link>
-              </DropdownMenu>
-
-              <DropdownMenu
-                className={'account-dropdown-menu text-black flex flex-col !right-[-5px] !top-full ' + (openDropdown ? '' : 'hidden')}>
-                <Link className="flex text-nowrap text-sm hover:underline" href={route('users.profile')}>Личный кабинет</Link>
-                <Link className="flex text-nowrap text-sm hover:underline" href={route('compare')}> <span>Сравнение товаров <span
-                  className="text-orange font-semibold">2</span></span>
-                </Link>
-                <Link className="flex text-nowrap text-sm hover:underline" href={route('favorite')}>Избранные
-                  товары</Link>
-                <Link className="flex text-nowrap text-sm hover:underline" href={'/'}>Выход</Link>
-              </DropdownMenu>
+              {currentUser ? (
+                <DropdownMenu
+                  className={'account-dropdown-menu text-black flex flex-col !right-[-5px] !top-full ' + (openDropdown ? '' : 'hidden')}>
+                  <Link className="flex text-nowrap text-sm hover:underline" href={route('users.profile')}>Личный кабинет</Link>
+                  <Link className="flex text-nowrap text-sm hover:underline" href={route('compare')}> <span>Сравнение товаров <span
+                    className="text-orange font-semibold">2</span></span>
+                  </Link>
+                  <Link className="flex text-nowrap text-sm hover:underline" href={route('favorite')}>Избранные
+                    товары</Link>
+                  <Link className="flex text-nowrap text-sm hover:underline" href={route('sign_out')}>Выход</Link>
+                </DropdownMenu>
+              ) : (
+                <DropdownMenu
+                  className={'account-dropdown-menu text-black flex flex-col !right-0 !top-full ' + (openDropdown ? '' : 'hidden')}>
+                  <Link className="flex text-nowrap text-sm hover:underline" href={route('orders')}>Заказы</Link>
+                  <Link className="flex text-nowrap text-sm hover:underline" href={route('compare')}>Сравнение
+                    товаров</Link>
+                  <Link className="flex text-nowrap text-sm hover:underline" href={route('favorite')}>Избранные
+                    товары</Link>
+                </DropdownMenu>
+              )}
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import ModalDialog from '@/Components/ModalDialog'
-import { Link } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 import DefaultButton from '@/Components/ui/DefaultButton'
 import EmailInput from '@/Components/ui/EmailInput'
 import PhoneInput from '@/Components/ui/PhoneInput'
@@ -13,9 +13,16 @@ const LoginForm = ({closeModal}) => {
   const { openModal } = useModal()
 
   const [currentLoginType, setCurrentLoginType] = useState('phone')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
 
   const switchCurrentLoginType = (type) => {
     setCurrentLoginType(type)
+    if (type === 'phone') {
+      setEmail('')
+    } else {
+      setPhone('')
+    }
   }
 
   const loginTypes = [
@@ -31,6 +38,22 @@ const LoginForm = ({closeModal}) => {
     },
   ]
 
+  const handleLogin = () => {
+    router.post('/sign-in', {
+      type: currentLoginType,
+      email: email,
+      phone: phone,
+    }, {
+      onSuccess: page => {
+        closeModal()
+        openModal('register_verification')
+      },
+      onError: errors => {
+        console.log(errors)
+      },
+    })
+  }
+
   return (
     <>
       <div className="flex justify-center items-center mb-5">
@@ -44,22 +67,31 @@ const LoginForm = ({closeModal}) => {
               className="mb-2"
               name="type"
               values={loginTypes}
-              handleOnChange={switchCurrentLoginType}
+              onChange={switchCurrentLoginType}
             />
             <EmailInput
               className={`${currentLoginType === 'phone' && 'hidden'}`}
               name="email"
               placeholder={"Email"}
+              value={email}
+              onChange={setEmail}
             />
             <PhoneInput
               className={currentLoginType !== 'phone' && 'hidden'}
               name="phone"
               placeholder={"Телефон"}
+              value={phone}
+              onChange={setPhone}
             />
           </form>
         </div>
         <div className="flex flex-col">
-          <Link href={route('registration')} className="mt-2.5 font-semibold" onClick={closeModal}>Регистрация</Link>
+          <Link
+            href={route('registration')}
+            className="mt-2.5 font-semibold"
+            onClick={closeModal}>
+            Регистрация
+          </Link>
         </div>
       </div>
 
@@ -67,7 +99,7 @@ const LoginForm = ({closeModal}) => {
         <DefaultButton
           text="Войти"
           className="mr-5"
-          handleClick={() => openModal('register_verification')}
+          handleClick={handleLogin}
         />
       </div>
     </>

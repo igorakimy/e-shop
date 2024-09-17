@@ -16,7 +16,9 @@
         "robertboes/inertia-breadcrumbs": "^0.6.0",
         "spatie/laravel-data": "^4.7",
         "spatie/laravel-medialibrary": "^11.8",
-        "tightenco/ziggy": "^2.3"
+        "spatie/laravel-permission": "^6.9",
+        "tightenco/ziggy": "^2.3",
+        "twilio/sdk": "^8.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

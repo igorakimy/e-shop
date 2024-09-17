@@ -4,7 +4,7 @@ const PhoneInput = ({name, className, value, errors, placeholder, onChange=null,
 
   const handleOnChange = (e) => {
     if (onChange) {
-      onChange(e.target.value)
+      onChange(e.target.value.replace(/[^0-9]/g, ''))
     }
   }
 
