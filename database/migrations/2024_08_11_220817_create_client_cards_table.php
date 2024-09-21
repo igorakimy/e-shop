@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('client_cards', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('number');
             $table->unsignedBigInteger('bounces_amount')->default(0);
             $table->string('barcode')->nullable();
+            $table->unsignedBigInteger('client_id')->nullable();
 
             $table->foreign('client_id')
+                ->nullable()
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade')
-                ->nullable();
+                ->onDelete('cascade');
 
             $table->timestamps();
         });

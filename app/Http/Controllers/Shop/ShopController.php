@@ -47,6 +47,7 @@ class ShopController extends Controller
         if ($path === null) {
             $categories = Category::query()
                 ->whereDoesntHave('parent')
+                ->orderBy('position')
                 ->get();
 
             return Inertia::render('Shop/Catalog', [
@@ -308,6 +309,7 @@ class ShopController extends Controller
     {
         $products = $category->products()
             ->with(['promotion', 'media'])
+            ->orderByDesc('price')
             ->paginate(40);
 
         return Inertia::render('Shop/Catalog', [

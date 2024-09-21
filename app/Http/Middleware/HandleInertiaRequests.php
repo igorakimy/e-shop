@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
                 return Category::query()
                     ->with(['children'])
                     ->whereDoesntHave('parent')
+                    ->orderBy('position')
                     ->get();
             },
         ]);

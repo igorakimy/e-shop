@@ -9,7 +9,6 @@ import { route } from 'ziggy-js'
 import DropdownMenu from '@/Components/ui/DropdownMenu'
 import { useState } from 'react'
 import { categoryIcons } from '@/Constants'
-import subCatImage from '../../images/subcategory-image.jpeg'
 import IconFire from '@/Components/Icons/IconFire'
 import { useModal } from '@/Components/Context/ModalContext'
 import IconUserProfile from '@/Components/Icons/IconUserProfile'
@@ -78,7 +77,7 @@ const Menu = ({categories}) => {
                               <Link href={childCategoryUrl}>
                                 <h4>{child.name}</h4>
                               </Link>
-                              <img src={subCatImage} alt="Техника для дома"/>
+                              <img src={child.photo_url} alt={child.name}/>
                             </li>
                           )
                         })}

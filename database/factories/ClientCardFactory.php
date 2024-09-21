@@ -21,6 +21,7 @@ class ClientCardFactory extends Factory
             'number' => rand(1000000000000, 9999999999999),
             'bounces_amount' => 0,
             'barcode' => null,
+            'client_id' => null,
         ];
     }
 }

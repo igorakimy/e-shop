@@ -51,7 +51,7 @@ const Home = ({categories, products, brands}) => {
                             <Link href={childCategoryUrl}>
                               <h4>{child.name}</h4>
                             </Link>
-                            <img src={subCatImage} alt="Техника для дома"/>
+                            <img src={child.photo_url} alt={child.name}/>
                           </li>
                         )
                       })}

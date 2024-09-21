@@ -11,6 +11,8 @@ const Catalog = ({title, subCategories, products, breadcrumbs}) => {
 
   const { appUrl } = usePage().props
 
+  console.log(subCategories)
+
   return (
     <>
       <Head title={title}/>
@@ -31,13 +33,13 @@ const Catalog = ({title, subCategories, products, breadcrumbs}) => {
                 <div key={category.id} className="subcategories-item">
                   <Link className="flex" href={categoryUrl}>
                     <div className="flex justify-center items-center">
-                      <img className="max-w-[156px] max-h-[156px]" src={catalogImg} alt="Catalog image"/>
+                      <img className="max-w-[156px] max-h-[156px]" src={category.photo_url} alt="Catalog image"/>
                     </div>
                     <div className="flex flex-col justify-center items-center ml-[4%] z-[2]">
                       <p className="w-full">{category.name}</p>
                     </div>
                     <span className="more-link">перейти</span>
-                    <img className="opacity-bg" src={catalogImg} alt={category.name}/>
+                    <img className="opacity-bg" src={category.photo_url} alt={category.name}/>
                   </Link>
                 </div>
               )

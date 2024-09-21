@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('icon')->nullable();
+            $table->integer('position')->default(0);
 
             $table->nestedSet();
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasUrlAddress;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,6 +18,10 @@ class Category extends Model implements HasMedia
     use NodeTrait;
     use HasUrlAddress;
 
+    protected $appends = [
+        'photo_url',
+    ];
+
     protected $guarded = [];
 
     protected $with = [
@@ -26,6 +31,13 @@ class Category extends Model implements HasMedia
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function photoUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $this->getFirstMediaUrl(Media::CATEGORIES_COLLECTION),
+        );
     }
 
     public function updateDescendantsPaths(): void

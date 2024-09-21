@@ -67,6 +67,7 @@ class ProductPropertySeeder extends Seeder
 
                 $property = Property::query()
                     ->where('name', $record->name)
+                    ->where('group_id', $groupId)
                     ->first();
 
                 if (! $property) {

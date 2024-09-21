@@ -50,6 +50,8 @@ class CategorySeeder extends Seeder
 
         $categorySlugs = [];
 
+        $position = 1;
+
         /** @var CategoryData $record */
         foreach ($records as $record) {
 
@@ -69,6 +71,9 @@ class CategorySeeder extends Seeder
                 }
 
                 $data['parent_id'] = $parentCategoryId;
+            } else {
+                $data['position'] = $position;
+                $position++;
             }
 
             $category = Category::query()
