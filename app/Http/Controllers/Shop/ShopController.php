@@ -97,7 +97,7 @@ class ShopController extends Controller
      */
     public function work(): Response
     {
-        return Inertia::render('Work');
+        return Inertia::render('Shop/Work');
     }
 
     /**

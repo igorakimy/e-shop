@@ -109,7 +109,10 @@ const Navbar = () => {
           </DropdownMenu>
         </div>
 
-        <Link className="hidden md:flex xl:hidden justify-center">
+        <Link
+          className="hidden md:flex xl:hidden justify-center"
+          onMouseOver={() => {}}
+        >
           <IconMenu style={{fill: "#fff", height: "20px"}}/>
         </Link>
       </div>
