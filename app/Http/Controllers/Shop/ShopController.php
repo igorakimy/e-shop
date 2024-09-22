@@ -101,16 +101,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Организациям и ИП/ФЛП
-     *
-     * @return Response
-     */
-    public function corporateDepartment(): Response
-    {
-        return Inertia::render('CorporateDepartment');
-    }
-
-    /**
      * Партнёрам
      *
      * @return Response
