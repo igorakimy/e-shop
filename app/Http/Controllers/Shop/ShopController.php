@@ -101,16 +101,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Техническая поддержка
-     *
-     * @return Response
-     */
-    public function techSupport(): Response
-    {
-        return Inertia::render('TechSupport');
-    }
-
-    /**
      * Организациям и ИП/ФЛП
      *
      * @return Response

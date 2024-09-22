@@ -4,6 +4,7 @@ use App\Http\Controllers\Shop\AuthClientController;
 use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\PromotionController;
 use App\Http\Controllers\Shop\ShopController;
+use App\Http\Controllers\Shop\TechSupportController;
 use App\Http\Controllers\Shop\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,11 +39,14 @@ Route::get('/brands/{slug}', [BrandController::class, 'show'])->name('brand');
 Route::get('/promotions', [PromotionController::class, 'index'])->name('promotions');
 Route::get('/promotions/{promotion}', [PromotionController::class, 'show'])->name('promotion');
 
+/** Technical support */
+Route::get('/tech-support', [TechSupportController::class, 'index'])->name('tech_support');
+Route::post('/tech-support', [TechSupportController::class, 'createRequest'])->name('tech_support.create');
+
 /** Others */
 Route::get('/client-card', [ShopController::class, 'clientCard'])->name('client_card');
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
 Route::get('/work', [ShopController::class, 'work'])->name('work');
-Route::get('/tech-support', [ShopController::class, 'techSupport'])->name('tech_support');
 Route::get('/corporate-dept', [ShopController::class, 'corporateDepartment'])->name('corporate_department');
 Route::get('/partners', [ShopController::class, 'partners'])->name('partners');
 Route::get('/suppliers', [ShopController::class, 'suppliers'])->name('suppliers');
