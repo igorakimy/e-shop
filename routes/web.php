@@ -3,6 +3,7 @@
 use App\Http\Controllers\Shop\AuthClientController;
 use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\CorporateDepartmentController;
+use App\Http\Controllers\Shop\PartnersController;
 use App\Http\Controllers\Shop\PromotionController;
 use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\Shop\TechSupportController;
@@ -47,12 +48,13 @@ Route::post('/tech-support', [TechSupportController::class, 'createRequest'])->n
 /** Corporate department */
 Route::get('/corporate-dept', [CorporateDepartmentController::class, 'index'])->name('corporate_department');
 
+/** Partners */
+Route::get('/partners', [PartnersController::class, 'index'])->name('partners');
+
 /** Others */
 Route::get('/client-card', [ShopController::class, 'clientCard'])->name('client_card');
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
 Route::get('/work', [ShopController::class, 'work'])->name('work');
-
-Route::get('/partners', [ShopController::class, 'partners'])->name('partners');
 Route::get('/suppliers', [ShopController::class, 'suppliers'])->name('suppliers');
 Route::get('/delivery-and-payment', [ShopController::class, 'deliveryAndPayment'])->name('delivery_and_payment');
 Route::get('/about', [ShopController::class, 'about'])->name('about');

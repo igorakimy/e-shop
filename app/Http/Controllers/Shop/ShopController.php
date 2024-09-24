@@ -101,16 +101,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Партнёрам
-     *
-     * @return Response
-     */
-    public function partners(): Response
-    {
-        return Inertia::render('Partners');
-    }
-
-    /**
      * Поставщикам
      *
      * @return Response
