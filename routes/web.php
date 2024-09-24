@@ -10,6 +10,7 @@ use App\Http\Controllers\Shop\PromotionController;
 use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\Shop\TechSupportController;
 use App\Http\Controllers\Shop\UserController;
+use App\Http\Controllers\Shop\WorkController;
 use Illuminate\Support\Facades\Route;
 
 /** Home */
@@ -56,9 +57,11 @@ Route::get('/partners', [PartnersController::class, 'index'])->name('partners');
 /** Client card */
 Route::get('/client-card', [ClientCardController::class, 'index'])->name('client_card');
 
+/** Work */
+Route::get('/work', [WorkController::class, 'index'])->name('work');
+
 /** Others */
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
-Route::get('/work', [ShopController::class, 'work'])->name('work');
 Route::get('/suppliers', [ShopController::class, 'suppliers'])->name('suppliers');
 Route::get('/delivery-and-payment', [ShopController::class, 'deliveryAndPayment'])->name('delivery_and_payment');
 Route::get('/about', [ShopController::class, 'about'])->name('about');

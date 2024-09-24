@@ -56,16 +56,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Работа в SteelSmart
-     *
-     * @return Response
-     */
-    public function work(): Response
-    {
-        return Inertia::render('Shop/Work');
-    }
-
-    /**
      * Поставщикам
      *
      * @return Response
