@@ -56,7 +56,6 @@ const Profile = () => {
   }
 
   const saveProfile = () => {
-    console.log(fullName, phoneNumber, city, birthdayDate, source, cardNumber)
     router.post(`/users/${currentUser.id}/create-card`, {
       full_name: fullName,
       phone: phoneNumber,

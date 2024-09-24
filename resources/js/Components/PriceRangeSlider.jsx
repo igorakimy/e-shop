@@ -55,7 +55,7 @@ const PriceRangeSlider = () => {
             <div style={railStyle} {...getRailProps()} />
           )}
         </Rail>
-        <Handles emitKeyboard={(e) => console.log(e)}>
+        <Handles emitKeyboard={(e) => {}}>
           {({handles, getHandleProps}) => (
             <div className="slider-handles">
               {handles.map((handle, index) => (

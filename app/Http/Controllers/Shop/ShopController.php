@@ -46,16 +46,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Карта клиента
-     *
-     * @return Response
-     */
-    public function clientCard(): Response
-    {
-        return Inertia::render('ClientCard');
-    }
-
-    /**
      * Магазины
      *
      * @return Response

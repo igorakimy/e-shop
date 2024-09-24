@@ -1,5 +1,5 @@
 import ContentBox from '@/Components/ui/ContentBox'
-import clientCardImg from '../../images/karta_klienta_2.jpg'
+import clientCardImg from '../../../images/karta_klienta_2.jpg'
 import { Head } from '@inertiajs/react'
 
 const ClientCard = () => {

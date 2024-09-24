@@ -6,8 +6,6 @@ import { useState } from 'react'
 
 const Markdown = ({productGroups}) => {
 
-  console.log(productGroups)
-
   const groupsState = {}
 
   for (const group of productGroups) {

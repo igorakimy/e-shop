@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Shop\AuthClientController;
 use App\Http\Controllers\Shop\BrandController;
+use App\Http\Controllers\Shop\ClientCardController;
 use App\Http\Controllers\Shop\CorporateDepartmentController;
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\PartnersController;
@@ -52,8 +53,10 @@ Route::get('/corporate-dept', [CorporateDepartmentController::class, 'index'])->
 /** Partners */
 Route::get('/partners', [PartnersController::class, 'index'])->name('partners');
 
+/** Client card */
+Route::get('/client-card', [ClientCardController::class, 'index'])->name('client_card');
+
 /** Others */
-Route::get('/client-card', [ShopController::class, 'clientCard'])->name('client_card');
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
 Route::get('/work', [ShopController::class, 'work'])->name('work');
 Route::get('/suppliers', [ShopController::class, 'suppliers'])->name('suppliers');
