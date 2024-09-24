@@ -3,6 +3,7 @@
 use App\Http\Controllers\Shop\AuthClientController;
 use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\CorporateDepartmentController;
+use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\PartnersController;
 use App\Http\Controllers\Shop\PromotionController;
 use App\Http\Controllers\Shop\ShopController;
@@ -10,7 +11,8 @@ use App\Http\Controllers\Shop\TechSupportController;
 use App\Http\Controllers\Shop\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ShopController::class, 'index'])->name('home');
+/** Home */
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /** Auth */
 Route::middleware(['auth', 'two-factor'])->group(function () {
@@ -24,7 +26,6 @@ Route::post('/sign-up', [AuthClientController::class, 'signUp'])->name('sign_up'
 Route::get('/registration', [AuthClientController::class, 'registration'])->name('registration');
 Route::post('/confirm-code', [AuthClientController::class, 'confirmCode'])->name('confirm_code');
 Route::post('/resend-code', [AuthClientController::class, 'resendCode'])->name('resend_code');
-
 
 /** Shop */
 Route::get('/shop', [ShopController::class, 'catalog'])->name('shop');
