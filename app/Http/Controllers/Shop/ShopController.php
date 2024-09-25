@@ -66,16 +66,6 @@ class ShopController extends Controller
     }
 
     /**
-     * О компании
-     *
-     * @return Response
-     */
-    public function about(): Response
-    {
-        return Inertia::render('About');
-    }
-
-    /**
      * Условия гарантийного обслуживания
      *
      * @return Response

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Shop\AboutController;
 use App\Http\Controllers\Shop\AuthClientController;
 use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\ClientCardController;
@@ -69,9 +70,11 @@ Route::get('/suppliers', [SuppliersController::class, 'index'])->name('suppliers
 Route::get('/delivery-and-payment', [DeliveryAndPaymentController::class, 'index'])
     ->name('delivery_and_payment');
 
+/** About */
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+
 /** Others */
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
-Route::get('/about', [ShopController::class, 'about'])->name('about');
 Route::get('/warranty-terms', [ShopController::class, 'warrantyTerms'])->name('warranty_terms');
 Route::get('/legal-info', [ShopController::class, 'legalInfo'])->name('legal_info');
 Route::get('/privacy-policy', [ShopController::class, 'privacyPolicy'])->name('privacy_policy');
