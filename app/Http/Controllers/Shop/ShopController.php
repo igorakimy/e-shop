@@ -56,16 +56,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Поставщикам
-     *
-     * @return Response
-     */
-    public function suppliers(): Response
-    {
-        return Inertia::render('Suppliers');
-    }
-
-    /**
      * Доставка и оплата
      *
      * @return Response

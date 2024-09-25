@@ -8,7 +8,7 @@ const CorporateDepartment = () => {
       <Head title="Корпоративный отдел" />
 
       <ContentBox title="Корпоративный отдел" className="mb-5">
-        <img src={corporateImg} alt="Информация для юридических лиц"/>
+        <img src={corporateImg} className="w-full" alt="Информация для юридических лиц"/>
       </ContentBox>
 
       <ContentBox className="mb-5">

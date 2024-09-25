@@ -8,7 +8,7 @@ const Partners = () => {
       <Head title="Партнёрам" />
 
       <ContentBox title="Партнёрам" className="mb-5">
-        <img src={partnersImg} alt="Информация для партнёров"/>
+        <img src={partnersImg} className="w-full" alt="Информация для партнёров"/>
 
         <div className="p-5 pb-0">
           <div className="max-w-[865px] mx-auto">

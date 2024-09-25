@@ -8,6 +8,7 @@ use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\PartnersController;
 use App\Http\Controllers\Shop\PromotionController;
 use App\Http\Controllers\Shop\ShopController;
+use App\Http\Controllers\Shop\SuppliersController;
 use App\Http\Controllers\Shop\TechSupportController;
 use App\Http\Controllers\Shop\UserController;
 use App\Http\Controllers\Shop\WorkController;
@@ -60,9 +61,11 @@ Route::get('/client-card', [ClientCardController::class, 'index'])->name('client
 /** Work */
 Route::get('/work', [WorkController::class, 'index'])->name('work');
 
+/** Suppliers */
+Route::get('/suppliers', [SuppliersController::class, 'index'])->name('suppliers');
+
 /** Others */
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
-Route::get('/suppliers', [ShopController::class, 'suppliers'])->name('suppliers');
 Route::get('/delivery-and-payment', [ShopController::class, 'deliveryAndPayment'])->name('delivery_and_payment');
 Route::get('/about', [ShopController::class, 'about'])->name('about');
 Route::get('/warranty-terms', [ShopController::class, 'warrantyTerms'])->name('warranty_terms');
