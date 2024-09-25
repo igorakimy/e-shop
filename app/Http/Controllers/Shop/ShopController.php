@@ -56,26 +56,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Доставка и оплата
-     *
-     * @return Response
-     */
-    public function deliveryAndPayment(): Response
-    {
-        return Inertia::render('DeliveryAndPayment');
-    }
-
-    /**
-     * Условия гарантийного обслуживания
-     *
-     * @return Response
-     */
-    public function warrantyTerms(): Response
-    {
-        return Inertia::render('WarrantyTerms');
-    }
-
-    /**
      * Юридическая информация
      *
      * @return Response

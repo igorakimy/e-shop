@@ -13,6 +13,7 @@ use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\Shop\SuppliersController;
 use App\Http\Controllers\Shop\TechSupportController;
 use App\Http\Controllers\Shop\UserController;
+use App\Http\Controllers\Shop\WarrantyTermsController;
 use App\Http\Controllers\Shop\WorkController;
 use Illuminate\Support\Facades\Route;
 
@@ -73,9 +74,11 @@ Route::get('/delivery-and-payment', [DeliveryAndPaymentController::class, 'index
 /** About */
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
+/** Warranty terms */
+Route::get('/warranty-terms', [WarrantyTermsController::class, 'index'])->name('warranty_terms');
+
 /** Others */
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
-Route::get('/warranty-terms', [ShopController::class, 'warrantyTerms'])->name('warranty_terms');
 Route::get('/legal-info', [ShopController::class, 'legalInfo'])->name('legal_info');
 Route::get('/privacy-policy', [ShopController::class, 'privacyPolicy'])->name('privacy_policy');
 Route::get('/selling-rules', [ShopController::class, 'sellingRules'])->name('selling_rules');
