@@ -4,6 +4,7 @@ use App\Http\Controllers\Shop\AuthClientController;
 use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\ClientCardController;
 use App\Http\Controllers\Shop\CorporateDepartmentController;
+use App\Http\Controllers\Shop\DeliveryAndPaymentController;
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\PartnersController;
 use App\Http\Controllers\Shop\PromotionController;
@@ -64,9 +65,12 @@ Route::get('/work', [WorkController::class, 'index'])->name('work');
 /** Suppliers */
 Route::get('/suppliers', [SuppliersController::class, 'index'])->name('suppliers');
 
+/** Delivery and payment */
+Route::get('/delivery-and-payment', [DeliveryAndPaymentController::class, 'index'])
+    ->name('delivery_and_payment');
+
 /** Others */
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
-Route::get('/delivery-and-payment', [ShopController::class, 'deliveryAndPayment'])->name('delivery_and_payment');
 Route::get('/about', [ShopController::class, 'about'])->name('about');
 Route::get('/warranty-terms', [ShopController::class, 'warrantyTerms'])->name('warranty_terms');
 Route::get('/legal-info', [ShopController::class, 'legalInfo'])->name('legal_info');
