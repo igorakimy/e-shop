@@ -7,6 +7,7 @@ use App\Http\Controllers\Shop\ClientCardController;
 use App\Http\Controllers\Shop\CorporateDepartmentController;
 use App\Http\Controllers\Shop\DeliveryAndPaymentController;
 use App\Http\Controllers\Shop\HomeController;
+use App\Http\Controllers\Shop\LegalInfoController;
 use App\Http\Controllers\Shop\PartnersController;
 use App\Http\Controllers\Shop\PromotionController;
 use App\Http\Controllers\Shop\ShopController;
@@ -77,9 +78,11 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 /** Warranty terms */
 Route::get('/warranty-terms', [WarrantyTermsController::class, 'index'])->name('warranty_terms');
 
+/** Legal info */
+Route::get('/legal-info', [LegalInfoController::class, 'index'])->name('legal_info');
+
 /** Others */
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
-Route::get('/legal-info', [ShopController::class, 'legalInfo'])->name('legal_info');
 Route::get('/privacy-policy', [ShopController::class, 'privacyPolicy'])->name('privacy_policy');
 Route::get('/selling-rules', [ShopController::class, 'sellingRules'])->name('selling_rules');
 Route::get('/site-using-rules', [ShopController::class, 'siteUsingRules'])->name('site_using_rules');
