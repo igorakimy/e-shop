@@ -9,6 +9,7 @@ use App\Http\Controllers\Shop\DeliveryAndPaymentController;
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\LegalInfoController;
 use App\Http\Controllers\Shop\PartnersController;
+use App\Http\Controllers\Shop\PrivacyPolicyController;
 use App\Http\Controllers\Shop\PromotionController;
 use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\Shop\SuppliersController;
@@ -81,9 +82,11 @@ Route::get('/warranty-terms', [WarrantyTermsController::class, 'index'])->name('
 /** Legal info */
 Route::get('/legal-info', [LegalInfoController::class, 'index'])->name('legal_info');
 
+/** Privacy policy */
+Route::get('/privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy_policy');
+
 /** Others */
 Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
-Route::get('/privacy-policy', [ShopController::class, 'privacyPolicy'])->name('privacy_policy');
 Route::get('/selling-rules', [ShopController::class, 'sellingRules'])->name('selling_rules');
 Route::get('/site-using-rules', [ShopController::class, 'siteUsingRules'])->name('site_using_rules');
 Route::get('/compare', [ShopController::class, 'compare'])->name('compare');

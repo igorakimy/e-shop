@@ -56,16 +56,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Политика конфиденциальности
-     *
-     * @return Response
-     */
-    public function privacyPolicy(): Response
-    {
-        return Inertia::render('PrivacyPolicy');
-    }
-
-    /**
      * Правила продажи товаров
      *
      * @return Response
