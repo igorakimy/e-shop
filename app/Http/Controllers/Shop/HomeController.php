@@ -10,6 +10,11 @@ use Inertia\Response;
 
 class HomeController extends Controller
 {
+    /**
+     * Home page.
+     *
+     * @return Response
+     */
     public function index(): Response
     {
         $products = Product::query()
@@ -24,7 +29,7 @@ class HomeController extends Controller
             ->get();
 
         return Inertia::render(
-            'Home',
+            'Shop/Home',
             compact('products', 'brands')
         );
     }
