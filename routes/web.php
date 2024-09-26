@@ -11,6 +11,7 @@ use App\Http\Controllers\Shop\LegalInfoController;
 use App\Http\Controllers\Shop\PartnersController;
 use App\Http\Controllers\Shop\PrivacyPolicyController;
 use App\Http\Controllers\Shop\PromotionController;
+use App\Http\Controllers\Shop\SellingRulesController;
 use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\Shop\ShopsController;
 use App\Http\Controllers\Shop\SuppliersController;
@@ -89,8 +90,10 @@ Route::get('/legal-info', [LegalInfoController::class, 'index'])->name('legal_in
 /** Privacy policy */
 Route::get('/privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy_policy');
 
+/** Selling rules */
+Route::get('/selling-rules', [SellingRulesController::class, 'index'])->name('selling_rules');
+
 /** Others */
-Route::get('/selling-rules', [ShopController::class, 'sellingRules'])->name('selling_rules');
 Route::get('/site-using-rules', [ShopController::class, 'siteUsingRules'])->name('site_using_rules');
 Route::get('/compare', [ShopController::class, 'compare'])->name('compare');
 Route::get('/favorite', [ShopController::class, 'favorite'])->name('favorite');
