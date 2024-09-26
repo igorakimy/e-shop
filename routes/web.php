@@ -8,6 +8,7 @@ use App\Http\Controllers\Shop\CorporateDepartmentController;
 use App\Http\Controllers\Shop\DeliveryAndPaymentController;
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\LegalInfoController;
+use App\Http\Controllers\Shop\MarkdownController;
 use App\Http\Controllers\Shop\PartnersController;
 use App\Http\Controllers\Shop\PrivacyPolicyController;
 use App\Http\Controllers\Shop\PromotionController;
@@ -38,9 +39,11 @@ Route::get('/registration', [AuthClientController::class, 'registration'])->name
 Route::post('/confirm-code', [AuthClientController::class, 'confirmCode'])->name('confirm_code');
 Route::post('/resend-code', [AuthClientController::class, 'resendCode'])->name('resend_code');
 
+/** Markdown */
+Route::get('/markdown', [MarkdownController::class, 'index'])->name('markdown');
+
 /** Shop */
 Route::get('/shop', [ShopController::class, 'catalog'])->name('shop');
-Route::get('/shop/markdown', [ShopController::class, 'markdown'])->name('shop.markdown');
 Route::get('/shop/{path}', [ShopController::class, 'catalog'])
     ->name('shop.catalog')
     ->where('path', '[a-zA-Z0-9-/_]+');

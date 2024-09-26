@@ -65,7 +65,7 @@ const Home = ({categories, products, brands}) => {
               <div className="category-icon flex justify-items-center justify-center items-center mr-2.5">
                 <IconFire className="h-full block align-middle"/>
               </div>
-              <Link href={route('shop.markdown')}>Уценка</Link>
+              <Link href={route('markdown')}>Уценка</Link>
             </li>
           </ul>
         </div>
@@ -117,7 +117,7 @@ const Home = ({categories, products, brands}) => {
             )
           })}
           <SwiperSlide className="flex flex-col mr-2.5">
-            <Link href={route('shop.markdown')}>
+            <Link href={route('markdown')}>
               <div className="flex items-center justify-center icon">
                 {<IconFire/>}
               </div>

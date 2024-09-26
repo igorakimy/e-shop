@@ -92,7 +92,7 @@ const Menu = ({categories}) => {
                 <div className="category-icon flex justify-items-center justify-center items-center mr-2.5">
                   <IconFire className="h-full block align-middle"/>
                 </div>
-                <Link href={route('shop.markdown')}>Уценка</Link>
+                <Link href={route('markdown')}>Уценка</Link>
               </li>
             </ul>
           </div>

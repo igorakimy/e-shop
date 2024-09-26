@@ -86,31 +86,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Уценка
-     *
-     * @return Response
-     */
-    public function markdown(): Response
-    {
-        $productGroups = Product::query()
-            ->with(['category.url', 'media'])
-            ->where('is_markdown', true)
-            ->get()
-            ->groupBy('category.name')
-            ->map(function ($products, $category) {
-                return [
-                    'category' => $category,
-                    'products' => $products
-                ];
-            })->values();
-
-        return Inertia::render(
-            'Shop/Markdown',
-            compact('productGroups')
-        );
-    }
-
-    /**
      * Конкретный товар
      *
      * @param Product $product
