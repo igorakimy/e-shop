@@ -46,16 +46,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Правила пользования сайта
-     *
-     * @return Response
-     */
-    public function siteUsingRules(): Response
-    {
-        return Inertia::render('SiteUsingRules');
-    }
-
-    /**
      * Сравнение товаров
      *
      * @return Response

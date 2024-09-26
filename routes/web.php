@@ -14,6 +14,7 @@ use App\Http\Controllers\Shop\PromotionController;
 use App\Http\Controllers\Shop\SellingRulesController;
 use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\Shop\ShopsController;
+use App\Http\Controllers\Shop\SiteUsingRulesController;
 use App\Http\Controllers\Shop\SuppliersController;
 use App\Http\Controllers\Shop\TechSupportController;
 use App\Http\Controllers\Shop\UserController;
@@ -93,8 +94,10 @@ Route::get('/privacy-policy', [PrivacyPolicyController::class, 'index'])->name('
 /** Selling rules */
 Route::get('/selling-rules', [SellingRulesController::class, 'index'])->name('selling_rules');
 
+/** Site using rules */
+Route::get('/site-using-rules', [SiteUsingRulesController::class, 'index'])->name('site_using_rules');
+
 /** Others */
-Route::get('/site-using-rules', [ShopController::class, 'siteUsingRules'])->name('site_using_rules');
 Route::get('/compare', [ShopController::class, 'compare'])->name('compare');
 Route::get('/favorite', [ShopController::class, 'favorite'])->name('favorite');
 Route::get('/cart', [ShopController::class, 'cart'])->name('cart');
