@@ -46,16 +46,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Магазины
-     *
-     * @return Response
-     */
-    public function shops(): Response
-    {
-        return Inertia::render('Shops');
-    }
-
-    /**
      * Правила продажи товаров
      *
      * @return Response

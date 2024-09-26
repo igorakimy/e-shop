@@ -12,6 +12,7 @@ use App\Http\Controllers\Shop\PartnersController;
 use App\Http\Controllers\Shop\PrivacyPolicyController;
 use App\Http\Controllers\Shop\PromotionController;
 use App\Http\Controllers\Shop\ShopController;
+use App\Http\Controllers\Shop\ShopsController;
 use App\Http\Controllers\Shop\SuppliersController;
 use App\Http\Controllers\Shop\TechSupportController;
 use App\Http\Controllers\Shop\UserController;
@@ -63,6 +64,9 @@ Route::get('/partners', [PartnersController::class, 'index'])->name('partners');
 /** Client card */
 Route::get('/client-card', [ClientCardController::class, 'index'])->name('client_card');
 
+/** Shops */
+Route::get('/shops', [ShopsController::class, 'index'])->name('shops');
+
 /** Work */
 Route::get('/work', [WorkController::class, 'index'])->name('work');
 
@@ -86,7 +90,6 @@ Route::get('/legal-info', [LegalInfoController::class, 'index'])->name('legal_in
 Route::get('/privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy_policy');
 
 /** Others */
-Route::get('/shops', [ShopController::class, 'shops'])->name('shops');
 Route::get('/selling-rules', [ShopController::class, 'sellingRules'])->name('selling_rules');
 Route::get('/site-using-rules', [ShopController::class, 'siteUsingRules'])->name('site_using_rules');
 Route::get('/compare', [ShopController::class, 'compare'])->name('compare');
