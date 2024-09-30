@@ -3,6 +3,7 @@
 use App\Http\Controllers\Shop\AboutController;
 use App\Http\Controllers\Shop\AuthClientController;
 use App\Http\Controllers\Shop\BrandController;
+use App\Http\Controllers\Shop\CatalogController;
 use App\Http\Controllers\Shop\ClientCardController;
 use App\Http\Controllers\Shop\CorporateDepartmentController;
 use App\Http\Controllers\Shop\DeliveryAndPaymentController;
@@ -39,14 +40,14 @@ Route::get('/registration', [AuthClientController::class, 'registration'])->name
 Route::post('/confirm-code', [AuthClientController::class, 'confirmCode'])->name('confirm_code');
 Route::post('/resend-code', [AuthClientController::class, 'resendCode'])->name('resend_code');
 
-/** Markdown */
-Route::get('/markdown', [MarkdownController::class, 'index'])->name('markdown');
-
-/** Shop */
-Route::get('/shop', [ShopController::class, 'catalog'])->name('shop');
-Route::get('/shop/{path}', [ShopController::class, 'catalog'])
+/** Catalog */
+Route::get('/shop', [CatalogController::class, 'index'])->name('shop');
+Route::get('/shop/{path}', [CatalogController::class, 'index'])
     ->name('shop.catalog')
     ->where('path', '[a-zA-Z0-9-/_]+');
+
+/** Markdown */
+Route::get('/markdown', [MarkdownController::class, 'index'])->name('markdown');
 
 /** Brands */
 Route::get('/brands', [BrandController::class, 'index'])->name('brands');

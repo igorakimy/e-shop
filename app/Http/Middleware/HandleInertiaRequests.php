@@ -41,7 +41,7 @@ class HandleInertiaRequests extends Middleware
             'currentUser' => $request->user()?->load('clientCard'),
             'categories' => function () use ($request) {
                 return Category::query()
-                    ->with(['children'])
+                    ->with(['children', 'media'])
                     ->whereDoesntHave('parent')
                     ->orderBy('position')
                     ->get();

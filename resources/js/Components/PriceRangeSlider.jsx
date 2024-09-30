@@ -1,11 +1,9 @@
 import { Handles, Rail, Slider, Tracks } from 'react-compound-slider'
 import RangeSliderHandle from '@/Components/RangeSliderHandle'
 import RangeSliderTrack from '@/Components/RangeSliderTrack'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const PriceRangeSlider = () => {
-
-  const defaultValues = [0, 300000]
+const PriceRangeSlider = ({limitValues = [], defaultValues = [], onSlide, currentValues}) => {
 
   const [values, setValues] = useState(defaultValues.slice())
   const [update, setUpdate] = useState(defaultValues.slice())
@@ -38,17 +36,28 @@ const PriceRangeSlider = () => {
     setValues([n1, n2])
   }
 
+  useEffect(() => {
+    if (defaultValues.length === 0) {
+      setValues(limitValues)
+    } else {
+      setValues(defaultValues)
+    }
+  }, [values])
+
   return (
     <>
       <Slider
         rootStyle={rootStyle}
-        domain={defaultValues}
+        domain={limitValues}
         values={values}
         mode={2}
         step={1}
         reversed={false}
         onUpdate={(values) => setUpdate(values)}
-        onChange={(values) => setValues(values)}
+        onChange={(values) => {
+          // setValues(values)
+          onSlide(values[0], values[1])
+        }}
       >
         <Rail>
           {({ getRailProps }) => (
@@ -86,26 +95,30 @@ const PriceRangeSlider = () => {
         </Tracks>
       </Slider>
 
-      <div className="flex flex-wrap justify-between w-full mt-3">
+      <div className="hidden flex-wrap justify-between w-full mt-3">
         <input
           type="number"
           className="flex border border-black rounded-sm w-28 py-1 px-2"
+          name="filter[price][from]"
           placeholder="от"
           value={values[0]}
-          onChange={({target}) => changeValues(target.value, values[1])}
+          onChange={(e) => {
+            changeValues(e.target.value, values[1])
+          }}
         />
         <input
           type="number"
           min={1}
           className="flex border border-black rounded-sm w-28 py-1 px-2"
+          name="filter[price][to]"
           placeholder="до"
           value={values[1]}
-          onChange={({target}) => changeValues(values[0], target.value)}
+          onChange={(e) => {
+            changeValues(values[0], e.target.value)
+          }}
         />
       </div>
-
     </>
-
   )
 }
 

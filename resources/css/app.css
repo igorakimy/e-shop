@@ -52,6 +52,11 @@ body {
     padding: 0 10px;
 }
 
+nav {
+    position: relative;
+    z-index: 20;
+}
+
 nav ul li {
     line-height: 50px;
 }
@@ -1051,6 +1056,39 @@ section.brands-list:last-child {
 
 .tabs > label.active {
     color: var(--orange);
+}
+
+.filter-bg {
+    background-color: rgba(0, 0, 0, .4);
+    z-index: 12;
+    animation: filter_modal_effect .3s ease-in-out both;
+}
+
+@keyframes filter_modal_effect {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.fb-wrap {
+    max-width: 1540px;
+    margin: 0 auto;
+    padding-left: 308px;
+    padding-top: 165px;
+}
+
+@media (min-width: 1540px) {
+    .fb-wrap {
+        padding-left: 288px !important;
+    }
+}
+
+.filter-reset {
+    transition: all .3s ease-in-out;
 }
 
 /* FOOTER */

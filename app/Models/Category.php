@@ -26,6 +26,7 @@ class Category extends Model implements HasMedia
 
     protected $with = [
         'url',
+        'media',
     ];
 
     public function products(): HasMany
