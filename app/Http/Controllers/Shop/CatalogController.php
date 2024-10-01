@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Actions\Shop\Url\GetUrlByAddress;
 use App\Enums\ProductAvailability;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductCollection;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -15,6 +15,11 @@ use Inertia\Response;
 
 class CatalogController extends Controller
 {
+    public function __construct(
+        public GetUrlByAddress $getUrlByAddress,
+    ) {
+    }
+
     /**
      * Catalog of products categories.
      *
@@ -28,10 +33,9 @@ class CatalogController extends Controller
             return $this->renderCatalog();
         }
 
-        $url = Url::query()
-            ->where('address', $path)
-            ->firstOrFail();
+        $url = $this->getUrlByAddress->handle($path);
 
+        /** @var Category|Product $model */
         $model = $url->model;
 
         if ($model instanceof Product) {
@@ -95,6 +99,9 @@ class CatalogController extends Controller
     private function renderCategoryProducts(Category $category, Request $request): Response
     {
         $products = $category->products()
+            ->getQuery()
+            ->select()
+            ->selectRaw('price - discount as original_price')
             ->with([
                 'promotion',
                 'media',
@@ -152,10 +159,31 @@ class CatalogController extends Controller
             }
         }
 
-        $products = $products->orderBy('in_stock')
-            ->orderByDesc('price')
-            ->paginate(40)
-            ->withQueryString();
+        $products->orderBy('in_stock');
+
+        if ($request->filled('sort')) {
+            $sorting = $request->input('sort');
+            switch ($sorting) {
+                case 'price_min':
+                    $products->orderBy('original_price');
+                    break;
+                case 'price_max':
+                    $products->orderByDesc('original_price');
+                    break;
+                case 'popular':
+                    $products->orderByDesc('is_hit');
+                    break;
+                case 'abc':
+                    $products->orderBy('name');
+                    break;
+                default:
+                    $products->orderBy('original_price');
+            }
+        } else {
+            $products->orderBy('original_price');
+        }
+
+        $products = $products->paginate(40)->withQueryString();
 
         $products = new ProductCollection($products);
 

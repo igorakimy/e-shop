@@ -36,6 +36,8 @@ const Catalog = (props) => {
   const [filterFromPrice, setFilterFromPrice] = useState(minPrice)
   const [filterToPrice, setFilterToPrice] = useState(maxPrice)
 
+  const [sorting, setSorting] = useState('price_min')
+
   const [showFilterModal, setShowFilterModal] = useState(false)
   const [urlParams, setUrlParams] = useState({})
 
@@ -44,6 +46,8 @@ const Catalog = (props) => {
     const priceFrom = params.get('filter[price][from]')
     const priceTo = params.get('filter[price][to]')
 
+
+    setSorting(params.get('sort') || 'price_min')
     setUrlParams(Object.fromEntries(params))
     setFilterFromPrice(priceFrom !== null ? parseInt(priceFrom, 10) : getMinPrice())
     setFilterToPrice(priceTo !== null ? parseInt(priceTo, 10) : maxPrice)
@@ -75,6 +79,7 @@ const Catalog = (props) => {
     return Object.entries(urlParams).filter(([key, value]) => {
       return ![
         'page',
+        'sort',
         'filter[exist][0]',
         'filter[price][from]',
         'filter[price][to]',
@@ -88,6 +93,18 @@ const Catalog = (props) => {
       onSuccess: page => {
         setShowFilterModal(false)
       },
+      onError: errors => {},
+      preserveState: true
+    })
+  }
+
+  const applySorting = (sortType) => {
+    setSorting(sortType)
+    urlParams['page'] = '1'
+    urlParams['sort'] = sortType
+    setUrlParams({...urlParams})
+    router.get(window.location.href.split('?')[0], urlParams, {
+      onSuccess: page => {},
       onError: errors => {},
       preserveState: true
     })
@@ -304,10 +321,30 @@ const Catalog = (props) => {
                       </div>
                       <div className="hidden md:flex items-center mb-5 text-sm">
                         <span className="mr-5">Сортировка: </span>
-                        <div className="mr-5 cursor-pointer font-semibold text-orange">дешевые</div>
-                        <div className="mr-5 cursor-pointer">дорогие</div>
-                        <div className="mr-5 cursor-pointer">популярные</div>
-                        <div className="cursor-pointer">по алфавиту</div>
+                        <div
+                          className={`mr-5 cursor-pointer ${sorting === 'price_min' && 'font-semibold text-orange'}`}
+                          onClick={() => applySorting('price_min')}
+                        >
+                          дешевые
+                        </div>
+                        <div
+                          className={`mr-5 cursor-pointer ${sorting === 'price_max' && 'font-semibold text-orange'}`}
+                          onClick={() => applySorting('price_max')}
+                        >
+                          дорогие
+                        </div>
+                        <div
+                          className={`mr-5 cursor-pointer ${sorting === 'popular' && 'font-semibold text-orange'}`}
+                          onClick={() => applySorting('popular')}
+                        >
+                          популярные
+                        </div>
+                        <div
+                          className={`cursor-pointer ${sorting === 'abc' && 'font-semibold text-orange'}`}
+                          onClick={() => applySorting('abc')}
+                        >
+                          по алфавиту
+                        </div>
                       </div>
                     </div>
 
