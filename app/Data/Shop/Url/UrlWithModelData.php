@@ -5,10 +5,11 @@ namespace App\Data\Shop\Url;
 use App\Models\Url;
 use Spatie\LaravelData\Data;
 
-class UrlData extends Data
+class UrlWithModelData extends Data
 {
     public function __construct(
         public string $address,
+        public object $model,
     ) {
     }
 
@@ -16,6 +17,7 @@ class UrlData extends Data
     {
         return new self(
             address: $url->address,
+            model: $url->model
         );
     }
 }

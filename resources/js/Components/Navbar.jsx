@@ -69,13 +69,13 @@ const Navbar = () => {
                 </a>
               </div>
               <div className="flex items-center">
-                <a href="tel:+7949 30-9999-0">
+                <a href="tel:79493099990">
                   <FontAwesomeIcon icon="fa-solid fa-phone-alt" style={{transform: 'rotate(90deg)'}} className="text-orange mr-1.5"/>
                   <span className="font-semibold">+7949 30-9999-0</span>
                 </a>
               </div>
               <div className="flex items-center">
-                <a href="tel:+7949 0-99999-3">
+                <a href="tel:79490999993">
                   <FontAwesomeIcon icon="fa-solid fa-phone-alt" style={{transform: 'rotate(90deg)'}} className="text-orange mr-1.5"/>
                   <span className="font-semibold">+7949 0-99999-3</span>
                 </a>
@@ -100,7 +100,7 @@ const Navbar = () => {
             <div className="flex justify-between items-center">
               <FontAwesomeIcon icon="fa-solid fa-phone-alt" style={{transform: 'rotate(90deg)'}} className="text-orange text-sm mr-1" />
               <span className="font-semibold mr-5">
-                <a href="tel:+7949 500-03-05">+7949 500-03-05</a>
+                <a href="tel:79495000305">+7949 500-03-05</a>
               </span>
               <span className="font-semibold">
                 <a href="mailto:korporativ@steelsmart.shop">korporativ@steelsmart.shop</a>

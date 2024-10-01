@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const CountdownTimer = ({endDate}) => {
+const CountdownTimer = ({endDate, className, itemClassName}) => {
   const [days, setDays] = useState(0)
   const [hours, setHours] = useState(0)
   const [minutes, setMinutes] = useState(0)
@@ -32,20 +32,20 @@ const CountdownTimer = ({endDate}) => {
   }
 
   return (
-    <div className="flex">
-      <div className="countdown-time">
+    <div className={`flex ${className || ''}`}>
+      <div className={`countdown-time ${itemClassName || ''}`}>
         <span className="days">{days}</span>
         <span>дней</span>
       </div>
-      <div className="countdown-time">
+      <div className={`countdown-time ${itemClassName || ''}`}>
         <span className="hours">{hours}</span>
         <span>часов</span>
       </div>
-      <div className="countdown-time">
+      <div className={`countdown-time ${itemClassName || ''}`}>
         <span className="minutes">{minutes}</span>
         <span>минут</span>
       </div>
-      <div className="countdown-time">
+      <div className={`countdown-time ${itemClassName || ''}`}>
         <span className="seconds">{seconds}</span>
         <span>секунд</span>
       </div>

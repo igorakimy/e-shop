@@ -11,8 +11,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ProductCard from '@/Components/ProductCard'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { route } from 'ziggy-js'
+import CountdownTimer from '@/Components/CountdownTimer'
 
-const Home = ({categories, products, brands}) => {
+const Home = (props) => {
+
+  const {
+    categories,
+    expectedProducts,
+    promotionProducts,
+    bestPriceProducts,
+    hitProducts,
+    brands
+  } = props
 
   const { appUrl } = usePage().props
 
@@ -127,56 +137,87 @@ const Home = ({categories, products, brands}) => {
         </Swiper>
       </div>
 
-      <div className="products-box products-container bg-white mb-5">
-        <div className="group-wrapper">
-          <Link className="flex mb-2.5 mt-5 items-center w-full">
-            <span>Акция: До конца акции</span>
-            <span className="group-icon flex text-orange items-center">
+      {promotionProducts.length > 0 && (
+        <div className="products-box products-container bg-white mb-5">
+          <div className="group-wrapper">
+            <Link
+              className="flex mb-2.5 mt-5 items-center w-full"
+              href={route('promotion', promotionProducts[0].promotion.id)}
+            >
+              <span>Акция: До конца акции</span>
+              <span className="group-icon flex text-orange items-center">
                 <FontAwesomeIcon icon="fa-solid fa-chevron-circle-right"/>
               </span>
-            <div className="countdown flex ml-2.5">
-              <div className="countdown-time flex flex-row items-center w-auto h-auto">
-                <span>30</span>
-                <span>дней</span>
+              <div className="flex ml-2 items-center">
+                <CountdownTimer
+                  endDate={Date.parse(promotionProducts[0].promotion.ended_at)}
+                  itemClassName="flex flex-row items-center w-auto h-auto"
+                />
               </div>
-              <div className="countdown-time flex flex-row items-center w-auto h-auto">
-                <span>1</span>
-                <span>часов</span>
-              </div>
-              <div className="countdown-time flex flex-row items-center w-auto h-auto">
-                <span>10</span>
-                <span>минут</span>
-              </div>
-              <div className="countdown-time flex flex-row items-center w-auto h-auto">
-                <span>00</span>
-                <span>секунд</span>
-              </div>
-            </div>
-          </Link>
-        </div>
 
-        <div className="flex flex-wrap">
-          {products.map((product, index) => (
-            <ProductCard key={index} product={product}/>
-          ))}
+            </Link>
+          </div>
+          <div className="flex flex-wrap">
+            {promotionProducts.map((product, index) => (
+              <ProductCard key={index} product={product}/>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="products-container bg-white mb-5">
-        <div className="group-wrapper">
-          <Link className="flex mb-2.5 mt-5 justify-center">
-            <span>Лучшая цена</span>
-            <span className="group-icon flex text-orange items-center">
+      )}
+
+      {expectedProducts.length > 0 && (
+        <div className="products-container bg-white mb-5">
+          <div className="group-wrapper">
+            <Link className="flex mb-2.5 mt-5 justify-center">
+              <span>Ожидаемый товар</span>
+              <span className="group-icon flex text-orange items-center">
                 <FontAwesomeIcon icon="fa-solid fa-chevron-circle-right"/>
               </span>
-          </Link>
+            </Link>
+          </div>
+          <div className="flex flex-wrap">
+            {expectedProducts.map((product, index) => (
+              <ProductCard key={index} product={product}/>
+            ))}
+          </div>
         </div>
+      )}
 
-        <div className="flex flex-wrap">
-          {products.map((product, index) => (
-            <ProductCard key={index} product={product} />
-          ))}
+      {bestPriceProducts.length > 0 && (
+        <div className="products-container bg-white mb-5">
+          <div className="group-wrapper">
+            <Link className="flex mb-2.5 mt-5 justify-center">
+              <span>Лучшая цена</span>
+              <span className="group-icon flex text-orange items-center">
+                <FontAwesomeIcon icon="fa-solid fa-chevron-circle-right"/>
+              </span>
+            </Link>
+          </div>
+          <div className="flex flex-wrap">
+            {bestPriceProducts.map((product, index) => (
+              <ProductCard key={index} product={product}/>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
+
+      {hitProducts.length > 0 && (
+        <div className="products-container bg-white mb-5">
+          <div className="group-wrapper">
+            <Link className="flex mb-2.5 mt-5 justify-center">
+              <span>Хиты продаж</span>
+              <span className="group-icon flex text-orange items-center">
+                <FontAwesomeIcon icon="fa-solid fa-chevron-circle-right"/>
+              </span>
+            </Link>
+          </div>
+          <div className="flex flex-wrap">
+            {hitProducts.map((product, index) => (
+              <ProductCard key={index} product={product}/>
+            ))}
+          </div>
+        </div>
+      )}
     </>
   )
 }

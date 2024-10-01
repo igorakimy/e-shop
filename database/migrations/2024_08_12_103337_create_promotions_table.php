@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->timestamp('started_at')->nullable();
             $table->timestamp('ended_at')->nullable();
+            $table->boolean('active')->default(false);
 
             $table->timestamps();
         });

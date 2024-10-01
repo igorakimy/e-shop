@@ -6,7 +6,6 @@ use App\Actions\Shop\Brands\ShowBrandBySlug;
 use App\Actions\Shop\Brands\ShowBrandsABCGroups;
 use App\Data\Shop\Product\ProductData;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -52,7 +51,10 @@ class BrandController extends Controller
 
         return Inertia::render(
             'Shop/Brand',
-            compact('brand', 'brandProductGroups')
+            compact(
+                'brandProductGroups',
+                'brand'
+            )
         );
     }
 }
