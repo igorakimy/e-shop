@@ -1,11 +1,11 @@
 import { Link, router } from '@inertiajs/react'
 
-const Pagination = ({items}) => {
+const Pagination = ({items, className}) => {
 
   const { meta } = items
 
   return meta.last_page > 1 && (
-    <div className="pagination-numbers flex items-center justify-center mt-5">
+    <div className={`pagination-numbers flex items-center justify-center mt-5 ${className || ''}`}>
       {meta.links.map((link, index) => {
         if (link.label === 'pagination.previous') {
           return <li key={index}><Link href={link.url}>&#60;</Link></li>

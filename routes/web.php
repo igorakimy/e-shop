@@ -13,6 +13,7 @@ use App\Http\Controllers\Shop\MarkdownController;
 use App\Http\Controllers\Shop\PartnersController;
 use App\Http\Controllers\Shop\PrivacyPolicyController;
 use App\Http\Controllers\Shop\PromotionController;
+use App\Http\Controllers\Shop\SearchController;
 use App\Http\Controllers\Shop\SellingRulesController;
 use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\Shop\ShopsController;
@@ -45,6 +46,9 @@ Route::get('/shop', [CatalogController::class, 'index'])->name('shop');
 Route::get('/shop/{path}', [CatalogController::class, 'index'])
     ->name('shop.catalog')
     ->where('path', '[a-zA-Z0-9-/_]+');
+
+/** Search */
+Route::get('search', [SearchController::class, 'index'])->name('search');
 
 /** Markdown */
 Route::get('/markdown', [MarkdownController::class, 'index'])->name('markdown');

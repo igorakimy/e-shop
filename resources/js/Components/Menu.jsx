@@ -15,8 +15,8 @@ import IconUserProfile from '@/Components/Icons/IconUserProfile'
 
 const Menu = ({categories}) => {
 
-  const { appUrl, currentUser } = usePage().props
-  const { openModal } = useModal()
+  const {appUrl, currentUser, searchResults} = usePage().props
+  const {openModal} = useModal()
 
   const [openDropdown, setOpenDropdown] = useState(false)
   const [openCatalogDropdown, setOpenCatalogDropdown] = useState(false)
@@ -25,19 +25,76 @@ const Menu = ({categories}) => {
     item: null
   })
 
+  const getSearchValue = () => {
+    const params = new URLSearchParams(window.location.search)
+    return params.get('query') || ''
+  }
+
+  const [searchValue, setSearchValue] = useState(getSearchValue())
+  const [showQuickSearchBox, setShowQuickSearchBox] = useState(false)
+  const [searchDelayTimeout, setSearchDelayTimeout] = useState(0)
+
   const redirectToCatalog = (e) => {
     e.preventDefault();
-    if(e.target === e.currentTarget) {
+    if (e.target === e.currentTarget) {
       setOpenCatalogDropdown(false)
       router.visit('/shop')
     }
   }
 
+  const handleSearchInputTyping = (query) => {
+    setSearchValue(query)
+
+    if (searchDelayTimeout) clearTimeout(searchDelayTimeout)
+
+    const timeout = setTimeout(() => {
+
+      let data = {}
+      if (query) {
+        data['query'] = query
+      }
+      router.get(window.location.href.split('?')[0], data, {
+        onSuccess: page => {
+          setShowQuickSearchBox(query.trim() !== '')
+        },
+        preserveState: true
+      })
+    }, 500)
+
+    setSearchDelayTimeout(timeout)
+  }
+
+  const handleSearchQuery = (e) => {
+    e.preventDefault()
+    router.get('/search', {
+      query: searchValue
+    }, {
+      onSuccess: page => {
+        setShowQuickSearchBox(false)
+      }
+    })
+  }
+
+  const handleSelectCategory = (category) => {
+    const params = new URLSearchParams(window.location.search)
+    params.set('category', category)
+    router.get('/search', Object.fromEntries(params), {
+      onSuccess: page => {
+        setShowQuickSearchBox(false)
+      }
+    })
+  }
+
   return (
-    <div className="!sticky top-0 menu bg-orange-500">
+    <div className="!sticky top-0 menu bg-orange-500 z-50">
+      <div
+        className={`search-bg ${showQuickSearchBox ? 'active' : 'hidden'} fixed top-0 left-0 w-full h-full z-[10]`}
+        onClick={(e) => setShowQuickSearchBox(false)}
+      >
+      </div>
       <nav className="max-width flex justify-between justify-items-center align-middle h-full">
         <div className="open-main-menu md:hidden flex items-center">
-          <IconMenu style={{height: "20px", fill: "#fff"}} className="cursor-pointer" />
+          <IconMenu style={{height: "20px", fill: "#fff"}} className="cursor-pointer"/>
         </div>
 
         <div
@@ -98,18 +155,84 @@ const Menu = ({categories}) => {
           </div>
         </div>
 
-        <section className="flex search-box">
+        <section className="flex search-box relative">
           <form className="flex w-full">
-            <input className="text-sm" type="search" name="query" autoComplete="off" placeholder="Поиск товаров"/>
-            <button className="search-button flex justify-center items-center cursor-pointer bg-white" type="submit">
+            <input
+              className="text-sm"
+              type="search"
+              name="query"
+              autoComplete="off"
+              placeholder="Поиск товаров"
+              value={searchValue}
+              onChange={(e) => handleSearchInputTyping(e.target.value)}
+            />
+            <button
+              className="search-button flex justify-center items-center cursor-pointer bg-white"
+              onClick={handleSearchQuery}
+            >
               <FontAwesomeIcon icon="fa-solid fa-search"/>
             </button>
           </form>
+          {/* Search response box */}
+          <div
+            className={`${!showQuickSearchBox ? 'hidden' : ''} search-response absolute top-[100%] bg-white left-0 w-full max-h-[100vh] overflow-auto p-5 rounded-lg`}>
+            <div className="text-black font-semibold">
+              Найдено результатов: <span className="text-orange">{searchResults.resultsCount}</span>
+            </div>
+
+            <div className="search-products flex flex-wrap mt-5">
+              {searchResults.products.data && (
+                searchResults.products.data.slice(0, 5).map((product, index) => {
+                  const productUrl = `${appUrl}/shop/${product.url.address}`
+                  return (
+                    <div key={index} className="flex items-center w-full p-[5px]">
+                      <Link
+                        href={productUrl}
+                        onClick={(e) => setShowQuickSearchBox(false)}
+                        className="flex items-center justify-center mr-2.5 w-full h-full max-w-[50px] max-h-[50px]"
+                      >
+                        <img src={product.gallery_thumbs[0]} alt="IMG" className="select-none"/>
+                      </Link>
+                      <div className="flex flex-col text-xs mr-2.5 w-full">
+                        <Link
+                          href={productUrl}
+                          className="h-auto w-full"
+                          onClick={(e) => setShowQuickSearchBox(false)}
+                        >
+                          {product.name} · {product.short_props.split(',').join(' · ')}
+                        </Link>
+                        <div className="flex mt-[5px]">
+                          <p className="text-[#13ce13] font-semibold whitespace-nowrap mr-2.5">В наличии</p>
+                          <p className="text-orange font-semibold whitespace-nowrap">{product.price} <span
+                            className="text-[10px]">₽</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })
+              )}
+            </div>
+            {Object.entries(searchResults.categories).length > 0 && (
+              <div className="search-filters flex flex-wrap mt-2.5">
+                {Object.entries(searchResults.categories).map(([category, count]) => (
+                  <div
+                    key={category}
+                    onClick={() => handleSelectCategory(category)}
+                    className="p-2.5 text-sm text-black transition-all border-2 border-orange rounded bg-transparent hover:bg-orange cursor-pointer mt-2.5 mr-2.5"
+                  >
+                    #{category} <span className="font-semibold">({count})</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+          </div>
         </section>
 
         <div className="hidden md:flex header-button">
           <Link title="Сравнение товаров" href={route('compare')}>
-            <IconCompare className="text-transparent hover:!text-white" style={{enableBackground: "new 0 0 31 30", stroke: "#fff"}}/>
+            <IconCompare className="text-transparent hover:!text-white"
+                         style={{enableBackground: "new 0 0 31 30", stroke: "#fff"}}/>
           </Link>
         </div>
         <div className="hidden md:flex header-button">
@@ -148,7 +271,8 @@ const Menu = ({categories}) => {
               {currentUser ? (
                 <DropdownMenu
                   className={'account-dropdown-menu text-black flex flex-col !right-[-5px] !top-full ' + (openDropdown ? '' : 'hidden')}>
-                  <Link className="flex text-nowrap text-sm hover:underline" href={route('users.profile')}>Личный кабинет</Link>
+                  <Link className="flex text-nowrap text-sm hover:underline" href={route('users.profile')}>Личный
+                    кабинет</Link>
                   <Link className="flex text-nowrap text-sm hover:underline" href={route('compare')}> <span>Сравнение товаров <span
                     className="text-orange font-semibold">2</span></span>
                   </Link>

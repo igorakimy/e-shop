@@ -34,6 +34,11 @@ class Category extends Model implements HasMedia
         return $this->hasMany(Product::class);
     }
 
+    public function rootParent(): static
+    {
+        return $this->parent ? $this->parent->rootParent() : $this;
+    }
+
     public function photoUrl(): Attribute
     {
         return Attribute::make(
