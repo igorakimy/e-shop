@@ -85,6 +85,10 @@ const Menu = ({categories}) => {
     })
   }
 
+  const checkIsNotHomePage = () => {
+    return window.location.href.replace(/\/+$/, '') !== route('home')
+  }
+
   return (
     <div className="!sticky top-0 menu bg-orange-500 z-50">
       <div
@@ -106,7 +110,7 @@ const Menu = ({categories}) => {
           <FontAwesomeIcon onClick={redirectToCatalog} icon="fa-solid fa-align-justify" className="mr-4"/>
           <span onClick={redirectToCatalog} className="font-semibold select-none">Каталог товаров</span>
           <div
-            className={`categories-box md:flex flex-wrap !h-auto !absolute top-full left-0 ` + (openCatalogDropdown && window.location.href.replace(/\/+$/, '') !== route('home') ? 'opacity-1 visible' : 'opacity-0 invisible')}
+            className={`categories-box flex-wrap !h-auto !absolute top-full left-0 ` + (openCatalogDropdown && checkIsNotHomePage() ? 'md:flex opacity-100' : 'opacity-0 hidden')}
             onMouseLeave={() => setOpenCatalogDropdown(false)}
           >
             <ul className="flex flex-col py-2.5 bg-white text-black">
@@ -125,7 +129,7 @@ const Menu = ({categories}) => {
                     </div>
                     <Link href={categoryUrl}>{category.name}</Link>
                     <div
-                      className={`second-level-menu ` + (openSubCategoryMenu.state && openSubCategoryMenu.item === parentIndex ? 'opacity-1 visible' : 'invisible opacity-0')}>
+                      className={`second-level-menu ` + (openSubCategoryMenu.state && openSubCategoryMenu.item === parentIndex ? 'opacity-100' : 'opacity-0 hidden')}>
                       <ul>
                         {category.children.map((child, index) => {
                           let childCategoryUrl = `${appUrl}/shop/${child.url.address}`

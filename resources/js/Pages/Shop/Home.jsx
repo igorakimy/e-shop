@@ -51,7 +51,7 @@ const Home = (props) => {
                   </div>
                   <Link href={categoryUrl}>{category.name}</Link>
                   <div
-                    className={`second-level-menu ` + (openSubCategoryMenu.state && openSubCategoryMenu.item === parentIndex ? 'opacity-1 visible' : 'invisible opacity-0')}>
+                    className={`second-level-menu ` + (openSubCategoryMenu.state && openSubCategoryMenu.item === parentIndex ? 'opacity-100' : 'opacity-0 hidden')}>
                     <ul>
                       {category.children.map((child, index) => {
                         let childCategoryUrl = `${appUrl}/shop/${child.url.address}`

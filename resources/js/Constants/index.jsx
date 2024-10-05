@@ -38,7 +38,7 @@ export const navItems = [
       {label: "Правила пользования сайтом", href: "site_using_rules"},
     ]
   },
-  {label: "Сервисный центр", href: "home"},
+  {label: "Сервисный центр", href: "https://service.steelsmart.shop", external: true},
 ]
 
 export const categoryIcons = {

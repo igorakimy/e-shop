@@ -38,7 +38,11 @@ const Navbar = () => {
                   </DropdownMenu>
                 </li> :
                 <li key={index}>
-                  <Link className="nav-link" href={item.href ? route(item.href) : '#'}>{item.label}</Link>
+                  {item.external ? (
+                    <a className="nav-link" href={item.href}>{item.label}</a>
+                  ) : (
+                    <Link className="nav-link" href={item.href ? route(item.href) : '#'}>{item.label}</Link>
+                  )}
                 </li>
             )
           })}

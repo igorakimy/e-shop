@@ -13,6 +13,7 @@
 :root {
     --max-width: 1540px;
     --main-font: -apple-system, system-ui, BlinkMacSystemFont, "SFPro", "Segoe UI", Roboto, Ubuntu, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --black: #000000;
     --white: #ffffff;
     --orange: #ff7e00;
     --green: #1ae961;
@@ -25,6 +26,11 @@
     --radius-medium: 8px;
     --radius-high: 12px;
     --radius-half: 50%;
+}
+
+*::selection {
+    background: var(--black);
+    color: var(--white);
 }
 
 body {
@@ -109,7 +115,9 @@ nav ul li {
     /*height: 100%;*/
     background: #fff;
     position: relative;
-    transition: all .3s ease-in-out;
+    /*transition: all .3s ease-in-out;*/
+    z-index: 12;
+    animation: category_box_effect .3s ease-in-out both;
 }
 
 .categories-box ul li {
@@ -123,6 +131,15 @@ nav ul li {
 
 .categories-box ul li:hover svg path:nth-child(2) {
     fill: black;
+}
+
+@keyframes category_box_effect {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .category-icon {
@@ -143,8 +160,10 @@ nav ul li {
     height: 100%;
     background: #fff;
     z-index: 12;
-    transition: all .3s .2s ease-in-out;
+    /*transition: all .3s .2s ease-in-out;*/
     padding-bottom: 20px;
+    animation: category_box_effect .4s ease-in-out both;
+    animation-delay: .4s;
 }
 
 .second-level-menu ul {
