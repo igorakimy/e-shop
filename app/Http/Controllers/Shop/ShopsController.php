@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Models\Shop;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -15,6 +16,11 @@ class ShopsController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('Shop/Shops');
+        $shops = Shop::query()->get();
+
+        return Inertia::render(
+            'Shop/Shops',
+            compact('shops')
+        );
     }
 }

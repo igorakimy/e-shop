@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('shops', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
-            $table->string('phone', 11)->unique();
+            $table->string('address');
+            $table->string('phones');
             $table->tinyInteger('start_day')->unsigned();
             $table->tinyInteger('end_day')->unsigned();
             $table->time('open_time');

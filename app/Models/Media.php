@@ -11,4 +11,5 @@ class Media extends BaseMedia
     public const PRODUCTS_COLLECTION = 'products';
     public const PROMOTIONS_COLLECTION = 'promotions';
     public const PROMOTION_BANNERS_COLLECTION = 'promotion_banners';
+    public const SHOP_MAPS_COLLECTION = 'shop_maps';
 }

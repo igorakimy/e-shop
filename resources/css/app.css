@@ -1114,7 +1114,45 @@ section.brands-list:last-child {
     background-color: rgba(0, 0, 0, .7);
 }
 
-    /* FOOTER */
+.map-box {
+    height: calc(100vh - 185px);
+}
+
+.shop-list-item.active {
+    background-color: #f5f5f5;
+}
+
+.map {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    transition: all .3s ease-in-out;
+}
+
+@media (min-width: 768px) {
+    .map {
+        position: static;
+        left: 0;
+    }
+}
+
+.mobile-map-close {
+    position: fixed;
+    left: calc(50% - 75px);
+    bottom: 5px;
+    z-index: 999999;
+    width: 150px;
+    padding: 8px;
+    text-align: center;
+    background: var(--orange);
+    border-radius: 4px;
+    transition: all .5s .3s ease-in-out;
+}
+
+/* FOOTER */
 
 .footer-col {
     @apply mr-0 md:mr-[5%] xl:mr-28;
